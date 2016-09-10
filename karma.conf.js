@@ -1,81 +1,76 @@
-/* global module */
-module.exports = function (config) {
-    'use strict';
+// Karma configuration
 
-    config.set(
-        {
-            autoWatch: true,
+module.exports = function(config) {
+    config.set({
 
-            frameworks: ['jspm', 'mocha'],
+        // base path that will be used to resolve all patterns (eg. files, exclude)
+        basePath: '',
 
-            files: [
-                'node_modules/babel-polyfill/dist/polyfill.js'
-            ],
 
-            jspm:
-            {
-                config: 'src/config.js',
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        frameworks: [
+            'jspm',
+            'mocha',
+            'chai-as-promised',
+            'sinon-chai'
+        ],
 
-                loadFiles: [
-                    'src/*.spec.js'
-                ],
 
-                serveFiles: [
-                    'src/!(*spec).js'
-                ]
-            },
+        // list of files / patterns to load in the browser
+        // files: [],
 
-            client: {
-                mocha: {
-                    reporter: 'html', // change Karma's debug.html to the mocha web reporter
-                    ui: 'tdd'
-                }
-            },
+        // configuration for karma-jspm
+        jspm: {
+            useBundles: true,
+            config: 'src/config.js',
+            loadFiles: ['src/test/**/*.js'],
+            serveFiles: ['src/js/**/*.js'],
+            packages: 'src/lib'
+        },
 
-            proxies: {
-                '/src/': '/base/src/',
-                '/jspm_packages/': '/src/jspm_packages/'
-            },
+        proxies: {
+            '/base/lib/': '/base/src/lib/'
+        },
 
-            browsers: ['PhantomJS'],
+        // list of files to exclude
+        exclude: [
+        ],
 
-            preprocessors: {
-                'src/!(*spec).js': ['babel', 'sourcemap', 'coverage']
-            },
 
-            babelPreprocessor:
-            {
-                options: {
-                    sourceMap: 'inline'
-                },
+        // preprocess matching files before serving them to the browser
+        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+        preprocessors: {
+        },
 
-                sourceFileName: function(file) {
-                    return file.originalPath;
-                }
-            },
 
-            coverageReporter:
-            {
-                instrumenters: {
-                    isparta: require('isparta')
-                },
+        // test results reporter to use
+        // possible values: 'dots', 'progress'
+        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+        reporters: ['mocha'],
 
-                instrumenter: {
-                    'src/*.js': 'isparta'
-                },
+        // enable / disable colors in the output (reporters and logs)
+        colors: true,
 
-                reporters:
-                    [
-                        {
-                            type: 'text-summary'
-                        },
-                        {
-                            type: 'html',
-                            dir: 'coverage/'
-                        }
-                    ]
-            },
 
-            reporters: ['progress', 'coverage']
-        });
+        // level of logging
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        logLevel: config.LOG_INFO,
+
+
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: true,
+
+
+        // start these browsers
+        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        browsers: [
+            'Chrome'
+        ],
+
+
+        // Continuous Integration mode
+        // if true, Karma captures browsers, runs the tests and exits
+        singleRun: true
+    });
 };
