@@ -1,6 +1,6 @@
 'use strict';
 
-import Peer from 'src/js/og.core/Peer';
+import Peer from 'Peer';
 
 describe('ES6 Peer', () => {
   let peer;
