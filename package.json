@@ -1,18 +1,16 @@
 {
-  "name": "es6-jspm-gulp-boilerplate",
-  "version": "0.4.2",
-  "description": "Boilerplate for ES6+ apps using JSPM + Babel",
+  "name": "OpenGroup",
+  "version": "0.0.1",
+  "description": "OpenGroup.io",
   "main": "dist/index.html",
-  "homepage": "https://github.com/alexweber/es6-jspm-gulp-boilerplate#readme",
+  "homepage": "http://opengroup.io",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexweber/es6-jspm-gulp-boilerplate.git"
+    "url": "git+https://github.com/opengroupio/es6.git"
   },
-  "bugs": "https://github.com/alexweber/es6-jspm-gulp-boilerplate/issues",
+  "bugs": "https://github.com/opengroupio/es6/issues",
   "author": {
-    "name": "Alex Weber",
-    "email": "alexweber15@gmail.com",
-    "url": "http://alexweber.com.br"
+    "name": "Daniel Beeke"
   },
   "readmeFilename": "README.md",
   "license": "Unlicense",
@@ -27,12 +25,7 @@
     "postinstall": "jspm install"
   },
   "keywords": [
-    "es6",
-    "jspm",
-    "gulp",
-    "boilerplate",
-    "babel",
-    "systemjs"
+    "opengroup"
   ],
   "directories": {
     "doc": "docs",
@@ -41,12 +34,7 @@
     "packages": "src/lib"
   },
   "devDependencies": {
-    "babel-core": "^6.14.0",
-    "babel-polyfill": "^6.13.0",
-    "babel-preset-es2015": "^6.14.0",
     "browser-sync": "^2.15.0",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^5.2.0",
     "del": "^2.2.0",
     "esdoc": "^0.4.4",
     "eslint": "^1.10.3",
@@ -71,28 +59,10 @@
     "gulp-uglify": "^1.5.2",
     "gulp-util": "^3.0.7",
     "imagemin-pngquant": "^4.2.0",
-    "jasmine": "^2.5.1",
-    "jasmine-core": "^2.5.1",
     "jspm": "^0.16.27",
-    "karma": "^0.13.22",
-    "karma-babel-preprocessor": "^6.0.1",
-    "karma-chai": "^0.1.0",
-    "karma-chai-as-promised": "^0.1.2",
-    "karma-chrome-launcher": "^0.2.3",
-    "karma-firefox-launcher": "^1.0.0",
-    "karma-jasmine": "^1.0.2",
-    "karma-jspm": "^2.2.0",
-    "karma-mocha": "^0.2.2",
-    "karma-mocha-reporter": "^1.3.0",
-    "karma-phantomjs-launcher": "^1.0.2",
-    "karma-sinon-chai": "^1.2.3",
-    "mocha": "^2.5.3",
-    "phantomjs": "^2.1.7",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5",
-    "sassdoc": "^2.1.20",
-    "sinon": "^1.17.5",
-    "sinon-chai": "^2.8.0"
+    "sassdoc": "^2.1.20"
   },
   "jspm": {
     "directories": {
@@ -100,11 +70,6 @@
       "doc": "docs",
       "packages": "src/lib",
       "test": "test"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^6.3.17",
-      "babel-runtime": "npm:babel-runtime@^6.3.17",
-      "core-js": "npm:core-js@^1.1.4"
     }
   }
 }
