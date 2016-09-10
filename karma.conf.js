@@ -4,7 +4,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: './',
 
 
     // frameworks to use
@@ -12,35 +12,18 @@ module.exports = function(config) {
     frameworks: [
       'jspm',
       'mocha',
+      'chai',
       'chai-as-promised',
       'sinon-chai'
     ],
 
-
-    // list of files / patterns to load in the browser
-    // files: [],
-
-    // configuration for karma-jspm
+      // configuration for karma-jspm
     jspm: {
       useBundles: true,
       config: 'src/config.js',
       loadFiles: ['test/**/*.js'],
       serveFiles: ['src/js/**/*.js'],
       packages: 'src/lib'
-    },
-
-    proxies: {
-      '/base/lib/': '/base/src/lib/'
-    },
-
-    // list of files to exclude
-    exclude: [
-    ],
-
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
     },
 
 
@@ -60,7 +43,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes

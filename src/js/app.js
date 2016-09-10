@@ -1,8 +1,5 @@
-import Foo from './foo';
+import Peer from './og.core/Peer';
 
-let foo = new Foo();
+let peer = new Peer();
 
-let textNode = document.createTextNode(foo.doSomething());
-document.body.appendChild(textNode);
-
-export var hello = 'es6';
+console.log(peer);
