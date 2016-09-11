@@ -17,7 +17,7 @@ module.exports = function(config) {
 
 
         // list of files / patterns to load in the browser
-        // files: [],
+         files: ['src/js/og.core/webrtc.polyfill.js'],
 
         // configuration for karma-jspm
         jspm: {

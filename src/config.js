@@ -11,7 +11,6 @@ System.config({
     "github:*": "lib/github/*",
     "npm:*": "lib/npm/*"
   },
-
   map: {
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
