@@ -4,14 +4,14 @@
  * @param config, may hold iceServers.
  * @constructor
  */
-class Peer {
+class WebRTCConnection {
   constructor (config) {
     this.config = { 'iceServers': [{ 'url': 'stun:23.21.150.121' }] };
     Object.assign(this.config, config);
     this.oneSdpIsComplete = false;
     /* global RTCPeerConnection */
     this.webrtcConnection = new RTCPeerConnection(this.config, {});
-    this.webrtcConnection.peer = this;
+    this.webrtcConnection.connection = this;
     this.webrtcConnection.onicecandidate = this.onIceCandidate;
   }
 
@@ -27,7 +27,7 @@ class Peer {
     if (typeof callback === 'function') { this.oneSdpIsComplete = callback; }
 
     this.dataChannel = this.webrtcConnection.createDataChannel('opengroup', {});
-    this.dataChannel.peer = this;
+    this.dataChannel.connection = this;
 
     this.dataChannel.onopen = this.onDataChannelOpen;
     this.dataChannel.onmessage = this.onDataChannelMessage;
@@ -55,7 +55,7 @@ class Peer {
 
     this.webrtcConnection.ondatachannel = (event) => {
       this.dataChannel = event.channel;
-      this.dataChannel.peer = this;
+      this.dataChannel.connection = this;
 
       this.dataChannel.onmessage = this.onDataChannelMessage;
       this.dataChannel.onopen = this.onDataChannelOpen;
@@ -109,9 +109,9 @@ class Peer {
    */
   onIceCandidate (event) {
     if (event.candidate == null) {
-      if (typeof this.peer.oneSdpIsComplete === 'function') {
-        this.peer.oneSdpIsComplete(this.localDescription);
-        delete this.peer.oneSdpIsComplete;
+      if (typeof this.connection.oneSdpIsComplete === 'function') {
+        this.connection.oneSdpIsComplete(this.localDescription);
+        delete this.connection.oneSdpIsComplete;
       }
     }
   }
@@ -123,9 +123,9 @@ class Peer {
    * @param e Event with the webRTC data.
    */
   onDataChannelOpen (e) {
-    if (typeof this.peer.oneConnected === 'function') {
-      this.peer.oneConnected();
-      delete this.peer.oneConnected;
+    if (typeof this.connection.oneConnected === 'function') {
+      this.connection.oneConnected();
+      delete this.connection.oneConnected;
     }
   }
 
@@ -133,7 +133,7 @@ class Peer {
    * The event callback when the webRTC datachannel receives a message.
    * @param e Event with the webRTC data.
    */
-  onDataChannelMessage (e) {
+  static onDataChannelMessage (e) {
     var data = JSON.parse(e.data);
     console.log(data);
   }
@@ -151,9 +151,9 @@ class Peer {
    * The event callback when the webRTC datachannel receives an error.
    * @param err The error.
    */
-  onDataChannelError (err) {
+  static onDataChannelError (err) {
     console.log(err);
   }
 }
 
-export default Peer;
+export default WebRTCConnection;

@@ -1,13 +1,13 @@
-import Peer from './og.core/Peer';
+import WebRTCConnection from './og.core/WebRTCConnection';
 
-var peer1 = new Peer();
-var peer2 = new Peer();
+var WebRTCConnection1 = new WebRTCConnection();
+var WebRTCConnection2 = new WebRTCConnection();
 
-peer1.getOffer(function (offer) {
-  peer2.getAnswer(offer, function (answer) {
-    peer1.acceptAnswer(answer, function () {
-      console.log(peer1.id)
-      console.log(peer2.id)
+WebRTCConnection1.getOffer(function (offer) {
+  WebRTCConnection2.getAnswer(offer, function (answer) {
+    WebRTCConnection1.acceptAnswer(answer, function () {
+      console.log(WebRTCConnection1.id);
+      console.log(WebRTCConnection2.id);
     });
   });
 });
