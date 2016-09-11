@@ -28,7 +28,7 @@ describe('Peer', () => {
     });
   });
 
-  it('should connect when accepting an answer', (done) => {
+  it('should run a callback when a connection is created', (done) => {
     peer1.acceptAnswer(peer2Answer, function () {
       done();
     });

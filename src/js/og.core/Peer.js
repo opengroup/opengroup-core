@@ -10,25 +10,10 @@ class Peer {
     Object.assign(this.config, config);
 
     this.oneSdpIsComplete = false;
-    /*global RTCPeerConnection */
+    /* global RTCPeerConnection */
     this.webrtcConnection = new RTCPeerConnection(this.config, {});
-
-    /**
-     * When candidates are added to the IDP.
-     * Interesting is the deletion of the oneSdpIsComplete.
-     * This makes the abstraction easy to use.
-     * Higher up you can simply use peer.getOffer(function (offer) {})
-     *
-     * @param event The event
-     */
-    this.webrtcConnection.onicecandidate = (event) => {
-      if (event.candidate == null) {
-        if (typeof this.oneSdpIsComplete === 'function') {
-          this.oneSdpIsComplete(this.webrtcConnection.localDescription);
-          delete this.oneSdpIsComplete;
-        }
-      }
-    };
+    this.webrtcConnection.peer = this;
+    this.webrtcConnection.onicecandidate = this.onIceCandidate;
   }
 
   /**
@@ -43,7 +28,6 @@ class Peer {
     if (typeof callback === 'function') { this.oneSdpIsComplete = callback; }
 
     this.dataChannel = this.webrtcConnection.createDataChannel('opengroup', {});
-
     this.dataChannel.peer = this;
 
     this.dataChannel.onopen = this.onDataChannelOpen;
@@ -51,9 +35,11 @@ class Peer {
     this.dataChannel.onclose = this.onDataChannelClose;
     this.dataChannel.onerror = this.onDataChannelError;
 
-    return this.webrtcConnection.createOffer().then((offer) => {
+    return this.webrtcConnection.createOffer()
+    .then((offer) => {
       return this.webrtcConnection.setLocalDescription(offer);
-    }).catch(() => console.log('error while creating an offer'));
+    })
+    .catch(() => console.log('error while creating an offer'));
   }
 
   /**
@@ -71,17 +57,20 @@ class Peer {
     this.webrtcConnection.ondatachannel = (event) => {
       this.dataChannel = event.channel;
       this.dataChannel.peer = this;
+
       this.dataChannel.onmessage = this.onDataChannelMessage;
       this.dataChannel.onopen = this.onDataChannelOpen;
       this.dataChannel.onclose = this.onDataChannelClose;
     };
 
     this.offer = new RTCSessionDescription(offer);
-
     this.webrtcConnection.setRemoteDescription(this.offer);
-    return this.webrtcConnection.createAnswer().then((answer) => {
+
+    return this.webrtcConnection.createAnswer()
+    .then((answer) => {
       return this.webrtcConnection.setLocalDescription(answer);
-    }).catch(() => console.log('error while creating an answer'));
+    })
+    .catch(() => console.log('error while creating an answer'));
   }
 
   /**
@@ -97,6 +86,23 @@ class Peer {
     this.answer = new RTCSessionDescription(answer);
     return this.webrtcConnection.setRemoteDescription(this.answer);
   };
+
+  /**
+   * When candidates are added to the IDP.
+   * Interesting is the deletion of the oneSdpIsComplete.
+   * This makes the abstraction easy to use.
+   * Higher up you can simply use peer.getOffer(function (offer) {})
+   *
+   * @param event The event
+   */
+  onIceCandidate (event) {
+    if (event.candidate == null) {
+      if (typeof this.peer.oneSdpIsComplete === 'function') {
+        this.peer.oneSdpIsComplete(this.localDescription);
+        delete this.peer.oneSdpIsComplete;
+      }
+    }
+  }
 
   /**
    * The event callback when the webRTC datachannel is opened.
