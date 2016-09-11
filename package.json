@@ -66,6 +66,7 @@
     "karma-chai-as-promised": "^0.1.2",
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0",
+    "karma-growler-reporter": "https://github.com/danielbeeke/karma-growler-reporter#master",
     "karma-jspm": "^2.2.0 ",
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.1.0",
