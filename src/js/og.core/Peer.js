@@ -9,13 +9,13 @@ class Peer {
     this.config = { 'iceServers': [{ 'url': 'stun:23.21.150.121' }] };
     Object.assign(this.config, config);
 
-    this.onceSdpIsComplete = false;
+    this.oneSdpIsComplete = false;
     /*global RTCPeerConnection */
     this.webrtcConnection = new RTCPeerConnection(this.config, {});
 
     /**
      * When candidates are added to the IDP.
-     * Interesting is the deletion of the onceSdpIsComplete.
+     * Interesting is the deletion of the oneSdpIsComplete.
      * This makes the abstraction easy to use.
      * Higher up you can simply use peer.getOffer(function (offer) {})
      *
@@ -23,9 +23,9 @@ class Peer {
      */
     this.webrtcConnection.onicecandidate = (event) => {
       if (event.candidate == null) {
-        if (typeof this.onceSdpIsComplete === 'function') {
-          this.onceSdpIsComplete(this.webrtcConnection.localDescription);
-          delete this.onceSdpIsComplete;
+        if (typeof this.oneSdpIsComplete === 'function') {
+          this.oneSdpIsComplete(this.webrtcConnection.localDescription);
+          delete this.oneSdpIsComplete;
         }
       }
     };
@@ -40,9 +40,12 @@ class Peer {
    * @returns IDP offer.
    */
   getOffer (callback) {
-    if (typeof callback === 'function') { this.onceSdpIsComplete = callback; }
+    if (typeof callback === 'function') { this.oneSdpIsComplete = callback; }
 
     this.dataChannel = this.webrtcConnection.createDataChannel('opengroup', {});
+
+    this.dataChannel.peer = this;
+
     this.dataChannel.onopen = this.onDataChannelOpen;
     this.dataChannel.onmessage = this.onDataChannelMessage;
     this.dataChannel.onclose = this.onDataChannelClose;
@@ -63,10 +66,11 @@ class Peer {
    * @returns IDP answer.
    */
   getAnswer (offer, callback) {
-    if (typeof callback === 'function') { this.onceSdpIsComplete = callback; }
+    if (typeof callback === 'function') { this.oneSdpIsComplete = callback; }
 
     this.webrtcConnection.ondatachannel = (event) => {
       this.dataChannel = event.channel;
+      this.dataChannel.peer = this;
       this.dataChannel.onmessage = this.onDataChannelMessage;
       this.dataChannel.onopen = this.onDataChannelOpen;
       this.dataChannel.onclose = this.onDataChannelClose;
@@ -89,7 +93,7 @@ class Peer {
    * @returns The promise of setRemoteDescription.
    */
   acceptAnswer (answer, callback) {
-    if (typeof callback === 'function') { this.onceConnected = callback; }
+    if (typeof callback === 'function') { this.oneConnected = callback; }
     this.answer = new RTCSessionDescription(answer);
     return this.webrtcConnection.setRemoteDescription(this.answer);
   };
@@ -101,11 +105,9 @@ class Peer {
    * @param e Event with the webRTC data.
    */
   onDataChannelOpen (e) {
-    console.info('Datachannel connected', e);
-
-    if (typeof this.onceConnected === 'function') {
-      this.onceConnected();
-      delete this.onceConnected;
+    if (typeof this.peer.oneConnected === 'function') {
+      this.peer.oneConnected();
+      delete this.peer.oneConnected;
     }
   }
 
