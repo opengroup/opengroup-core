@@ -8,7 +8,6 @@ class Peer {
   constructor (config) {
     this.config = { 'iceServers': [{ 'url': 'stun:23.21.150.121' }] };
     Object.assign(this.config, config);
-
     this.oneSdpIsComplete = false;
     /* global RTCPeerConnection */
     this.webrtcConnection = new RTCPeerConnection(this.config, {});
@@ -64,6 +63,7 @@ class Peer {
     };
 
     this.offer = new RTCSessionDescription(offer);
+    this.setIdFromSdpFingerprint(this.offer);
     this.webrtcConnection.setRemoteDescription(this.offer);
 
     return this.webrtcConnection.createAnswer()
@@ -84,8 +84,20 @@ class Peer {
   acceptAnswer (answer, callback) {
     if (typeof callback === 'function') { this.oneConnected = callback; }
     this.answer = new RTCSessionDescription(answer);
+    this.setIdFromSdpFingerprint(this.answer);
     return this.webrtcConnection.setRemoteDescription(this.answer);
-  };
+  }
+
+  /**
+   * Sets the Id of this Peer to the fingerprint recieved in the sdp.
+   *
+   * @param sdpObject An sdpObject.
+   */
+  setIdFromSdpFingerprint (sdpObject) {
+    var sdpSplitted = sdpObject.sdp.split('fingerprint:');
+    var fingerprintAndRest = sdpSplitted[1].split('\n');
+    this.id = fingerprintAndRest[0].trim();
+  }
 
   /**
    * When candidates are added to the IDP.
