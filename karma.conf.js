@@ -12,8 +12,7 @@ module.exports = function(config) {
         frameworks: [
             'jspm',
             'mocha',
-            'chai-as-promised',
-            'sinon-chai'
+            'chai-as-promised'
         ],
 
 
@@ -22,7 +21,7 @@ module.exports = function(config) {
 
         // configuration for karma-jspm
         jspm: {
-            useBundles: true,
+            //useBundles: true,
             config: 'src/config.js',
             loadFiles: ['src/test/**/*.js'],
             serveFiles: ['src/js/**/*.js'],
