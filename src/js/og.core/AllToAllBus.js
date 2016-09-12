@@ -17,7 +17,7 @@ class AllToAllBus {
 
   getConnectionById (id = false) {
     if (id) {
-      return this.connections.filter((connection) => connection.id == id)[0];
+      return this.connections.filter((connection) => connection.id === id)[0];
     }
   }
 }

@@ -1,4 +1,5 @@
 // Karma configuration
+var browserstack = require("./browserstack");
 
 module.exports = function(config) {
     config.set({
@@ -15,6 +16,33 @@ module.exports = function(config) {
             'chai'
         ],
 
+        browserStack: browserstack,
+
+
+        // define browsers
+        customLaunchers: {
+          bs_firefox_mac: {
+            base: 'BrowserStack',
+            browser: 'firefox',
+            browser_version: '21.0',
+            os: 'OS X',
+            os_version: 'Mountain Lion'
+          },
+          bs_iphone5: {
+            base: 'BrowserStack',
+            device: 'iPhone 5',
+            os: 'ios',
+            os_version: '6.0'
+          },
+          iPad_3: {
+            real_mobile: false,
+            device: 'iPad 3rd (6.0)',
+            os: 'ios',
+            'os_version': '6.0',
+            'browser_version': null,
+            browser: 'Mobile Safari'
+          }
+        },
 
         // list of files / patterns to load in the browser
          files: ['src/js/og.core/webrtc.polyfill.js'],
@@ -72,8 +100,9 @@ module.exports = function(config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: [
-            'Chrome'
-            //'Firefox'
+            'Chrome',
+            'Firefox',
+            //'bs_firefox_mac'
         ],
 
 
