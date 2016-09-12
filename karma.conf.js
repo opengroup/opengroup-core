@@ -21,6 +21,13 @@ module.exports = function(config) {
 
         // define browsers
         customLaunchers: {
+          bs_firefox_windows_8: {
+            base: 'BrowserStack',
+            browser: 'firefox',
+            browser_version: '21.0',
+            os: 'Windows',
+            os_version: '8'
+          },
           bs_firefox_mac: {
             base: 'BrowserStack',
             browser: 'firefox',
@@ -45,7 +52,7 @@ module.exports = function(config) {
         },
 
         // list of files / patterns to load in the browser
-         files: ['src/js/og.core/webrtc.polyfill.js'],
+        files: ['src/js/og.core/webrtc.polyfill.js'],
 
         // configuration for karma-jspm
         jspm: {
@@ -82,7 +89,7 @@ module.exports = function(config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['mocha', 'growler'],
+        reporters: ['mocha', 'growler', 'BrowserStack'],
 
         // enable / disable colors in the output (reporters and logs)
         colors: true,
@@ -101,8 +108,7 @@ module.exports = function(config) {
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: [
             'Chrome',
-            'Firefox',
-            //'bs_firefox_mac'
+            'Firefox'
         ],
 
 
