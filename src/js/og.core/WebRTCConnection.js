@@ -6,7 +6,10 @@
  */
 class WebRTCConnection {
   constructor (config) {
-    this.config = { 'iceServers': [{ 'url': 'stun:23.21.150.121' }] };
+    this.config = {
+      'iceServers': [{ 'url': 'stun:23.21.150.121' }]
+    };
+
     Object.assign(this.config, config);
     this.oneSdpIsComplete = false;
     /* global RTCPeerConnection */
@@ -47,11 +50,13 @@ class WebRTCConnection {
    * The datachannel is received here.
    *
    * @param offer The IDP offer from the getOffer function.
-   * @param callback A function that will run after a successful answer with candidates has been made.
+   * @param answerReadyCallback A function that will run after a successful answer with candidates has been made.
+   * @param connectedCallback A function that will run after a successful connection has been made.
    * @returns IDP answer.
    */
-  getAnswer (offer, callback) {
-    if (typeof callback === 'function') { this.oneSdpIsComplete = callback; }
+  getAnswer (offer, answerReadyCallback = false, connectedCallback = false) {
+    if (typeof answerReadyCallback === 'function') { this.oneSdpIsComplete = answerReadyCallback; }
+    if (typeof connectedCallback === 'function') { this.oneConnected = connectedCallback; }
 
     this.webrtcConnection.ondatachannel = (event) => {
       this.dataChannel = event.channel;
@@ -81,7 +86,7 @@ class WebRTCConnection {
    * @param callback A function that will run after the peers successfully connect.
    * @returns The promise of setRemoteDescription.
    */
-  acceptAnswer (answer, callback) {
+  acceptAnswer (answer, callback = false) {
     if (typeof callback === 'function') { this.oneConnected = callback; }
     this.answer = new RTCSessionDescription(answer);
     this.setIdFromSdpFingerprint(this.answer);
@@ -94,9 +99,10 @@ class WebRTCConnection {
    * @param sdpObject An sdpObject.
    */
   setIdFromSdpFingerprint (sdpObject) {
-    var sdpSplitted = sdpObject.sdp.split('fingerprint:');
-    var fingerprintAndRest = sdpSplitted[1].split('\n');
-    this.id = fingerprintAndRest[0].trim();
+    var sdpSplit = sdpObject.sdp.split('fingerprint:');
+    var fingerprintAndRest = sdpSplit[1].split('\n');
+    var hashSplit = fingerprintAndRest[0].split(' ');
+    this.id = hashSplit[1].replace(/ /g, '').replace(/:/g, '');
   }
 
   /**

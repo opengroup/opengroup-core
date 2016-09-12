@@ -83,6 +83,9 @@
       "packages": "src/lib",
       "test": "test"
     },
+    "dependencies": {
+      "crypto": "github:jspm/nodelibs-crypto@^0.1.0"
+    },
     "devDependencies": {
       "babel": "babel-core@^5.8.24",
       "babel-runtime": "^5.8.24",
