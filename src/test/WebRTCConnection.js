@@ -1,4 +1,4 @@
-import WebRTCConnection from 'src/js/og.core/WebRTCConnection';
+import WebRTCConnection from 'src/js/og.core/connection/WebRTCConnection';
 
 var WebRTCConnection1 = new WebRTCConnection();
 var WebRTCConnection1Offer;
