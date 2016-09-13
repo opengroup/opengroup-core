@@ -13,7 +13,8 @@ answerConnection.oneMessage(function (message) {
 
 bus.addPeer({
   id: 'piet@pietersen',
-  init: function (connection) {
+  init: function (peer, connection) {
+    console.log(peer)
     connection.getOffer((offer) => {
       answerConnection.getAnswer(offer, (answer) => {
         connection.acceptAnswer(answer, () => {

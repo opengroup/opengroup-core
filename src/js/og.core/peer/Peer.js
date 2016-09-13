@@ -1,5 +1,5 @@
 class Peer {
-  constructor (peerId, configuration, bus) {
+  constructor (peerId, bus) {
     this.id = peerId;
     this.bus = bus;
   }

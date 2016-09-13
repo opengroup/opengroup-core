@@ -4,6 +4,7 @@ import WebRTCConnection from 'src/js/og.core/connection/WebRTCConnection';
 
 var strategy = new AllToAll();
 var bus = new Bus(strategy);
+
 var returnedPeer = false;
 
 var answerConnection = new WebRTCConnection();
@@ -42,7 +43,7 @@ describe('Bus', () => {
   it('should connect the peer when adding one', (done) => {
     bus.addPeer({
       id: 'piet@pietersen',
-      init: function (connection) {
+      init: function (peer, connection) {
         connection.getOffer((offer) => {
           answerConnection.getAnswer(offer, (answer) => {
             connection.acceptAnswer(answer, () => {
@@ -54,7 +55,7 @@ describe('Bus', () => {
     });
   });
 
-  it('should send a peer a message', (done) => {
+  it('should send a peer a message and the peer should receive it via webrtc', (done) => {
     answerConnection.oneMessage(function (message) {
       if (message.text == 'Hello from the other side.') {
         done();

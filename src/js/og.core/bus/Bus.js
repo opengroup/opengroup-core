@@ -15,7 +15,7 @@ class Bus {
     var connection = this.strategy.getConnectionByPeerId(configuration.id);
 
     if (typeof configuration.init === 'function') {
-      configuration.init(connection);
+      configuration.init(newPeer, connection);
     }
 
     this.peers.push(newPeer);
