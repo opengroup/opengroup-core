@@ -5,8 +5,9 @@ class AllToAll {
     this.connections = {};
   }
 
-  sendMessageToPeer (message, peer) {
-
+  sendMessage (peerId, message) {
+    var connection = this.getConnectionByPeerId(peerId);
+    connection.sendMessage(message);
   }
 
   createConnectionForPeer (peer) {

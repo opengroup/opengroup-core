@@ -27,9 +27,8 @@ class Bus {
     }
   }
 
-  sendMessageToPeer (message, peerId) {
-    var peerToSendAmessageTo = this.getPeerById(peerId);
-    this.strategy.sendMessageToPeer(message, peerToSendAmessageTo);
+  sendMessage (peerId, message) {
+    this.strategy.sendMessage(peerId, message);
   }
 }
 

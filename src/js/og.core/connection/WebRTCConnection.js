@@ -9,11 +9,12 @@ class WebRTCConnection {
     this.config = {
       'iceServers': [{ 'url': 'stun:23.21.150.121' }]
     };
+    this.constraints = {};
 
     Object.assign(this.config, config);
     this.oneSdpIsComplete = false;
     /* global RTCPeerConnection */
-    this.webrtcConnection = new RTCPeerConnection(this.config, {});
+    this.webrtcConnection = new RTCPeerConnection(this.config, this.constraints);
     this.webrtcConnection.connection = this;
     this.webrtcConnection.onicecandidate = this.onIceCandidate;
   }
@@ -55,6 +56,7 @@ class WebRTCConnection {
    * @returns IDP answer.
    */
   getAnswer (offer, answerReadyCallback = false, connectedCallback = false) {
+    var that = this;
     if (typeof answerReadyCallback === 'function') { this.oneSdpIsComplete = answerReadyCallback; }
     if (typeof connectedCallback === 'function') { this.oneConnected = connectedCallback; }
 
@@ -65,6 +67,13 @@ class WebRTCConnection {
       this.dataChannel.onmessage = this.onDataChannelMessage;
       this.dataChannel.onopen = this.onDataChannelOpen;
       this.dataChannel.onclose = this.onDataChannelClose;
+      this.dataChannel.onerror = this.onDataChannelError;
+
+      //this.dataChannel.onmessage = function () {
+      //  console.log('tes1t')
+      //}
+
+      console.log(this)
     };
 
     this.offer = new RTCSessionDescription(offer);
@@ -91,6 +100,22 @@ class WebRTCConnection {
     this.answer = new RTCSessionDescription(answer);
     this.setIdFromSdpFingerprint(this.answer);
     return this.webrtcConnection.setRemoteDescription(this.answer);
+  }
+
+  /**
+   * Send a message to the peer.
+   * This will mostly be called from the group to broadcast something to all peers.
+   *
+   * @param message The things you want to send over.
+   */
+  sendMessage (message) {
+    if (typeof this.dataChannel != 'undefined' && this.dataChannel.readyState == 'open') {
+      this.dataChannel.send(JSON.stringify(message));
+    }
+    else {
+      // TODO try to re initiate.
+      throw "Datachannel was not correctly set up";
+    }
   }
 
   /**
@@ -139,9 +164,17 @@ class WebRTCConnection {
    * The event callback when the webRTC datachannel receives a message.
    * @param e Event with the webRTC data.
    */
-  static onDataChannelMessage (e) {
+  onDataChannelMessage (e) {
     var data = JSON.parse(e.data);
-    console.log(data);
+
+    if (typeof this.connection.oneMessageCallback === 'function') {
+      this.connection.oneMessageCallback(data);
+      delete this.connection.oneMessageCallback;
+    }
+  }
+
+  oneMessage (callback) {
+    this.oneMessageCallback = callback;
   }
 
   /**
@@ -157,7 +190,7 @@ class WebRTCConnection {
    * The event callback when the webRTC datachannel receives an error.
    * @param err The error.
    */
-  static onDataChannelError (err) {
+  onDataChannelError (err) {
     console.log(err);
   }
 }

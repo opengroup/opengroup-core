@@ -34,6 +34,11 @@ describe('Bus', () => {
     }).to.throw(TypeError, 'Peer already exists in addPeer');
   });
 
+  it('should return a peer by id', () => {
+    returnedPeer = bus.getPeerById('henk@jansen.nl');
+    expect(returnedPeer).to.equal(bus.peers[0]);
+  });
+
   it('should connect the peer when adding one', (done) => {
     bus.addPeer({
       id: 'piet@pietersen',
@@ -49,9 +54,15 @@ describe('Bus', () => {
     });
   });
 
-  it('should return a peer by id', () => {
-    returnedPeer = bus.getPeerById('henk@jansen.nl');
-    expect(returnedPeer).to.equal(bus.peers[0]);
+  it('should send a peer a message', (done) => {
+    answerConnection.oneMessage(function (message) {
+      console.log(message)
+      done();
+    });
+
+    bus.sendMessage('piet@pietersen', {
+      'text': 'Hello from the other side.'
+    });
   });
 });
 
