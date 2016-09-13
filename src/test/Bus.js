@@ -56,8 +56,9 @@ describe('Bus', () => {
 
   it('should send a peer a message', (done) => {
     answerConnection.oneMessage(function (message) {
-      console.log(message)
-      done();
+      if (message.text == 'Hello from the other side.') {
+        done();
+      }
     });
 
     bus.sendMessage('piet@pietersen', {

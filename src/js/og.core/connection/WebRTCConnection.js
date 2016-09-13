@@ -68,12 +68,6 @@ class WebRTCConnection {
       this.dataChannel.onopen = this.onDataChannelOpen;
       this.dataChannel.onclose = this.onDataChannelClose;
       this.dataChannel.onerror = this.onDataChannelError;
-
-      //this.dataChannel.onmessage = function () {
-      //  console.log('tes1t')
-      //}
-
-      console.log(this)
     };
 
     this.offer = new RTCSessionDescription(offer);
