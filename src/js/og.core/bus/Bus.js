@@ -4,6 +4,7 @@ class Bus {
   constructor (busStrategy) {
     this.peers = [];
     this.strategy = busStrategy;
+    this.strategy.bus = this;
   }
 
   addPeer (configuration = {}) {
@@ -25,6 +26,10 @@ class Bus {
     if (peerId) {
       return this.peers.filter((peer) => peer.getId() === peerId)[0];
     }
+  }
+
+  receiveMessage (message, peer) {
+    console.log(message, peer);
   }
 
   sendMessage (peerId, message) {

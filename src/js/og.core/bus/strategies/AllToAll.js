@@ -3,15 +3,25 @@ import WebRTCConnection from './../../connection/WebRTCConnection';
 class AllToAll {
   constructor () {
     this.connections = {};
+
+    // Bus will be set by the bus.
+    this.bus = false;
   }
 
   sendMessage (peerId, message) {
     var connection = this.getConnectionByPeerId(peerId);
-    connection.sendMessage(message);
+    if (typeof connection === 'undefined') {
+      throw new Error('Peer: ' + peerId + ' was not found to send a message to.');
+    } else {
+      connection.sendMessage(message);
+    }
   }
 
   createConnectionForPeer (peer) {
     this.connections[peer.getId()] = new WebRTCConnection();
+    this.connections[peer.getId()].onMessage = (message) => {
+      this.bus.receiveMessage(message, peer);
+    };
   }
 
   getConnectionByPeerId (peerId) {

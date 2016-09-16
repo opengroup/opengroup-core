@@ -56,7 +56,6 @@ class WebRTCConnection {
    * @returns IDP answer.
    */
   getAnswer (offer, answerReadyCallback = false, connectedCallback = false) {
-    var that = this;
     if (typeof answerReadyCallback === 'function') { this.oneSdpIsComplete = answerReadyCallback; }
     if (typeof connectedCallback === 'function') { this.oneConnected = connectedCallback; }
 
@@ -101,14 +100,19 @@ class WebRTCConnection {
    * This will mostly be called from the group to broadcast something to all peers.
    *
    * @param message The things you want to send over.
+   * @param secondTry internal var to retry if the datachannel is not available.
    */
-  sendMessage (message) {
-    if (typeof this.dataChannel != 'undefined' && this.dataChannel.readyState == 'open') {
+  sendMessage (message, secondTry) {
+    if (typeof this.dataChannel !== 'undefined' && this.dataChannel.readyState === 'open') {
       this.dataChannel.send(JSON.stringify(message));
-    }
-    else {
-      // TODO try to re initiate.
-      throw "Datachannel was not correctly set up";
+    } else {
+      if (!secondTry) {
+        setTimeout(() => {
+          this.sendMessage(message, true);
+        }, 300);
+      } else {
+        throw new Error('Datachannel was not correctly set up');
+      }
     }
   }
 
@@ -133,7 +137,7 @@ class WebRTCConnection {
    * @param event The event
    */
   onIceCandidate (event) {
-    if (event.candidate == null) {
+    if (event.candidate === null) {
       if (typeof this.connection.oneSdpIsComplete === 'function') {
         this.connection.oneSdpIsComplete(this.localDescription);
         delete this.connection.oneSdpIsComplete;
@@ -165,8 +169,16 @@ class WebRTCConnection {
       this.connection.oneMessageCallback(data);
       delete this.connection.oneMessageCallback;
     }
+
+    if (typeof this.connection.onMessage === 'function') {
+      this.connection.onMessage(data);
+    }
   }
 
+  /**
+   * The event callback when the webRTC datachannel receives a message.
+   * @param e Event with the webRTC data.
+   */
   oneMessage (callback) {
     this.oneMessageCallback = callback;
   }
