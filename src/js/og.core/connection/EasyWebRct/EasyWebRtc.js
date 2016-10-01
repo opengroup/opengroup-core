@@ -58,7 +58,6 @@ class EasyWebRtc extends Events {
    *
    * @param offer The IDP offer from the getOffer function.
    * @param callback A function that will run after a successful answer with candidates has been made.
-   * @param connectedCallback A function that will run after a successful connection has been made.
    * @returns IDP answer as a Promise.
    */
   getAnswer (offer, callback = false) {
@@ -91,7 +90,6 @@ class EasyWebRtc extends Events {
    * It needs to be done at the initiator.
    *
    * @param answer The IDP answer
-   * @param connectedCallback A function that will run after the peers successfully connect.
    * @returns The promise of setRemoteDescription.
    */
   acceptAnswer (answer) {
@@ -144,7 +142,7 @@ class EasyWebRtc extends Events {
    * The event callback when the webRTC datachannel is opened.
    * This function starts the signaling of all the other connected peers to the newly connected peer.
    *
-   * @param e Event with the webRTC data.
+   * @param event Event with the webRTC data.
    */
   onDataChannelOpen (event) {
     this.easyWebRtc.fire('connected', event);
@@ -152,16 +150,16 @@ class EasyWebRtc extends Events {
 
   /**
    * The event callback when the webRTC datachannel receives a message.
-   * @param e Event with the webRTC data.
+   * @param event Event with the webRTC data.
    */
-  onDataChannelMessage (e) {
-    var data = JSON.parse(e.data);
+  onDataChannelMessage (event) {
+    var data = JSON.parse(event.data);
     this.easyWebRtc.fire('message', data);
   }
 
   /**
    * The event callback when the webRTC datachannel closes.
-   * @param e Event with the webRTC data.
+   * @param event Event with the webRTC data.
    */
   onDataChannelClose (event) {
     this.easyWebRtc.fire('closed', event);
@@ -169,7 +167,7 @@ class EasyWebRtc extends Events {
 
   /**
    * The event callback when the webRTC datachannel receives an error.
-   * @param err The error.
+   * @param error The error.
    */
   onDataChannelError (error) {
     this.easyWebRtc.fire('error', error);
