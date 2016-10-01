@@ -6,7 +6,7 @@ var answerer = new EasyWebRtc();
 var initiator = new EasyWebRtc();
 
 describe('ConnectionBus', () => {
-  it('should initiate a webrtc connection', (done) => {
+  it('should initiate a connection', (done) => {
     connectionBus.once('newConnection', (connection) => {
       done();
     });
@@ -32,7 +32,7 @@ describe('ConnectionBus', () => {
     });
   });
 
-  it('should answer a webrtc connection', (done) => {
+  it('should answer a connection', (done) => {
     connectionBus.once('newConnection', (connection) => {
       done();
     });

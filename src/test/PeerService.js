@@ -61,4 +61,32 @@ describe('peerService', () => {
     });
 
   });
+
+  it('should list all peers', (done) => {
+    var peers = peerService1.getAll();
+    if (peers[0].identity.name == 'Piet Bakker') {
+      done();
+    }
+  });
+
+  it('should list all peers in a data stream', (done) => {
+    peerService1.getAllAsStream(function (peers) {
+      peers.forEach(function (peer) {
+        console.log(peer.identity.name)
+      });
+
+      if (peers[1] && peers[1].identity.name == 'Klaas') {
+        done();
+      }
+    });
+
+    var dummyPeer = {
+      identity: {
+        name: 'Klaas'
+      }
+    };
+
+    peerService1.peers.push(dummyPeer);
+    peerService1.fire('newPeer', dummyPeer);
+  });
 });

@@ -57,6 +57,18 @@ class PeerService extends Events {
       }
     });
   }
+
+  getAll () {
+    return this.peers;
+  }
+
+  getAllAsStream (callback) {
+    this.on('newPeer', function () {
+      callback(this.getAll());
+    });
+
+    callback(this.getAll());
+  }
 }
 
 export default PeerService;
