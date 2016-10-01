@@ -3,9 +3,9 @@ System.config({
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
-    "optional": [
-      "runtime"
-    ]
+    // "optional": [
+    //   "runtime"
+    // ]
   },
   paths: {
     "github:*": "lib/github/*",
@@ -70,6 +70,9 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
+    },
+    "npm:debug@2.2.0": {
+      "ms": "npm:ms@0.7.1"
     },
     "npm:delegate@3.0.2": {
       "component-closest": "npm:component-closest@1.0.1"
