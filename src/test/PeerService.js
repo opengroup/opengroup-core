@@ -3,16 +3,18 @@ import PeerService from 'src/js/og.core/peer/PeerService';
 import EasyWebRtc from 'src/js/og.core/connection/EasyWebRct/EasyWebRtc';
 
 let connectionBus1 = new ConnectionBus();
-let peerService1 = new PeerService({
+connectionBus1.addService('peer', PeerService);
+var peerService1 = connectionBus1.getService('peer');
+peerService1.setIdentity({
   name: 'Henk Jansen'
 });
-connectionBus1.addService('peer', peerService1);
 
 let connectionBus2 = new ConnectionBus();
-let peerService2 = new PeerService({
+connectionBus2.addService('peer', PeerService);
+var peerService2 = connectionBus2.getService('peer');
+peerService2.setIdentity({
   name: 'Piet Bakker'
 });
-connectionBus2.addService('peer', peerService2);
 
 describe('peerService', () => {
   it('should receive a name', (done) => {
@@ -71,10 +73,6 @@ describe('peerService', () => {
 
   it('should list all peers in a data stream', (done) => {
     peerService1.getAllAsStream(function (peers) {
-      peers.forEach(function (peer) {
-        console.log(peer.identity.name)
-      });
-
       if (peers[1] && peers[1].identity.name == 'Klaas') {
         done();
       }

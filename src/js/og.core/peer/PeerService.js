@@ -7,16 +7,20 @@ class PeerService extends Events {
   /**
    * @constructor
    */
-  constructor (identity) {
+  constructor (connectionBus) {
     super();
 
-    this.identity = identity;
     this.peers = [];
+    this.connectionBus = connectionBus;
   }
 
   init () {
     this.answerIdentityRequest();
     this.requestIdentity();
+  }
+
+  setIdentity (identity) {
+    this.identity = identity;
   }
 
   requestIdentity () {

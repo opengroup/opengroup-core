@@ -12,9 +12,10 @@ class ConnectionBus extends Events {
   /**
    * @constructor
    */
-  constructor () {
+  constructor (group) {
     super();
 
+    if (group) { this.group = group; }
     this.services = {};
     this.connections = [];
   }
@@ -38,11 +39,11 @@ class ConnectionBus extends Events {
     })
   }
 
-  addService (name, service) {
-    this.services[name] = service;
-    service.connectionBus = this;
-    if (typeof service.init === 'function') {
-      service.init();
+  addService (name, serviceClass, config) {
+    this.services[name] = new serviceClass(this, config);
+    this.services[name].connectionBus = this;
+    if (typeof this.services[name].init === 'function') {
+      this.services[name].init();
     }
   }
 
