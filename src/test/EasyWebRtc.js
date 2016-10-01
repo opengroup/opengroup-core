@@ -36,12 +36,12 @@ describe('EasyWebRtc', () => {
 
   it('should send a message', (done) => {
     EasyWebRtc2.once('message', (message) => {
-      if (message === 'Yo') {
+      if (message === 'should send a message') {
         done();
       }
     });
 
-    EasyWebRtc1.sendMessage('Yo');
+    EasyWebRtc1.sendMessage('should send a message');
   });
 });
 

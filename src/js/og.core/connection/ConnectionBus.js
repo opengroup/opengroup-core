@@ -15,6 +15,7 @@ class ConnectionBus extends Events {
   constructor () {
     super();
 
+    this.services = {};
     this.connections = [];
   }
 
@@ -29,6 +30,26 @@ class ConnectionBus extends Events {
     connection.on('message', (message) => {
       this.fire('message', message, connection);
     });
+  }
+
+  broadcast (message) {
+    this.connections.forEach((connection) => {
+      connection.sendMessage(message);
+    })
+  }
+
+  addService (name, service) {
+    this.services[name] = service;
+    service.connectionBus = this;
+    if (typeof service.init === 'function') {
+      service.init();
+    }
+  }
+
+  getService (name) {
+    if (this.services[name]) {
+      return this.services[name];
+    }
   }
 }
 

@@ -39,12 +39,12 @@ class OgEasyWebRtc extends Events {
     this.signaler = new signalerTypes[signalerInfo.type](this.connection, signalerInfo.config);
 
     // Proxy the EasyWebRtc events to the OgEasyWebRtc.
-    this.connection.on('connected', () => {
-      this.fire('connected');
-    });
+    var proxyEvents = ['connected', 'message', 'closed', 'error'];
 
-    this.connection.on('message', (message) => {
-      this.fire('message', message);
+    proxyEvents.forEach((proxyEvent) => {
+      this.connection.on(proxyEvent, (...args) => {
+        this.fire(proxyEvent, ...args);
+      });
     });
   }
 

@@ -61,13 +61,13 @@ describe('ConnectionBus', () => {
   });
 
   it('should receive a message', (done) => {
-    answerer.sendMessage('Yo');
-
     connectionBus.on('message', (message, connection) => {
-      if (message == 'Yo' && connection) {
+      if (message == 'should answer a webrtc connection' && connection) {
         done();
       }
-    })
+    });
+
+    answerer.sendMessage('should answer a webrtc connection');
   });
 });
 
