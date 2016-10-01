@@ -1,7 +1,7 @@
-import Events from 'src/js/og.core/base/Events';
-import EasyWebRtc from 'src/js/og.core/connection/EasyWebRct/EasyWebRtc';
-import OgEasyWebRtcSignalerManuel from 'src/js/og.core/connection/EasyWebRct/OgEasyWebRtcSignalerManuel';
-import OgEasyWebRtcSignalerTest from 'src/js/og.core/connection/EasyWebRct/OgEasyWebRtcSignalerTest';
+import Events from '../../base/Events';
+import EasyWebRtc from '../../connection/EasyWebRct/EasyWebRtc';
+import OgEasyWebRtcSignalerManuel from '../../connection/EasyWebRct/OgEasyWebRtcSignalerManuel';
+import OgEasyWebRtcSignalerTest from '../../connection/EasyWebRct/OgEasyWebRtcSignalerTest';
 
 var signalerTypes = {
   'OgEasyWebRtcSignalerManuel': OgEasyWebRtcSignalerManuel,

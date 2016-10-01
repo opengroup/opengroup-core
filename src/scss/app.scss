@@ -1,3 +1,22 @@
-body {
-  background-color: #fff;
+.initiator-form,
+.answerer-form {
+  display: none;
+}
+
+[data-active="initiator"] {
+  .initiator-form {
+    display: block;
+  }
+}
+
+[data-active="answerer"] {
+  .answerer-form {
+    display: block;
+  }
+}
+
+.has-identity-set {
+  #set-identity {
+    display: none;
+  }
 }

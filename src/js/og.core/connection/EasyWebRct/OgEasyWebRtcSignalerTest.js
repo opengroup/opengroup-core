@@ -1,4 +1,4 @@
-import Events from 'src/js/og.core/base/Events';
+import Events from '../../base/Events';
 
 /**
  * OgEasyWebRtcSignalerTest is a webrtc signaler.

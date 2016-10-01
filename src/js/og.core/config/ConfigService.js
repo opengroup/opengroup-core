@@ -1,4 +1,4 @@
-import Events from 'src/js/og.core/base/Events';
+import Events from '../base/Events';
 
 /**
  * ConfigService.
@@ -15,11 +15,11 @@ class ConfigService extends Events {
   }
 
   get (name) {
-    return localStorage.getItem(this.prefix + '-' + name);
+    return JSON.parse(sessionStorage.getItem(this.prefix + '-' + name));
   }
 
   set (name, value) {
-    localStorage.setItem(this.prefix + '-' + name, value);
+    sessionStorage.setItem(this.prefix + '-' + name, JSON.stringify(value));
   }
 }
 

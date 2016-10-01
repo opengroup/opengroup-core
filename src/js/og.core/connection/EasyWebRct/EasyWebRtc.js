@@ -1,4 +1,4 @@
-import Events from 'src/js/og.core/base/Events';
+import Events from '../../base/Events';
 
 /**
  * EasyWebRtc is an object to easily construct a p2p connection.

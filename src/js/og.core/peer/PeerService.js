@@ -1,4 +1,4 @@
-import Events from 'src/js/og.core/base/Events';
+import Events from '../../og.core/base/Events';
 
 /**
  * PeerService.
@@ -26,6 +26,10 @@ class PeerService extends Events {
   setIdentity (identity) {
     this.identity = identity;
     this.config.set('PeerService.identity', identity);
+  }
+
+  getIdentity () {
+    return this.identity;
   }
 
   requestIdentity () {
