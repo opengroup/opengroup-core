@@ -2,7 +2,7 @@
   "name": "OpenGroup",
   "version": "0.0.1",
   "description": "OpenGroup.io",
-  "main": "dist/index.html",
+  "main": "OpenGroup.js",
   "homepage": "http://opengroup.io",
   "repository": {
     "type": "git",
@@ -93,7 +93,16 @@
       "babel": "babel-core@^5.8.24",
       "babel-runtime": "^5.8.24",
       "core-js": "^1.1.4",
+      "plugin-babel": "systemjs-plugin-babel@^0.0.15",
       "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@^0.6.0"
+    },
+    "peerDependencies": {
+      "process": "github:jspm/nodelibs-process@^0.2.0-alpha"
+    },
+    "overrides": {
+      "npm:jquery@3.1.1": {
+        "format": "amd"
+      }
     }
   }
 }

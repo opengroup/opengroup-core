@@ -8,14 +8,14 @@
 <body>
     <script src="js/polyfills/webrtc.polyfill.js"></script>
     <script src="lib/system.js"></script>
-    <script src="config.js"></script>
+    <script src="jspm.config.js"></script>
     <script>System.import('./js/app')</script>
 
     <div class="page-wrapper">
 
         <div id="set-identity">
             <h1 class="page-title">Welcome!</h1>
-            <form class="identity-form">
+            <form class="identity-form" rv-on-submit="saveIdentity">
                 <input type="text" required="true" rv-value="name">
                 <button class="button" type="button" rv-enabled="name" rv-on-click="saveIdentity">Continue</button>
             </form>

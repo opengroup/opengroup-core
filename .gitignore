@@ -21,3 +21,5 @@ src/css
 src/lib
 
 browserstack.js
+
+.tmp
