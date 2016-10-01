@@ -1,4 +1,4 @@
-import Group from './og.core/group/Group';
+import Group from './og.core/group/Group.js';
 import rivets from 'rivets';
 import $ from 'jquery';
 import Clipboard from 'clipboard';

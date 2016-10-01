@@ -1,6 +1,6 @@
-import Events from '../../og.core/base/Events';
-import ConnectionBus from '../../og.core/connection/ConnectionBus';
-import PeerService from '../../og.core/peer/PeerService';
+import Events from '../../og.core/base/Events.js';
+import ConnectionBus from '../../og.core/connection/ConnectionBus.js';
+import PeerService from '../../og.core/peer/PeerService.js';
 
 /**
  * Group

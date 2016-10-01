@@ -1,6 +1,5 @@
-import ConnectionBus from 'src/js/og.core/connection/ConnectionBus';
-import PeerService from 'src/js/og.core/peer/PeerService';
-import EasyWebRtc from 'src/js/og.core/connection/EasyWebRct/EasyWebRtc';
+import ConnectionBus from '../js/og.core/connection/ConnectionBus.js';
+import PeerService from '../js/og.core/peer/PeerService.js';
 
 let connectionBus1 = new ConnectionBus();
 connectionBus1.addService('peer', PeerService);

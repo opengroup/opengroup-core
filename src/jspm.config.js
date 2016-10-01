@@ -1,5 +1,4 @@
 SystemJS.config({
-  defaultJSExtensions: true,
   browserConfig: {
     "paths": {
       "npm:": "/lib/npm/",

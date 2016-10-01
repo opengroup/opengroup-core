@@ -1,4 +1,4 @@
-import Group from 'src/js/og.core/group/Group';
+import Group from '../js/og.core/group/Group.js';
 
 var group = new Group({
   name: 'lorem-ipsum',

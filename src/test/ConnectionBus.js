@@ -1,5 +1,5 @@
-import ConnectionBus from 'src/js/og.core/connection/ConnectionBus';
-import EasyWebRtc from 'src/js/og.core/connection/EasyWebRct/EasyWebRtc';
+import ConnectionBus from '../js/og.core/connection/ConnectionBus.js';
+import EasyWebRtc from '../js/og.core/connection/EasyWebRct/EasyWebRtc.js';
 
 let connectionBus = new ConnectionBus();
 var answerer = new EasyWebRtc();

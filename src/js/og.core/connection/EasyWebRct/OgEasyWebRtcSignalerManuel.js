@@ -1,4 +1,4 @@
-import Events from '../../base/Events';
+import Events from '../../base/Events.js';
 
 /**
  * OgEasyWebRtcSignalerManuel is a webrtc signaler.

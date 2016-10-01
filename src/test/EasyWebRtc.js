@@ -1,4 +1,4 @@
-import EasyWebRtc from 'src/js/og.core/connection/EasyWebRct/EasyWebRtc';
+import EasyWebRtc from '../js/og.core/connection/EasyWebRct/EasyWebRtc.js';
 
 var EasyWebRtc1 = new EasyWebRtc();
 var EasyWebRtc1Offer;

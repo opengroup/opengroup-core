@@ -1,6 +1,6 @@
-import Events from '../base/Events';
-import OgEasyWebRtc from '../connection/EasyWebRct/OgEasyWebRtc';
-import ConfigService from '../config/ConfigService';
+import Events from '../base/Events.js';
+import OgEasyWebRtc from '../connection/EasyWebRct/OgEasyWebRtc.js';
+import ConfigService from '../config/ConfigService.js';
 
 var connectionTypes = {
   'OgEasyWebRtc': OgEasyWebRtc

@@ -1,4 +1,4 @@
-import Events from '../../og.core/base/Events';
+import Events from '../../og.core/base/Events.js';
 
 /**
  * PeerService.
