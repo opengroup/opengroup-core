@@ -18,7 +18,6 @@ class EasyWebRtc extends Events {
     this.constraints = {};
 
     Object.assign(this.config, config);
-    this.oneSdpIsComplete = false;
     /* global RTCPeerConnection */
     this.RtcPeerConnection = new RTCPeerConnection(this.config, this.constraints);
     this.RtcPeerConnection.easyWebRtc = this;
@@ -33,7 +32,9 @@ class EasyWebRtc extends Events {
    * @param callback A function that will run after a successful offer with candidates has been made.
    */
   getOffer (callback) {
-    if (typeof callback === 'function') { this.oneSdpIsComplete = callback; }
+    if (typeof callback === 'function') {
+      this.once('sdpComplete', callback)
+    }
 
     this.dataChannel = this.RtcPeerConnection.createDataChannel('opengroup', {});
     this.dataChannel.easyWebRtc = this;
@@ -61,7 +62,9 @@ class EasyWebRtc extends Events {
    * @returns IDP answer as a Promise.
    */
   getAnswer (offer, callback = false) {
-    if (typeof callback === 'function') { this.oneSdpIsComplete = callback; }
+    if (typeof callback === 'function') {
+      this.once('sdpComplete', callback)
+    }
 
     this.RtcPeerConnection.ondatachannel = (event) => {
       this.dataChannel = event.channel;
@@ -126,7 +129,6 @@ class EasyWebRtc extends Events {
 
   /**
    * When candidates are added to the IDP.
-   * Interesting is the deletion of the oneSdpIsComplete.
    * This makes the abstraction easy to use.
    * Higher up you can simply use peer.getOffer(function (offer) {})
    *
@@ -134,10 +136,7 @@ class EasyWebRtc extends Events {
    */
   onIceCandidate (event) {
     if (event.candidate === null) {
-      if (typeof this.easyWebRtc.oneSdpIsComplete === 'function') {
-        this.easyWebRtc.oneSdpIsComplete(this.localDescription);
-        delete this.easyWebRtc.oneSdpIsComplete;
-      }
+      this.easyWebRtc.fire('sdpComplete', this.localDescription);
     }
   }
 
