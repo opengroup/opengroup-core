@@ -35,6 +35,10 @@ class Bus {
   sendMessage (peerId, message) {
     this.strategy.sendMessage(peerId, message);
   }
+
+  broadcast (message) {
+    this.strategy.broadcast(message);
+  }
 }
 
 export default Bus;

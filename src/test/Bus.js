@@ -66,6 +66,16 @@ describe('Bus', () => {
       'text': 'Hello from the other side.'
     });
   });
+
+  it('should broadcast a message and the peer should receive it via webrtc', (done) => {
+    answerConnection.oneMessage(function (message) {
+      if (message == 'Yo world') {
+        done();
+      }
+    });
+
+    bus.broadcast('Yo world');
+  });
 });
 
 describe('AllToAll bus strategy', () => {

@@ -23,6 +23,8 @@ bus1.addPeer({
               bus2.sendMessage('henk@pietersen', {
                 'text': 'Hello from the other side.'
               });
+
+              bus2.broadcast('Yo everybody');
             });
           });
         }

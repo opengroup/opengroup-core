@@ -7,10 +7,6 @@ class Peer {
   getId () {
     return this.id;
   }
-
-  sendSystemMessage () {
-
-  }
 }
 
 export default Peer;

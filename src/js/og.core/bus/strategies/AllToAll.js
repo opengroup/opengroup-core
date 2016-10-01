@@ -17,6 +17,14 @@ class AllToAll {
     }
   }
 
+  broadcast (message) {
+    for (var key in this.connections) {
+      if (!this.connections.hasOwnProperty(key)) continue;
+      var connection = this.connections[key];
+      connection.sendMessage(message);
+    }
+  }
+
   createConnectionForPeer (peer) {
     this.connections[peer.getId()] = new WebRTCConnection();
     this.connections[peer.getId()].onMessage = (message) => {
