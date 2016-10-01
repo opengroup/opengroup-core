@@ -1,5 +1,6 @@
 import Events from 'src/js/og.core/base/Events';
 import OgEasyWebRtc from 'src/js/og.core/connection/EasyWebRct/OgEasyWebRtc';
+import ConfigService from 'src/js/og.core/config/ConfigService';
 
 var connectionTypes = {
   'OgEasyWebRtc': OgEasyWebRtc
@@ -18,6 +19,19 @@ class ConnectionBus extends Events {
     if (group) { this.group = group; }
     this.services = {};
     this.connections = [];
+
+    this.addService('config', ConfigService, {
+      prefix: this.getGroupId()
+    });
+  }
+
+  getGroupId() {
+    if (this.group) {
+      return this.group.id;
+    }
+    else {
+      return 'og';
+    }
   }
 
   add (connectionInfo) {

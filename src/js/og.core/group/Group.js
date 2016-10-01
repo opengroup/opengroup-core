@@ -1,6 +1,7 @@
 import Events from 'src/js/og.core/base/Events';
 import ConnectionBus from 'src/js/og.core/connection/ConnectionBus';
 import PeerService from 'src/js/og.core/peer/PeerService';
+import ConfigService from 'src/js/og.core/config/ConfigService';
 
 /**
  * Group
@@ -17,15 +18,6 @@ class Group extends Events {
     this.connectionBus = new ConnectionBus(this);
     this.connectionBus.addService('peer', PeerService);
 
-
-  }
-
-  getSetting (name) {
-    return localStorage.getItem(this.id + '-' + name);
-  }
-
-  setSetting(name, value) {
-    localStorage.setItem(this.id + '-' + name, value);
   }
 }
 

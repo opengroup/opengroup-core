@@ -12,15 +12,20 @@ class PeerService extends Events {
 
     this.peers = [];
     this.connectionBus = connectionBus;
-  }
-
-  init () {
     this.answerIdentityRequest();
     this.requestIdentity();
+
+    this.config = connectionBus.getService('config');
+    var identity = this.config.get('PeerService.identity');
+
+    if (identity) {
+      this.setIdentity(identity);
+    }
   }
 
   setIdentity (identity) {
     this.identity = identity;
+    this.config.set('PeerService.identity', identity);
   }
 
   requestIdentity () {
@@ -54,10 +59,15 @@ class PeerService extends Events {
   answerIdentityRequest () {
     this.connectionBus.on('message', (message, connection) => {
       if (message.identifier && message.identifier === 'PeerService' && message.command && message.command == 'identify') {
-        connection.sendMessage({
-          identifier: 'PeerService',
-          identity: this.identity
-        });
+        if (this.identity) {
+          connection.sendMessage({
+            identifier: 'PeerService',
+            identity: this.identity
+          });
+        }
+        else {
+          throw 'Identity was requested but not set';
+        }
       }
     });
   }
