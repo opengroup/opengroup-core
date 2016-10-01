@@ -2,11 +2,11 @@ import ConnectionBus from 'src/js/og.core/connection/ConnectionBus';
 import EasyWebRtc from 'src/js/og.core/connection/EasyWebRct/EasyWebRtc';
 
 let connectionBus = new ConnectionBus();
+var answerer = new EasyWebRtc();
+var initiator = new EasyWebRtc();
 
 describe('ConnectionBus', () => {
   it('should initiate a webrtc connection', (done) => {
-    var answerer = new EasyWebRtc();
-
     connectionBus.once('newConnection', (connection) => {
       done();
     });
@@ -33,8 +33,6 @@ describe('ConnectionBus', () => {
   });
 
   it('should answer a webrtc connection', (done) => {
-    var initiator = new EasyWebRtc();
-
     connectionBus.once('newConnection', (connection) => {
       done();
     });
@@ -61,5 +59,15 @@ describe('ConnectionBus', () => {
     });
 
   });
+
+  it('should receive a message', (done) => {
+    answerer.sendMessage('Yo');
+
+    connectionBus.on('message', (message, connection) => {
+      console.log(connection)
+      done();
+    })
+  });
 });
+
 

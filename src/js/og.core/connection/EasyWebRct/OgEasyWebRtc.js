@@ -42,6 +42,15 @@ class OgEasyWebRtc extends Events {
     this.connection.on('connected', () => {
       this.fire('connected');
     });
+
+    this.connection.on('message', (message) => {
+      this.fire('message', message);
+    });
+  }
+
+  // Proxy sendMessage.
+  sendMessage (message) {
+    this.connection.sendMessage(message);
   }
 }
 
