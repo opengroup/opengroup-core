@@ -56,15 +56,17 @@ module.exports = function(config) {
 
         // configuration for karma-jspm
         jspm: {
-            useBundles: true,
-            config: 'src/config.js',
+            config: 'src/jspm.config.js',
+            stripExtension: false,
             loadFiles: ['src/test/**/*.js'],
             serveFiles: ['src/js/**/*.js'],
-            packages: 'src/lib'
+            packages: 'src/lib',
+            browser: 'src/jspm.config.js',
         },
 
         proxies: {
-            '/base/lib/': '/base/src/lib/'
+            '/base/lib/': '/base/src/lib/',
+            '/lib/': '/base/lib/'
         },
 
         // list of files to exclude

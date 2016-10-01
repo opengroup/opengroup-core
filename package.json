@@ -93,8 +93,7 @@
       "babel": "babel-core@^5.8.24",
       "babel-runtime": "^5.8.24",
       "core-js": "^1.1.4",
-      "plugin-babel": "systemjs-plugin-babel@^0.0.15",
-      "systemjs-hot-reloader": "github:capaj/systemjs-hot-reloader@^0.6.0"
+      "plugin-babel": "systemjs-plugin-babel@^0.0.15"
     },
     "peerDependencies": {
       "process": "github:jspm/nodelibs-process@^0.2.0-alpha"
