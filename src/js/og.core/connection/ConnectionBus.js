@@ -25,11 +25,10 @@ class ConnectionBus extends Events {
     });
   }
 
-  getGroupId() {
+  getGroupId () {
     if (this.group) {
       return this.group.id;
-    }
-    else {
+    } else {
       return 'og';
     }
   }
@@ -50,11 +49,11 @@ class ConnectionBus extends Events {
   broadcast (message) {
     this.connections.forEach((connection) => {
       connection.sendMessage(message);
-    })
+    });
   }
 
-  addService (name, serviceClass, config) {
-    this.services[name] = new serviceClass(this, config);
+  addService (name, ServiceClass, config) {
+    this.services[name] = new ServiceClass(this, config);
     this.services[name].connectionBus = this;
     if (typeof this.services[name].init === 'function') {
       this.services[name].init();

@@ -33,7 +33,7 @@ class EasyWebRtc extends Events {
    */
   getOffer (callback) {
     if (typeof callback === 'function') {
-      this.once('sdpComplete', callback)
+      this.once('sdpComplete', callback);
     }
 
     this.dataChannel = this.RtcPeerConnection.createDataChannel('opengroup', {});
@@ -62,7 +62,7 @@ class EasyWebRtc extends Events {
    */
   getAnswer (offer, callback = false) {
     if (typeof callback === 'function') {
-      this.once('sdpComplete', callback)
+      this.once('sdpComplete', callback);
     }
 
     this.RtcPeerConnection.ondatachannel = (event) => {

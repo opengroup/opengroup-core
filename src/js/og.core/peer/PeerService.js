@@ -58,15 +58,14 @@ class PeerService extends Events {
 
   answerIdentityRequest () {
     this.connectionBus.on('message', (message, connection) => {
-      if (message.identifier && message.identifier === 'PeerService' && message.command && message.command == 'identify') {
+      if (message.identifier && message.identifier === 'PeerService' && message.command && message.command === 'identify') {
         if (this.identity) {
           connection.sendMessage({
             identifier: 'PeerService',
             identity: this.identity
           });
-        }
-        else {
-          throw 'Identity was requested but not set';
+        } else {
+          throw new Error('Identity was requested but not set');
         }
       }
     });

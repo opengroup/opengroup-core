@@ -3,7 +3,6 @@
  */
 class Events {
 
-
   /**
    * @method on(type: String, fn, context?: Object): this
    * Adds a listener function (`fn`) to a particular event type of the object. You can optionally specify the context of the listener (object the this keyword will point to). You can also pass several space-separated types (e.g. `'click dblclick'`).
@@ -17,15 +16,13 @@ class Events {
       for (var type in types) {
         this._on(type, types[type], fn);
       }
-  
     } else {
       types = types.trim().split(' ');
-  
       for (var i = 0, len = types.length; i < len; i++) {
         this._on(types[i], fn, context);
       }
     }
-  
+
     return this;
   }
 
@@ -72,8 +69,8 @@ class Events {
     if (context === this) {
       context = undefined;
     }
-    var newListener = {fn: fn, ctx: context},
-      listeners = typeListeners;
+    var newListener = {fn: fn, ctx: context};
+    var listeners = typeListeners;
 
     for (var i = 0, len = listeners.length; i < len; i++) {
       if (listeners[i].fn === fn && listeners[i].ctx === context) {
@@ -118,7 +115,6 @@ class Events {
         var l = listeners[i];
         if (l.ctx !== context) { continue; }
         if (l.fn === fn) {
-
           l.fn = () => {
             return false;
           };
@@ -176,7 +172,6 @@ class Events {
    * Behaves as [`on(…)`](#evented-on), except the listener will only get fired once and then removed.
    */
   once (types, fn, context) {
-
     if (typeof types === 'object') {
       for (var type in types) {
         this.once(type, types[type], fn);

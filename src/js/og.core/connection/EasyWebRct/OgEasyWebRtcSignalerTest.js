@@ -21,13 +21,12 @@ class OgEasyWebRtcSignalerTest extends Events {
 
     if (this.config.role === 'initiator') {
       this.initiate();
-    }
-    else if (this.config.role === 'answerer') {
+    } else if (this.config.role === 'answerer') {
       this.answer();
     }
   }
 
-  initiate() {
+  initiate () {
     this.connection.getOffer((offer) => {
       this.fire('createdOffer', {
         offer: offer,
@@ -43,7 +42,7 @@ class OgEasyWebRtcSignalerTest extends Events {
       this.fire('createdAnswer', {
         answer: answer
       });
-    })
+    });
   }
 }
 
