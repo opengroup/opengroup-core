@@ -64,8 +64,9 @@ describe('ConnectionBus', () => {
     answerer.sendMessage('Yo');
 
     connectionBus.on('message', (message, connection) => {
-      console.log(connection)
-      done();
+      if (message == 'Yo' && connection) {
+        done();
+      }
     })
   });
 });

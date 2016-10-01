@@ -140,7 +140,7 @@ class Events {
    * object — the first argument of the listener function will contain its
    * properties.
    */
-  fire (type, data) {
+  fire (type) {
     if (!this.listens(type)) { return this; }
 
     if (this._events) {
@@ -150,7 +150,9 @@ class Events {
         this._firingCount = (this._firingCount + 1) || 1;
         for (var i = 0, len = listeners.length; i < len; i++) {
           var l = listeners[i];
-          l.fn.call(l.ctx || this, data);
+          var params = Object.keys(arguments).map((k) => arguments[k]);
+          params.shift();
+          l.fn.call(l.ctx || this, ...params);
         }
 
         this._firingCount--;
