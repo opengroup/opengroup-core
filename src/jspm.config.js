@@ -21,11 +21,13 @@ SystemJS.config({
         'github:angular/bower-angular@1.5.8/angular.js',
         'github:angular/bower-angular@1.5.8.json',
         'js/og.ui/components/components.js',
-        'js/og.ui/components/peer-mini-teaser/peer-mini-teaser.js',
-        'js/og.ui/components/peer-mini-teaser/peer-mini-teaser.html!github:systemjs/plugin-text@0.0.9/text.js',
+        'js/og.ui/components/peers-list/peers-list.js',
+        'js/og.ui/components/peers-list/peers-list.html!github:systemjs/plugin-text@0.0.9/text.js',
         'github:systemjs/plugin-text@0.0.9.json',
         'npm:systemjs-plugin-babel@0.0.15/babel-helpers/classCallCheck.js',
         'npm:systemjs-plugin-babel@0.0.15.json',
+        'js/og.ui/components/peer-mini-teaser/peer-mini-teaser.js',
+        'js/og.ui/components/peer-mini-teaser/peer-mini-teaser.html!github:systemjs/plugin-text@0.0.9/text.js',
         'js/og.ui/routes/routes.js',
         'js/og.ui/routes/init.js',
         'npm:systemjs-plugin-babel@0.0.15/babel-helpers/createClass.js',
@@ -421,6 +423,7 @@ SystemJS.config({
     'github:*/*.json'
   ],
   map: {
+    'danielbeeke/rhythmmeister': 'github:danielbeeke/rhythmmeister@0.2.0',
     'angular-sanitize': 'github:angular/bower-angular-sanitize@1.5.8',
     'angular-ui-router': 'github:angular-ui/angular-ui-router-bower@0.3.1',
     'angular': 'github:angular/bower-angular@1.5.8',

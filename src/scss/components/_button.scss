@@ -1,0 +1,27 @@
+.button {
+  display: block;
+  border: 2px solid $black;
+  background-color: transparent;
+  border-radius: 30px;
+  padding: 14px 30px 13px;
+  font-size: 14px;
+  font-weight: 600;
+  color: $black;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all $speed $easing;
+  font-family: 'Catamaran', sans-serif;
+
+  &[disabled] {
+    opacity: .2;
+  }
+
+  &:not([disabled]) {
+    cursor: pointer;
+
+    &:hover {
+      color: $yellow;
+      background-color: $black;
+    }
+  }
+}

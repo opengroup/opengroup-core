@@ -1,1 +1,17 @@
-// Global
+$speed: .3s;
+$easing: ease-in-out;
+$max-width: 400px;
+$document-base-line: 24px;
+
+$font-variants: (
+  m: (
+    font-size: 26px,
+    base-line: 0.71,
+    rows: 2
+  ),
+  l: (
+    font-size: 32px,
+    base-line: 0.76,
+    rows: 2
+  )
+);

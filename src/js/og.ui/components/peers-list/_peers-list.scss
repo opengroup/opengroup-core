@@ -1,0 +1,52 @@
+peers-list {
+  padding: 20px 0;
+  float: left;
+  width: 100%;
+  border-bottom: 2px solid $black;
+
+  peer-mini-teaser {
+    float: left;
+  }
+
+  peer-mini-teaser + peer-mini-teaser {
+    margin-left: 10px;
+  }
+
+  .add-connection {
+    float: right;
+    width: 60px;
+    height: 60px;
+    border: 2px solid $black;
+    background-color: $yellow;
+    border-radius: 50%;
+    position: relative;
+    transition: all $speed $easing;
+
+    &:before, &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $black;
+      height: 20px;
+      width: 2px;
+      transition: all $speed $easing;
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    &:hover {
+      background-color: $black;
+
+      &:before, &:after {
+        background-color: $yellow;
+        width: 2px;
+        height: 30px;
+      }
+    }
+  }
+}

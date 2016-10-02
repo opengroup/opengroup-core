@@ -62,6 +62,7 @@ function Inject(...dependencies) {
 function Component(component) {
   return function decorator(target) {
     component = component ? component : {};
+
     if (!component.selector) {
       throw new Error('@Component() must contains selector property!');
     }

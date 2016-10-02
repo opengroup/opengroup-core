@@ -76,7 +76,12 @@ class PeerService extends Events {
   }
 
   getAll () {
-    return this.peers;
+    var ownPeer = [{
+      self: true,
+      identity: this.getIdentity()
+    }];
+
+    return ownPeer.concat(this.peers);
   }
 
   getAllAsStream (callback) {

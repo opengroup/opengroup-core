@@ -1,10 +1,39 @@
+$video-size: 120px;
+
+@keyframes flash {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 .set-name-form {
   .video-wrapper {
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: $video-size + 4;
+    height: $video-size + 4;
     overflow: hidden;
     position: relative;
+    border: 3px solid $yellow;
+    transition: border $speed $easing;
+
+    &:after {
+      content: '';
+      opacity: 0;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $white;
+    }
+  }
+
+  .page-title {
+    text-align: center;
+  }
+
+  .button {
+    width: 100%;
   }
 
   .video-snapshot,
@@ -17,18 +46,75 @@
 
   .make-snapshot-wrapper {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: $video-size;
+    height: $video-size;
+    display: block;
+    margin: 0 auto;
   }
 
   .snap-photo {
+    cursor: pointer;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: red;
+    background-color: $white;
     position: absolute;
     top: 50%;
     right: 0;
+    transition: box-shadow $speed $easing;
+    box-shadow: inset 0 0 0 2px rgba($black, 0);
     transform: translate(50%, -50%);
+
+    &:before, &:after {
+      display: block;
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: $red;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      transition: all $speed $easing;
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(180deg);
+    }
+
+    &:hover {
+      box-shadow: inset 0 0 0 2px rgba($black, 1);
+    }
+  }
+
+  &.has-photo {
+    .snap-photo {
+      &:before, &:after {
+        border-radius: 0;
+        width: 20px;
+        height: 3px;
+        background-color: $gray;
+      }
+
+      &:before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      &:after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+    }
+
+    .video-wrapper {
+      border: 3px solid $black;
+
+      &:after {
+        animation: flash $speed;
+      }
+    }
   }
 }

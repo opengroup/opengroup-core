@@ -1,4 +1,37 @@
 html, body {
   margin: 0;
   padding: 0;
+  background-color: $yellow;
+
+  font-family: 'Catamaran', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Abril Fatface', cursive;
+  font-size-adjust: .8;
+  color: $black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type="text"] {
+  border: 0;
+  border-bottom: rgba($black, .2) 2px solid;
+  background-color: transparent;
+  padding: 10px 0;
+  width: 100%;
+  transition: all $speed $easing;
+  font-weight: 900;
+  font-family: 'Catamaran', sans-serif;
+
+  &:invalid {
+    box-shadow: none;
+  }
+
+  &:valid,
+  &:focus {
+    border-bottom: $black 2px solid;
+  }
 }
