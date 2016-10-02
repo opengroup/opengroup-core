@@ -15,7 +15,7 @@ class OgEasyWebRtcSignalerManuel extends Events {
 
     if (this.config.events && this.config.events.length) {
       this.config.events.forEach((eventArray) => {
-        this.on(eventArray[0], eventArray[1]);
+        this.once(eventArray[0], eventArray[1]);
       });
     }
 

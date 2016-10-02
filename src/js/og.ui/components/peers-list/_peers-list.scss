@@ -21,6 +21,7 @@ peers-list {
     border-radius: 50%;
     position: relative;
     transition: all $speed $easing;
+    transform: rotate(0deg);
 
     &:before, &:after {
       content: '';
@@ -40,12 +41,13 @@ peers-list {
     }
 
     &:hover {
+      transform: rotate(90deg);
       background-color: $black;
 
       &:before, &:after {
         background-color: $yellow;
         width: 2px;
-        height: 30px;
+        height: 26px;
       }
     }
   }

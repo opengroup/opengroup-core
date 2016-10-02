@@ -1,5 +1,5 @@
 <form class="add-peer-form">
-    <h1>Add peer</h1>
+    <h1>Make a connection</h1>
     <input type="radio" name="role" ng-model="vm.role" value="initiator" id="initiator" ng-change="vm.role == 'initiator' ? vm.initiatorInit() : false"><label for="initiator">Invite a friend</label>
     <input type="radio" name="role" ng-model="vm.role" value="answerer" id="answerer"><label for="answerer">Invited by a friend</label>
 
@@ -15,14 +15,14 @@
 
         <div class="answer" ng-show="vm.initiator.copied && !vm.initiator.done">
             <div class="form-item">
-                <input id="initiator-answer" type="text" name="initiator-answer" placeholder="Please paste the answer here" ng-model="vm.initiator.answer">
+                <input id="initiator-answer" type="text" name="initiator-answer" placeholder="Please paste the acceptation here" ng-model="vm.initiator.answer">
             </div>
             <div class="form-item">
                 <button ng-disabled="!vm.initiator.answer" ng-click="vm.answerPasted()" class="button">Continue</button>
             </div>
         </div>
 
-        <div class="wait" ng-show="vm.initiator.done">
+        <div class="wait form-item" ng-show="vm.initiator.done">
             Let's wait a second.
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="answerer-form" ng-show="vm.role == 'answerer'">
         <div class="answer" ng-show="!vm.answerer.answer && !vm.answerer.copied">
             <div class="form-item">
-                <input id="answerer-offer" type="text" name="answerer-offer" placeholder="Please paste the offer here" ng-model="vm.answerer.offer">
+                <input id="answerer-offer" type="text" name="answerer-offer" placeholder="Please paste the invitation here" ng-model="vm.answerer.offer">
             </div>
             <div class="form-item">
                 <button ng-disabled="!vm.answerer.offer" ng-click="vm.answererInit()" class="button">Continue</button>
@@ -46,8 +46,8 @@
             </div>
         </div>
 
-        <div class="wait" ng-show="vm.answerer.copied">
-            Let's wait a second.
+        <div class="wait form-item" ng-show="vm.answerer.copied">
+            Please give it to your friend and wait for him to accept it.
         </div>
     </div>
 </form>

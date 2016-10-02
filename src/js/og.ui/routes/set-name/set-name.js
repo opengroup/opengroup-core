@@ -15,14 +15,28 @@ import {RouteConfig, Component, View, Inject} from '../../ng-decorators.js';
 
 class SetName {
   constructor($state, GroupService) {
-    this.photo = false;
-
     this.router = $state;
     this.peerService = GroupService.get().getService('peer');
 
     this.canvas = document.getElementById('set-name-canvas');
     this.context = this.canvas.getContext('2d');
     this.video = document.getElementById('set-name-video');
+
+    var identity = this.peerService.getIdentity();
+
+    if (identity && identity.photo) {
+      this.photo = identity.photo;
+
+      var img = new Image();
+      img.src = this.photo;
+      this.context.drawImage(img, 0, 0, 160, 120);
+    } else {
+      this.photo = false;
+    }
+
+    if (identity && identity.name) {
+      this.name = identity.name;
+    }
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then((stream) => {

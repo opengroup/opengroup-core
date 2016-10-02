@@ -40,7 +40,7 @@ class AddPeer {
       e.clearSelection();
     });
 
-    this.group.connectionBus.on('newConnection', () => {
+    this.group.connectionBus.once('newConnection', () => {
       this.scope.$applyAsync(() => {
         setInitialScope();
         this.router.go('chat');

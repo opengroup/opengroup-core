@@ -26,6 +26,11 @@ class PeerService extends Events {
   setIdentity (identity) {
     this.identity = identity;
     this.config.set('PeerService.identity', identity);
+
+    this.connectionBus.broadcast({
+      identifier: 'PeerService',
+      identity: this.identity
+    });
   }
 
   getIdentity () {

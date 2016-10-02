@@ -4,6 +4,12 @@ peer-mini-teaser {
   height: 60px;
   position: relative;
 
+  .peer-mini-teaser-inner {
+    display: block;
+    width: 60px;
+    height: 60px;
+  }
+
   .photo-wrapper {
     height: 100%;
     border-radius: 50%;
@@ -21,6 +27,7 @@ peer-mini-teaser {
 
   .name {
     position: absolute;
+    white-space: nowrap;
     top: 100%;
     left: 50%;
     transform: translate(-50%, 0px);
