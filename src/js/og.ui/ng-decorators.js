@@ -114,11 +114,11 @@ function RouteConfig(stateName, options) {
   return function decorator(target) {
     app.config(['$stateProvider', ($stateProvider) => {
       $stateProvider.state(stateName, Object.assign({
-        controller: target,
+        // controller: target, // Gave bugs, it started the controller multiple times.
         controllerAs: 'vm'
       }, options));
     }]);
-    app.controller(target.name, target);
+    // app.controller(target.name, target);
   };
 }
 

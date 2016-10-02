@@ -17,6 +17,12 @@ class Group extends Events {
     this.connectionBus = new ConnectionBus(this);
     this.connectionBus.addService('peer', PeerService);
   }
+
+  getService (name) {
+    if (this.connectionBus.services[name]) {
+      return this.connectionBus.services[name];
+    }
+  }
 }
 
 export default Group;

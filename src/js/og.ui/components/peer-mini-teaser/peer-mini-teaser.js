@@ -1,7 +1,6 @@
 import template from './peer-mini-teaser.html!text';
-import {View, Component, Inject} from '../../ng-decorators.js'; // jshint unused: false
+import {View, Component, Inject} from '../../ng-decorators.js';
 
-//start-non-standard
 @Component({
   selector: 'peer-mini-teaser'
 })
@@ -9,7 +8,7 @@ import {View, Component, Inject} from '../../ng-decorators.js'; // jshint unused
   template: template
 })
 @Inject('$state')
-//end-non-standard
+
 class PeerMiniTeaser {
   constructor($state) {
     this.router = $state;

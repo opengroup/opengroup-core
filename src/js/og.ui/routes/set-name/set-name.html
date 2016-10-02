@@ -1,0 +1,15 @@
+<h1 class="page-title">Welcome</h1>
+
+<form class="set-name-form" ng-submit="vm.saveForm()">
+    <div class="make-snapshot-wrapper">
+        <div class="video-wrapper">
+            <video id="set-name-video" class="video" width="160" height="120" autoplay></video>
+            <canvas id="set-name-canvas" class="video-snapshot" width="160" height="120"></canvas>
+        </div>
+
+        <div class="snap-photo" ng-click="vm.photo ? vm.removePhoto() : vm.makePhoto()"></div>
+    </div>
+
+    <input type="text" ng-model="vm.name" placeholder="What is your name?">
+    <button ng-disabled="!vm.name || !vm.photo">Continue</button>
+</form>

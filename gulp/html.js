@@ -5,5 +5,5 @@ var gulp = require('gulp'),
 
 // HTML livereload.
 gulp.task('html', function () {
-  gulp.watch(global.paths.html).on("change", reload);
+  // gulp.watch(global.paths.html).on("change", reload);
 });

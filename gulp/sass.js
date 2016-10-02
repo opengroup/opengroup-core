@@ -5,7 +5,8 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   reload = global.browserSync.reload,
   sass = require('gulp-sass'),
-  sourcemaps = require('gulp-sourcemaps');
+  sourcemaps = require('gulp-sourcemaps'),
+  sassGlob = require('gulp-sass-glob');
 
 var sassOptions = {
   errLogToConsole: true,
@@ -15,12 +16,14 @@ var sassOptions = {
 // Compile SASS with sourcemaps + livereload.
 gulp.task('sass', function () {
   gulp.src(global.paths.sass)
-    .pipe(sourcemaps.init())
+    .pipe(sassGlob())
+    // .pipe(sourcemaps.init())
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(concat('app.css'))
     .pipe(autoprefixer())
-    .pipe(sourcemaps.write('.'))
+    // .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(global.paths.css))
+    .pipe(global.browserSync.stream());
 
-  gulp.watch(global.paths.sass).on("change", reload);
+  // gulp.watch(global.paths.sass).on("change", reload);
 });

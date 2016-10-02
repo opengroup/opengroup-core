@@ -1,7 +1,7 @@
 import Group from '../js/og.core/group/Group.js';
 
 var group = new Group({
-  name: 'lorem-ipsum',
+  id: 'lorem-ipsum',
   label: 'Lorem ipsum'
 });
 

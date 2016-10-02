@@ -1,8 +1,9 @@
-import Group from './og.core/group/Group.js';
 import angular from 'angular';
 import 'angular-sanitize';
 import 'angular-ui-router';
 
+import './og.ui/services/services.js';
+import './og.ui/routes/routes.js';
 import './og.ui/components/components.js';
 import ngDecorators from './og.ui/ng-decorators.js';
 
