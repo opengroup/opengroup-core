@@ -1,1 +1,37 @@
 <h1>Add peer</h1>
+<form class="add-peer-form">
+    <input type="radio" name="role" ng-model="vm.role" value="initiator" id="initiator" ng-change="vm.role == 'initiator' ? vm.initiatorInit() : false"><label for="initiator">Invite a friend</label>
+    <input type="radio" name="role" ng-model="vm.role" value="answerer" id="answerer"><label for="answerer">Invited by a friend</label>
+
+    <div class="initiator-form" ng-show="vm.role == 'initiator'">
+        <div class="offer" ng-show="!vm.initiator.copied && !vm.initiator.done">
+            <input id="initiator-offer" type="text" name="initiator-offer" ng-model="vm.initiator.offer">
+            <button class="clipboard" id="initiator-copy-offer" ng-disabled="!vm.initiator.offer" data-clipboard-target="#initiator-offer">Copy invitation</button>
+        </div>
+
+        <div class="answer" ng-show="vm.initiator.copied && !vm.initiator.done">
+            <input id="initiator-answer" type="text" name="initiator-answer" placeholder="Please paste the answer here" ng-model="vm.initiator.answer">
+            <button ng-disabled="!vm.initiator.answer" ng-click="vm.answerPasted()">Continue</button>
+        </div>
+
+        <div class="wait" ng-show="vm.initiator.done">
+            Let's wait a second.
+        </div>
+    </div>
+
+    <div class="answerer-form" ng-show="vm.role == 'answerer'">
+        <div class="answer" ng-show="!vm.answerer.answer && !vm.answerer.copied">
+            <input id="answerer-offer" type="text" name="answerer-offer" placeholder="Please paste the offer here" ng-model="vm.answerer.offer">
+            <button ng-disabled="!vm.answerer.offer" ng-click="vm.answererInit()">Continue</button>
+        </div>
+
+        <div class="offer" ng-show="vm.answerer.answer && !vm.answerer.copied">
+            <input id="answerer-answer" type="text" name="answerer-answer" ng-model="vm.answerer.answer">
+            <button class="clipboard" id="answerer-copy-answer" ng-disabled="!vm.answerer.offer" data-clipboard-target="#answerer-answer">Copy acceptation</button>
+        </div>
+
+        <div class="wait" ng-show="vm.answerer.copied">
+            Let's wait a second.
+        </div>
+    </div>
+</form>
