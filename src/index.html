@@ -6,57 +6,13 @@
     <link rel="stylesheet" href="css/app.css" charset="utf-8">
 </head>
 <body>
+
+<peer-mini-teaser></peer-mini-teaser>
+
     <script src="js/polyfills/webrtc.polyfill.js"></script>
     <script src="lib/system.js"></script>
     <script src="jspm.config.js"></script>
-    <script>System.import('./js/app.js')</script>
-
-    <div class="page-wrapper">
-
-        <div id="set-identity">
-            <h1 class="page-title">Welcome!</h1>
-            <form class="identity-form" rv-on-submit="saveIdentity">
-                <input type="text" required="true" rv-value="name">
-                <button class="button" type="button" rv-enabled="name" rv-on-click="saveIdentity">Continue</button>
-            </form>
-        </div>
-
-        <div id="chat">
-            <div class="peers-wrapper">
-                <div class="peer" rv-each-peer="peers">{ peer.identity.name }</div>
-            </div>
-
-            <div class="messages-wrapper">
-                <div class="message" rv-each-message="messages"></div>
-            </div>
-        </div>
-
-        <div id="add-connection">
-            <h1 class="page-title">Add connection!</h1>
-            <form class="add-connection-form" rv-data-active="role" rv-on-submit="fn.submit">
-                <div class="form-item">
-                    <input type="radio" name="type" rv-checked="role" rv-on-change="initiator.init" value="initiator" id="initiator"><label for="initiator">Invite a friend</label>
-                    <input type="radio" name="type" rv-checked="role" value="answerer" id="answerer"><label for="answerer">Invited by a friend</label>
-                </div>
-
-                <div class="initiator-form">
-                    <input id="initiator-offer" rv-value="initiator.offer">
-                    <button type="button" rv-enabled="initiator.offer" class="button copy-to-clipboard" data-clipboard-target="#initiator-offer">Copy invite</button>
-                    <input rv-value="initiator.answer" id="initiator-answer" type="text" placeholder="Please paste here the received acceptation">
-                    <button type="button" rv-enabled="initiator.answer" rv-on-click="initiator.acceptAnswer" class="button">Continue</button>
-                </div>
-
-                <div class="answerer-form">
-                    <input id="answerer-offer" rv-value="answerer.offer">
-                    <button type="button" rv-enabled="answerer.offer" rv-on-click="answerer.init"  class="button">Create answer</button>
-                    <input rv-value="answerer.answer" type="text" id="answerer-answer">
-                    <button type="button" rv-enabled="answerer.answer" data-clipboard-target="#answerer-answer" class="button copy-to-clipboard">Copy to clipboard</button>
-                </div>
-
-            </form>
-        </div>
-
-    </div>
+    <script>System.import('./js/app.js').catch(console.error.bind(console));</script>
 
 </body>
 </html>

@@ -15,6 +15,8 @@ var gulp = require('gulp');
 var requireDir = require('require-dir');
 var browserSync = require('browser-sync').create();
 
+process.setMaxListeners(0);
+
 // Specify paths & globbing patterns for tasks.
 global.paths = {
   // HTML sources.
