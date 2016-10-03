@@ -42,7 +42,6 @@ class ConnectionBus extends Events {
       this.fire('newConnection', connection);
     });
 
-
     connection.on('message', (message) => {
       this.fire('message', message, connection);
     });

@@ -31,6 +31,7 @@ class PeerService extends Events {
       if (message.identifier === 'PeerService' && message.identity) {
         if (connection.peer) {
           connection.peer.identity = message.identity;
+          this.fire('updatedPeer', connection.peer);
         }
         else {
           connection.peer = {
@@ -39,10 +40,8 @@ class PeerService extends Events {
           };
 
           this.peers.push(connection.peer);
+          this.fire('newPeer', connection.peer);
         }
-
-        connection.off('message', this.savePeerIdentity);
-        this.fire('newPeer', connection.peer);
       }
     });
   }
@@ -71,7 +70,7 @@ class PeerService extends Events {
   }
 
   getAllAsStream (callback) {
-    this.on('newPeer', function () {
+    this.on('newPeer updatedPeer', function () {
       callback(this.getAll());
     });
 

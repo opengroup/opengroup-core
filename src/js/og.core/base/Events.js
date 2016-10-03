@@ -45,7 +45,6 @@ class Events {
    * Removes all listeners to all events on the object.
    */
   off (types, fn, context) {
-
     if (!types) {
       // clear all listeners if called without arguments
       delete this._events;
@@ -92,7 +91,6 @@ class Events {
     }
 
     listeners.push(newListener);
-    typeListeners.count++;
   }
 
   /**
@@ -168,10 +166,6 @@ class Events {
   // object — the first argument of the listener function will contain its
   // properties. The event might can optionally be propagated to event parents.
   fire (type, data, propagate) {
-    if (!this.listens(type, propagate)) { return this; }
-
-    var event = this.extend({}, data, {type: type, target: this});
-
     if (this._events) {
       var listeners = this._events[type];
 
@@ -187,12 +181,6 @@ class Events {
         this._firingCount--;
       }
     }
-
-    if (propagate) {
-      // propagate the event to parents (set with addEventParent)
-      this._propagateEvent(event);
-    }
-
     return this;
   }
 
