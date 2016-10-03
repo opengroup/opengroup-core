@@ -27,12 +27,6 @@ class OgEasyWebRtc extends Events {
 
     Object.assign(this.config, config);
 
-    if (this.config.events && this.config.events.length) {
-      this.config.events.forEach((eventArray) => {
-        this.on(eventArray[0], eventArray[1]);
-      });
-    }
-
     var signalerInfo = this.config.signaler;
 
     this.connection = new EasyWebRtc();

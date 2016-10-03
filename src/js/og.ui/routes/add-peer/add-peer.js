@@ -53,18 +53,19 @@ class AddPeer {
   // Initiator start.
   initiatorInit () {
     if (!this.initiator.offer) {
-      this.group.connectionBus.add({
+      this.connection = this.group.connectionBus.add({
         type: 'OgEasyWebRtc',
         config: {
           signaler: {
             type: 'OgEasyWebRtcSignalerManuel',
             config: {
               role: 'initiator',
-              events: [['createdOffer', (data) => { this.initiatorCreatedOffer(data) } ]]
             }
           }
         }
       });
+
+      this.connection.signaler.on('createdOffer', (data) => { this.initiatorCreatedOffer(data) });
     }
   }
 
@@ -90,7 +91,8 @@ class AddPeer {
   answererInit () {
     if (!this.answerer.answer) {
       var offer = JSON.parse(atob(this.answerer.offer));
-      this.group.connectionBus.add({
+
+      this.connection = this.group.connectionBus.add({
         type: 'OgEasyWebRtc',
         config: {
           signaler: {
@@ -98,11 +100,12 @@ class AddPeer {
             config: {
               role: 'answerer',
               offer: offer,
-              events: [['createdAnswer', (data) => { this.answererCreatedAnswer(data) } ]]
             }
           }
         }
       });
+
+      this.connection.signaler.on('createdAnswer', (data) => { this.answererCreatedAnswer(data) });
     }
   }
 

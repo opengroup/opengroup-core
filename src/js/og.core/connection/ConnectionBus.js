@@ -34,8 +34,6 @@ class ConnectionBus extends Events {
     }
   }
 
-  // TODO refactor so it returns an object.
-  // It's children also need to return an object, so we can hook into things where we are using the abstraction.
   add (connectionInfo) {
     var connection = new connectionTypes[connectionInfo.type](connectionInfo.config);
 
@@ -44,9 +42,12 @@ class ConnectionBus extends Events {
       this.fire('newConnection', connection);
     });
 
+
     connection.on('message', (message) => {
       this.fire('message', message, connection);
     });
+
+    return connection;
   }
 
   broadcast (message) {
