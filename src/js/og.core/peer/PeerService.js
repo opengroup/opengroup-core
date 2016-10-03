@@ -48,12 +48,28 @@ class PeerService extends Events {
 
   setIdentity (identity) {
     this.identity = identity;
+
+    if (!this.identity.guid) {
+      this.identity.guid = this.guid();
+    }
+
     this.config.set('PeerService.identity', identity);
 
     this.connectionBus.broadcast({
       identifier: 'PeerService',
       identity: this.identity
     });
+  }
+
+  guid () {
+    var s4 = function () {
+      return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+    };
+
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
   }
 
   getIdentity () {
