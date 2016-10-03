@@ -1,9 +1,10 @@
 'use strict';
 
 var gulp = require('gulp'),
-  reload = global.browserSync.reload;
+exec = require('child_process').exec;
 
-// JavaScript livereload.
 gulp.task('js', function () {
-  return gulp.watch('./src/build.js').on("change", reload);
+  exec('jspm bundle js/app.js -wid', function (err, stdout, stderr) {
+    cb(err);
+  });
 });

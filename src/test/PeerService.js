@@ -65,14 +65,14 @@ describe('peerService', () => {
 
   it('should list all peers', (done) => {
     var peers = peerService1.getAll();
-    if (peers[0].identity.name == 'Piet Bakker') {
+    if (peers[1].identity.name == 'Piet Bakker') {
       done();
     }
   });
 
   it('should list all peers in a data stream', (done) => {
     peerService1.getAllAsStream(function (peers) {
-      if (peers[1] && peers[1].identity.name == 'Klaas') {
+      if (peers[2] && peers[2].identity.name == 'Klaas') {
         done();
       }
     });

@@ -13,6 +13,7 @@ class ConnectionBus extends Events {
   /**
    * @constructor
    */
+
   constructor (group) {
     super();
 
