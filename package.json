@@ -53,8 +53,6 @@
     "gulp-eslint": "^1.1.1",
     "gulp-htmlmin": "^1.3.0",
     "gulp-imagemin": "^2.4.0",
-    "gulp-jspm": "^0.5.13",
-    "gulp-jspm-build": "0.0.15",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.2.0",
