@@ -20,7 +20,7 @@ class CreateMessage {
   }
 
   keypress (event) {
-    if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
+    if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey && this.message) {
 
       var chatMessage = {
         text: this.message,

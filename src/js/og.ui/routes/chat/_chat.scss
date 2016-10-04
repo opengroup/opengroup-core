@@ -1,0 +1,18 @@
+chat {
+  .messages-wrapper {
+    float: left;
+    width: 100%;
+    height: calc(100vh - 170px);
+    position: relative;
+  }
+
+  create-message {
+    float: left;
+    width: 100%;
+  }
+
+  .introduction {
+    font-style: italic;
+    color: rgba($black, .4);
+  }
+}
