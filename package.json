@@ -92,6 +92,7 @@
       "clipboard": "^1.5.12",
       "danielbeeke/rhythmmeister": "github:danielbeeke/rhythmmeister@0.2.0",
       "jquery": "^3.1.1",
+      "monospaced/angular-elastic": "github:monospaced/angular-elastic@^2.5.1",
       "systemjs/plugin-text": "github:systemjs/plugin-text@^0.0.9"
     },
     "devDependencies": {

@@ -6,6 +6,7 @@
 'use strict';
 
 import angular from 'angular';
+import angularElastic from 'monospaced/angular-elastic';
 
 const app = angular.module('ngDecorator', [
   // angular modules
@@ -13,6 +14,7 @@ const app = angular.module('ngDecorator', [
 
   // 3rd party modules
   'ui.router',
+  'monospaced.elastic'
 ]);
 
 function Run() {

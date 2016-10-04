@@ -72,6 +72,18 @@ class PeerService extends Events {
       s4() + '-' + s4() + s4() + s4();
   }
 
+  getPeerByGuid (guid) {
+    var peerToReturn = false;
+
+    this.peers.forEach(function (peer) {
+      if (peer.identity.guid === guid) {
+        peerToReturn = peer;
+      }
+    });
+
+    return peerToReturn;
+  }
+
   getIdentity () {
     return this.identity;
   }
