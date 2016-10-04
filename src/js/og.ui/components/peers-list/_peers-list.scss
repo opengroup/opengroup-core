@@ -16,8 +16,8 @@ peers-list {
 
   .add-connection {
     float: right;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border: 2px solid $black;
     background-color: $yellow;
     border-radius: 50%;
@@ -33,7 +33,7 @@ peers-list {
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: $black;
-      height: 20px;
+      height: 16px;
       width: 2px;
       transition: all $speed $easing;
     }
@@ -49,7 +49,7 @@ peers-list {
       &:before, &:after {
         background-color: $yellow;
         width: 2px;
-        height: 26px;
+        height: 20px;
       }
     }
   }
