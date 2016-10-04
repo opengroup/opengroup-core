@@ -30,6 +30,8 @@ SystemJS.config({
         'js/og.ui/components/peer-mini-teaser/peer-mini-teaser.html!github:systemjs/plugin-text@0.0.9/text.js',
         'js/og.ui/routes/routes.js',
         'js/og.ui/routes/init.js',
+        'npm:jquery@3.1.1/dist/jquery.js',
+        'npm:jquery@3.1.1.json',
         'npm:systemjs-plugin-babel@0.0.15/babel-helpers/createClass.js',
         'js/og.ui/routes/add-peer/add-peer.js',
         'npm:clipboard@1.5.12/lib/clipboard.js',

@@ -2,7 +2,6 @@ html, body {
   margin: 0;
   padding: 0;
   background-color: $yellow;
-
   font-family: 'Catamaran', sans-serif;
 }
 
@@ -10,10 +9,35 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Abril Fatface', cursive;
   font-size-adjust: .8;
   color: $black;
+  font-weight: 500;
 }
 
 * {
   box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+*::-moz-focus-inner {
+  border: none;
+}
+
+.no-transitions * {
+  transition: none !important;
+
+  &:after, &:before {
+    transition: none !important;
+  }
+}
+
+::placeholder {
+  opacity: 1;
+  color: $black;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: 'Catamaran', sans-serif;
 }
 
 input[type="text"] {
@@ -22,8 +46,10 @@ input[type="text"] {
   background-color: transparent;
   padding: 10px 0;
   width: 100%;
+  color: $black;
   transition: all $speed $easing;
-  font-weight: 900;
+  font-weight: 500;
+  font-size: 18px;
   font-family: 'Catamaran', sans-serif;
 
   &:invalid {
@@ -34,4 +60,8 @@ input[type="text"] {
   &:focus {
     border-bottom: $black 2px solid;
   }
+}
+
+a {
+  color: $black;
 }

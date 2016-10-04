@@ -50,11 +50,13 @@ class SetName {
   removePhoto () {
     this.context.clearRect(0, 0, 160, 120);
     this.photo = false;
+    this.snappedPhoto = false;
   }
 
   makePhoto () {
     this.context.drawImage(this.video, 0, 0, 160, 120);
     this.photo = this.canvas.toDataURL();
+    this.snappedPhoto = true;
   }
 
   saveForm () {

@@ -1,7 +1,9 @@
 <form class="add-peer-form">
     <h1>Make a connection</h1>
-    <input type="radio" name="role" ng-model="vm.role" value="initiator" id="initiator" ng-change="vm.role == 'initiator' ? vm.initiatorInit() : false"><label for="initiator">Invite a friend</label>
-    <input type="radio" name="role" ng-model="vm.role" value="answerer" id="answerer"><label for="answerer">Invited by a friend</label>
+    <div class="form-item">
+        <input type="radio" name="role" ng-model="vm.role" value="initiator" id="initiator" ng-change="vm.role == 'initiator' ? vm.initiatorInit() : vm.clearScope()"><label for="initiator">Invite a friend</label>
+        <input type="radio" name="role" ng-model="vm.role" value="answerer" id="answerer"><label for="answerer">Invited by a friend</label>
+    </div>
 
     <div class="initiator-form" ng-show="vm.role == 'initiator'">
         <div class="offer" ng-show="!vm.initiator.copied && !vm.initiator.done">
@@ -50,4 +52,6 @@
             Please give it to your friend and wait for him to accept it.
         </div>
     </div>
+
+    <a ui-sref="chat" class="cancel-link">Cancel</a>
 </form>

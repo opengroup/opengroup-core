@@ -20,10 +20,12 @@ class AddPeer {
     this.scope = $rootScope;
     this.group = GroupService.get();
 
+    this.initiator = {};
+    this.answerer = {};
+
     var setInitialScope = () => {
       this.role = '';
-      this.initiator = { offer: '', done: false, copied: false };
-      this.answerer = { answer: '', done: false, copied: false };
+      this.clearScope();
     };
 
     this.clipboard = new Clipboard('.clipboard');
@@ -50,10 +52,26 @@ class AddPeer {
     setInitialScope();
   }
 
+  clearScope() {
+    this.initiator.offer = '';
+    this.initiator.answer = '';
+    this.initiator.done = false;
+    this.initiator.copied = false;
+    this.initiator.connection = false;
+
+    this.answerer.offer = '';
+    this.answerer.answer = '';
+    this.answerer.done = false;
+    this.answerer.copied = false;
+    this.answerer.connection = false;
+  }
+
   // Initiator start.
   initiatorInit () {
+    this.clearScope();
+
     if (!this.initiator.offer) {
-      this.connection = this.group.connectionBus.add({
+      this.initiator.connection = this.group.connectionBus.add({
         type: 'OgEasyWebRtc',
         config: {
           signaler: {
@@ -65,7 +83,7 @@ class AddPeer {
         }
       });
 
-      this.connection.signaler.on('createdOffer', (data) => { this.initiatorCreatedOffer(data) });
+      this.initiator.connection.signaler.on('createdOffer', (data) => { this.initiatorCreatedOffer(data) });
     }
   }
 
@@ -92,7 +110,7 @@ class AddPeer {
     if (!this.answerer.answer) {
       var offer = JSON.parse(atob(this.answerer.offer));
 
-      this.connection = this.group.connectionBus.add({
+      this.answerer.connection = this.group.connectionBus.add({
         type: 'OgEasyWebRtc',
         config: {
           signaler: {
@@ -105,7 +123,7 @@ class AddPeer {
         }
       });
 
-      this.connection.signaler.on('createdAnswer', (data) => { this.answererCreatedAnswer(data) });
+      this.answerer.connection.signaler.on('createdAnswer', (data) => { this.answererCreatedAnswer(data) });
     }
   }
 
@@ -119,7 +137,6 @@ class AddPeer {
     this.answerer.copied = true;
   }
   // Answerer stop.
-
 }
 
 export default AddPeer;

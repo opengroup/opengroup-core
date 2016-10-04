@@ -10,4 +10,15 @@
   .button {
     width: 100%;
   }
+
+  .cancel-link {
+    font-style: italic;
+    text-decoration: none;
+    opacity: .4;
+    transition: opacity $speed $easing;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }

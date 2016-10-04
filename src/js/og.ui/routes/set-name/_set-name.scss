@@ -117,7 +117,11 @@ $video-size: 120px;
 
     .video-wrapper {
       border: 3px solid $black;
+    }
+  }
 
+  &.snapped-photo {
+    .video-wrapper {
       &:after {
         animation: flash $speed;
       }
