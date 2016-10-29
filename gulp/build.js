@@ -12,7 +12,9 @@ var gulp = require('gulp'),
   replace = require('gulp-replace'),
   runSeq = require('run-sequence'),
   sass = require('gulp-sass'),
-  uglify = require('gulp-uglify');
+  uglify = require('gulp-uglify'),
+  sassGlob = require('gulp-sass-glob');
+
 
 // One build task to rule them all.
 gulp.task('build', function (done) {
@@ -22,6 +24,7 @@ gulp.task('build', function (done) {
 // Build SASS for distribution.
 gulp.task('buildsass', function () {
   gulp.src(global.paths.sass)
+    .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(concat('app.css'))
     .pipe(autoprefixer())
@@ -49,7 +52,7 @@ gulp.task('buildhtml', function () {
   gulp.src(global.paths.html)
     .pipe(replace('css/app.css', 'app.min.css'))
     .pipe(replace('lib/system.js', 'app.min.js'))
-    .pipe(replace('<script src="config.js"></script>', ''))
+    .pipe(replace('<script src="jspm.config.js"></script>', ''))
     .pipe(replace("<script>System.import('./js/app')</script>", ''))
     .pipe(htmlMin({collapseWhitespace: true}))
     .pipe(gulp.dest(global.paths.dist));

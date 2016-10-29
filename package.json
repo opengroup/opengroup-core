@@ -79,6 +79,7 @@
   },
   "jspm": {
     "registry": "npm",
+    "configFile": "src/jspm.config.js",
     "directories": {
       "baseURL": "src",
       "doc": "docs",
