@@ -1,1 +1,1 @@
-import EasyWebRtc from 'js/EasyWebRtc.js';
+import EasyWebRtc from 'js/og.core/EasyWebRtc.js';
