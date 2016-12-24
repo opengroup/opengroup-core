@@ -13,79 +13,6 @@ SystemJS.config({
       'npm:': '/lib/npm/',
       'github:': '/lib/github/',
       'OpenGroup/': '/src/'
-    },
-    'bundles': {
-      'build.js': [
-        'js/app.js',
-        'js/og.ui/ng-decorators.js',
-        'github:monospaced/angular-elastic@2.5.1/elastic.js',
-        'github:monospaced/angular-elastic@2.5.1.json',
-        'github:angular/bower-angular@1.5.8/angular.js',
-        'github:angular/bower-angular@1.5.8.json',
-        'js/og.ui/components/components.js',
-        'js/og.ui/components/messages/messages.js',
-        'js/og.ui/components/messages/messages.html!github:systemjs/plugin-text@0.0.9/text.js',
-        'github:systemjs/plugin-text@0.0.9.json',
-        'npm:systemjs-plugin-babel@0.0.15/babel-helpers/createClass.js',
-        'npm:systemjs-plugin-babel@0.0.15.json',
-        'npm:systemjs-plugin-babel@0.0.15/babel-helpers/classCallCheck.js',
-        'js/og.ui/components/create-message/create-message.js',
-        'js/og.ui/components/create-message/create-message.html!github:systemjs/plugin-text@0.0.9/text.js',
-        'js/og.ui/components/peers-list/peers-list.js',
-        'js/og.ui/components/peers-list/peers-list.html!github:systemjs/plugin-text@0.0.9/text.js',
-        'js/og.ui/components/peer-mini-teaser/peer-mini-teaser.js',
-        'js/og.ui/components/peer-mini-teaser/peer-mini-teaser.html!github:systemjs/plugin-text@0.0.9/text.js',
-        'js/og.ui/routes/routes.js',
-        'js/og.ui/routes/init.js',
-        'npm:jquery@3.1.1/dist/jquery.js',
-        'npm:jquery@3.1.1.json',
-        'js/og.ui/routes/add-peer/add-peer.js',
-        'npm:clipboard@1.5.12/lib/clipboard.js',
-        'npm:clipboard@1.5.12.json',
-        'npm:good-listener@1.1.8/src/listen.js',
-        'npm:good-listener@1.1.8.json',
-        'npm:delegate@3.0.2/src/delegate.js',
-        'npm:delegate@3.0.2.json',
-        'npm:component-closest@1.0.1/index.js',
-        'npm:component-closest@1.0.1.json',
-        'npm:component-matches-selector@0.1.6/index.js',
-        'npm:component-matches-selector@0.1.6.json',
-        'github:jspm/nodelibs-process@0.2.0-alpha/process.js',
-        'github:jspm/nodelibs-process@0.2.0-alpha.json',
-        'npm:component-query@0.0.3/index.js',
-        'npm:component-query@0.0.3.json',
-        'npm:good-listener@1.1.8/src/is.js',
-        'npm:tiny-emitter@1.1.0/index.js',
-        'npm:tiny-emitter@1.1.0.json',
-        'npm:clipboard@1.5.12/lib/clipboard-action.js',
-        'npm:select@1.0.6/src/select.js',
-        'npm:select@1.0.6.json',
-        'js/og.ui/routes/add-peer/add-peer.html!github:systemjs/plugin-text@0.0.9/text.js',
-        'js/og.ui/routes/set-name/set-name.js',
-        'js/og.ui/routes/set-name/set-name.html!github:systemjs/plugin-text@0.0.9/text.js',
-        'js/og.ui/routes/chat/chat.js',
-        'js/og.ui/routes/chat/chat.html!github:systemjs/plugin-text@0.0.9/text.js',
-        'js/og.ui/services/services.js',
-        'js/og.ui/services/group-service/group-service.js',
-        'js/og.core/group/Group.js',
-        'js/og.core/plugins/multi-chat/MultiChatService.js',
-        'js/og.core/base/Events.js',
-        'npm:systemjs-plugin-babel@0.0.15/babel-helpers/toConsumableArray.js',
-        'npm:systemjs-plugin-babel@0.0.15/babel-helpers/inherits.js',
-        'npm:systemjs-plugin-babel@0.0.15/babel-helpers/possibleConstructorReturn.js',
-        'js/og.core/peer/AutoConnectService.js',
-        'js/og.core/peer/PeerService.js',
-        'js/og.core/connection/ConnectionBus.js',
-        'js/og.core/config/ConfigService.js',
-        'js/og.core/connection/EasyWebRct/OgEasyWebRtc.js',
-        'js/og.core/connection/EasyWebRct/OgEasyWebRtcSignalerTest.js',
-        'js/og.core/connection/EasyWebRct/OgEasyWebRtcSignalerManuel.js',
-        'js/og.core/connection/EasyWebRct/EasyWebRtc.js',
-        'github:angular-ui/angular-ui-router-bower@0.3.1/release/angular-ui-router.js',
-        'github:angular-ui/angular-ui-router-bower@0.3.1.json',
-        'github:angular/bower-angular-sanitize@1.5.8/angular-sanitize.js',
-        'github:angular/bower-angular-sanitize@1.5.8.json'
-      ]
     }
   },
   nodeConfig: {
@@ -97,7 +24,6 @@ SystemJS.config({
   },
   devConfig: {
     'map': {
-      'plugin-babel': 'npm:systemjs-plugin-babel@0.0.15',
       'babel-plugin-transform-decorators-legacy': 'npm:babel-plugin-transform-decorators-legacy@1.3.4',
       'stream': 'github:jspm/nodelibs-stream@0.2.0-alpha',
       'util': 'github:jspm/nodelibs-util@0.2.0-alpha',
@@ -110,7 +36,11 @@ SystemJS.config({
       'constants': 'github:jspm/nodelibs-constants@0.2.0-alpha',
       'string_decoder': 'github:jspm/nodelibs-string_decoder@0.2.0-alpha',
       'vm': 'github:jspm/nodelibs-vm@0.2.0-alpha',
-      'events': 'github:jspm/nodelibs-events@0.2.0-alpha'
+      'events': 'github:jspm/nodelibs-events@0.2.0-alpha',
+      'process': 'github:jspm/nodelibs-process@0.2.0-alpha',
+      'babel-runtime': 'npm:babel-runtime@5.8.38',
+      'babel': 'npm:babel-core@5.8.38',
+      'core-js': 'npm:core-js@1.2.7'
     },
     'packages': {
       'npm:babel-plugin-transform-decorators-legacy@1.3.4': {
@@ -418,31 +348,7 @@ SystemJS.config({
       'map': {
         'sightglass': 'npm:sightglass@0.2.6'
       }
-    }
-  },
-  map: {
-    'rivets': 'npm:rivets@0.9.4',
-    'text': 'github:systemjs/plugin-text@0.0.9'
-  }
-});
-
-SystemJS.config({
-  packageConfigPaths: [
-    'npm:@*/*.json',
-    'npm:*.json',
-    'github:*/*.json'
-  ],
-  map: {
-    'monospaced/angular-elastic': 'github:monospaced/angular-elastic@2.5.1',
-    'danielbeeke/rhythmmeister': 'github:danielbeeke/rhythmmeister@0.2.0',
-    'angular-sanitize': 'github:angular/bower-angular-sanitize@1.5.8',
-    'angular-ui-router': 'github:angular-ui/angular-ui-router-bower@0.3.1',
-    'angular': 'github:angular/bower-angular@1.5.8',
-    'clipboard': 'npm:clipboard@1.5.12',
-    'jquery': 'npm:jquery@3.1.1',
-    'process': 'github:jspm/nodelibs-process@0.2.0-alpha'
-  },
-  packages: {
+    },
     'github:angular/bower-angular-sanitize@1.5.8': {
       'map': {
         'angular': 'github:angular/bower-angular@1.5.8'
@@ -480,5 +386,27 @@ SystemJS.config({
         'component-query': 'npm:component-query@0.0.3'
       }
     }
+  },
+  map: {
+    'plugin-babel': 'npm:systemjs-plugin-babel@0.0.15',
+    'rivets': 'npm:rivets@0.9.4',
+    'text': 'github:systemjs/plugin-text@0.0.9',
+    'monospaced/angular-elastic': 'github:monospaced/angular-elastic@2.5.1',
+    'danielbeeke/rhythmmeister': 'github:danielbeeke/rhythmmeister@0.2.0',
+    'angular-sanitize': 'github:angular/bower-angular-sanitize@1.5.8',
+    'angular-ui-router': 'github:angular-ui/angular-ui-router-bower@0.3.1',
+    'angular': 'github:angular/bower-angular@1.5.8',
+    'clipboard': 'npm:clipboard@1.5.12',
+    'jquery': 'npm:jquery@3.1.1'
   }
+});
+
+SystemJS.config({
+  packageConfigPaths: [
+    'npm:@*/*.json',
+    'npm:*.json',
+    'github:*/*.json'
+  ],
+  map: {},
+  packages: {}
 });

@@ -1,4 +1,0 @@
-<div class="message" ng-repeat="message in vm.messages" ng-class="{'self': !message.guid, 'other': message.guid}">
-    <peer-mini-teaser ng-if="message.guid" peer="vm.getPeer(message.guid)"></peer-mini-teaser>
-    <div class="text">{{ message.text }}</div>
-</div>
