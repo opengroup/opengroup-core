@@ -1,27 +1,3 @@
-# Debug.
-npm-debug.log
-
-# External libraries.
-node_modules/
-src/lib/
-
-# Compiled css.
-src/css/
-
-# Generated docs.
-docs
-
-# Generated build.
-dist
-
-# Project IDE files.
 .idea
-
-src/css
-src/lib
-
-browserstack.js
-
-.tmp
-src/build.js
-src/build.js.map
+node_modules
+app/lib
