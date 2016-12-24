@@ -8,7 +8,8 @@ process.setMaxListeners(0);
 
 global.paths = {
     'html': './src/*.html',
-    'js': './src/js/**/*.js'
+    'js': './src/js/**/*.js',
+    'src': './src'
 };
 
 global.browserSync = browserSync;

@@ -4,7 +4,7 @@ SystemJS.config({
     "OpenGroup/": "src/"
   },
   browserConfig: {
-    "baseURL": "/lib"
+    "baseURL": "/"
   },
   devConfig: {
     "map": {
