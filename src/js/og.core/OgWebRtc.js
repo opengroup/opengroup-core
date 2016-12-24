@@ -1,10 +1,12 @@
 import EventEmitter from 'events';
-import EasyWebRtc from './EasyWebRtc.js';
+import EasyWebRtcManualSignaler from './EasyWebRtcManualSignaler.js';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
  */
 class OgWebRtc extends EventEmitter {
+
+    signalerTypes = {'manual': EasyWebRtcManualSignaler };
 
     /**
      * @param config.
@@ -14,10 +16,11 @@ class OgWebRtc extends EventEmitter {
         super();
         this.config = {};
         Object.assign(this.config, config);
-    }
 
-    init () {
-        this.connection = new EasyWebRtc();
+        if (this.signalerTypes[config.signalerType]) {
+            var signalerType = this.signalerTypes[config.signalerType];
+            this.signaler = new signalerType(config.signalerInfo);
+        }
     }
 }
 

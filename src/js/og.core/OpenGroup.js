@@ -19,12 +19,11 @@ class OpenGroup extends EventEmitter {
     }
 
     addPeer (peerInfo) {
-        if (!this.connectionTypes[peerInfo.type]) {
+        if (!this.connectionTypes[peerInfo.connectionType]) {
             throw 'Unknown connection type provided to addPeer()';
         }
-        var connectionType = this.connectionTypes[peerInfo.type];
-        this.connection = new connectionType();
-        this.connection.init(peerInfo);
+        var connectionType = this.connectionTypes[peerInfo.connectionType];
+        this.connection = new connectionType(peerInfo);
     }
 }
 
