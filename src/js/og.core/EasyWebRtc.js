@@ -2,7 +2,6 @@ import EventEmitter from 'events';
 
 /**
  * EasyWebRtc is an object to easily construct a p2p connection.
- * Should be loose coupled.
  */
 class EasyWebRtc extends EventEmitter {
 
