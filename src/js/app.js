@@ -1,6 +1,12 @@
 import OpenGroup from 'js/og.core/OpenGroup.js';
 
 var myGroup1 = new OpenGroup();
+
+
+var myGroup2 = new OpenGroup();
+var peerInfo2;
+
+
 var peerInfo1 = {
     connectionType: 'og-webrtc',
     signalerType: 'manual',
@@ -8,18 +14,17 @@ var peerInfo1 = {
         role: 'initiator',
         offerCreated: function (offer, returnAnswerCallback) {
             console.log(offer)
-        },
-    }
-};
 
-var myGroup2 = new OpenGroup();
-var peerInfo2 = {
-    connectionType: 'og-webrtc',
-    signalerType: 'manual',
-    signalerInfo: {
-        role: 'answerer',
-        offerReceived: function (answer) {
+            peerInfo2 = {
+                connectionType: 'og-webrtc',
+                signalerType: 'manual',
+                signalerInfo: {
+                    role: 'answerer',
+                    offer: offer
+                }
+            };
 
+            myGroup2.addPeer(peerInfo2);
         },
     }
 };
