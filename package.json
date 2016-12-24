@@ -3,11 +3,11 @@
     "name": "OpenGroup",
     "main": "OpenGroup.js",
     "directories": {
-      "baseURL": "app",
-      "packages": "app/lib"
+      "baseURL": "src",
+      "packages": "src/lib"
     },
     "configFiles": {
-      "jspm": "app/js/jspm.config.js"
+      "jspm": "src/js/jspm.config.js"
     },
     "dependencies": {
       "events": "npm:events@^1.1.1"
@@ -20,5 +20,10 @@
       "process": "npm:jspm-nodelibs-process@^0.2.0",
       "util": "npm:jspm-nodelibs-util@^0.2.0"
     }
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.5",
+    "gulp": "^3.9.1",
+    "require-dir": "^0.3.1"
   }
 }
