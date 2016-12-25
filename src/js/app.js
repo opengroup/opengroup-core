@@ -32,12 +32,11 @@ var peerInfo1 = {
     }
 };
 
-var peer1 = myGroup1.addPeer(peerInfo1);
+myGroup1.addPeer(peerInfo1);
 
-setTimeout(function () {
+myGroup1.once('ready', function () {
     myGroup1.sendMessage({
         owner: 'og.core.multichat',
         text: 'Hello World'
     });
-}, 2000);
-
+});

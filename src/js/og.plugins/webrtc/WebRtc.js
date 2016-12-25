@@ -15,8 +15,7 @@ class WebRtc extends EventEmitter {
         super();
         this.config = {};
         Object.assign(this.config, config);
-
-        group.connectionTypes.webrtc = OgWebRtc;
+        group.connectionTypes['og-webrtc'] = OgWebRtc;
     }
 
 

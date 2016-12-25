@@ -32,6 +32,7 @@ SystemJS.config({
   map: {
     "assert": "npm:jspm-nodelibs-assert@0.2.0",
     "async": "npm:async@2.1.4",
+    "bluebird": "npm:bluebird@3.4.7",
     "buffer": "npm:jspm-nodelibs-buffer@0.2.1",
     "constants": "npm:jspm-nodelibs-constants@0.2.0",
     "crypto": "npm:jspm-nodelibs-crypto@0.2.0",

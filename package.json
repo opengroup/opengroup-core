@@ -11,6 +11,7 @@
     },
     "dependencies": {
       "async": "npm:async@^2.1.4",
+      "bluebird": "npm:bluebird@^3.4.7",
       "uuid": "npm:uuid@^3.0.1"
     },
     "devDependencies": {
@@ -32,6 +33,16 @@
       "vm": "npm:jspm-nodelibs-vm@^0.2.0"
     },
     "overrides": {
+      "npm:bluebird@3.4.7": {
+        "meta": {
+          "js/browser/bluebird.js": {
+            "format": "global"
+          },
+          "js/browser/bluebird.min.js": {
+            "format": "global"
+          }
+        }
+      },
       "npm:inherits@2.0.3": {
         "ignore": [
           "test.js"

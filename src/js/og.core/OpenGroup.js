@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import uuid from 'uuid/v4';
-import async from 'async';
+import bluebird from 'bluebird';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -10,6 +10,8 @@ class OpenGroup extends EventEmitter {
     connectionTypes = {};
     connections = [];
     plugins = [];
+    peerQueue = [];
+    pluginsAreLoaded = false;
 
     /**
      * @param config.
@@ -23,35 +25,42 @@ class OpenGroup extends EventEmitter {
         var pluginInits = [];
 
         this.config.plugins.forEach((pluginUri) => {
-            pluginInits.push(() => {
-                return this.addPlugin(pluginUri);
-            });
+            pluginInits.push(this.addPlugin(pluginUri));
         });
 
-        async.parallel(pluginInits, function(err, results) {
-            console.log(err, results)
+        bluebird.all(pluginInits).then(() => {
+            this.pluginsAreLoaded = true;
+
+            this.peerQueue.forEach((peerInfo) => {
+                this.addPeer(peerInfo);
+            });
+
+            this.emit('ready');
         });
     }
 
     addPeer (peerInfo) {
-        if (!this.connectionTypes[peerInfo.connectionType]) {
-            throw 'Unknown connection type provided to addPeer()';
+        if (this.pluginsAreLoaded) {
+            if (!this.connectionTypes[peerInfo.connectionType]) {
+                throw 'Unknown connection type provided to addPeer()';
+            }
+            var connectionType = this.connectionTypes[peerInfo.connectionType];
+            var connection = new connectionType(peerInfo);
+            connection.uuid = uuid();
+            this.connections.push(connection);
+
+            connection.on('message', (message) => {
+                if (message.owner) {
+                    this.emit(message.owner + '.message', message, connection);
+                }
+                else {
+                    this.emit('message', message, connection);
+                }
+            });
         }
-        var connectionType = this.connectionTypes[peerInfo.connectionType];
-        var connection = new connectionType(peerInfo);
-        connection.uuid = uuid();
-        this.connections.push(connection);
-
-        connection.on('message', (message) => {
-            if (message.owner) {
-                this.emit(message.owner + '.message', message, connection);
-            }
-            else {
-                this.emit('message', message, connection);
-            }
-        });
-
-        return connection;
+        else {
+            this.peerQueue.push(peerInfo);
+        }
     }
 
     addPlugin (pluginUri) {
@@ -66,9 +75,10 @@ class OpenGroup extends EventEmitter {
                     pluginJsonPath = '/js/og.plugins/' + pluginUri + '/plugin.json';
                 }
 
-                fetch(pluginJsonPath).then((response) => {
+                return fetch(pluginJsonPath).then((response) => {
                     return response.json();
                 }).then((pluginInfo) => {
+
                     pluginInfo = Object.assign({ files: [] }, pluginInfo);
 
                     if (pluginInfo.main) {
