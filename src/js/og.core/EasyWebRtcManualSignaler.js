@@ -32,7 +32,11 @@ class EasyWebRtcManualSignaler extends EventEmitter {
     }
 
     answerer () {
-        console.log('answerer')
+        this.connection.getAnswer(this.config.offer, (answer) => {
+            if (typeof this.config.answerCreated == 'function') {
+                this.config.answerCreated(answer);
+            }
+        });
     }
 
 }

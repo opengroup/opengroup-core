@@ -24,6 +24,7 @@ class OpenGroup extends EventEmitter {
         }
         var connectionType = this.connectionTypes[peerInfo.connectionType];
         this.connection = new connectionType(peerInfo);
+        console.log(this.connection)
     }
 }
 
