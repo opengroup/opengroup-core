@@ -23,28 +23,7 @@ class OpenGroup extends EventEmitter {
         Object.assign(this.config, config);
 
         this.config.plugins.forEach((pluginUri) => {
-           if (pluginUri.substr(0, 4) == 'http') {
-
-           }
-           else {
-               fetch('/js/og.plugins/' + pluginUri + '/plugin.json').then((response) => {
-                   return response.json();
-               })
-               .then((pluginInfo) => {
-                    if (pluginInfo.files && pluginInfo.files.length) {
-                        pluginInfo.files.forEach((filePath) => {
-                            var fileExtention = filePath.split('.').pop();
-
-                            if (fileExtention == 'js') {
-                                System.import('../js/og.plugins/' + pluginUri + '/' + filePath).then((plugin) => {
-                                    var newPlugin = new plugin.default(this);
-                                    this.plugins.push(newPlugin);
-                                });
-                            }
-                        });
-                    }
-               });
-           }
+            this.addPlugin(pluginUri);
         });
     }
 
@@ -69,8 +48,33 @@ class OpenGroup extends EventEmitter {
         return connection;
     }
 
-    addPlugin (pluginInfo) {
+    addPlugin (pluginUri) {
+        let pluginJsonPath;
 
+        if (pluginUri.substr(0, 4) == 'http') {
+            pluginJsonPath = pluginUri + '/plugin.json';
+        }
+        else {
+            pluginJsonPath = '/js/og.plugins/' + pluginUri + '/plugin.json';
+        }
+
+        fetch(pluginJsonPath).then((response) => {
+            return response.json();
+        })
+        .then((pluginInfo) => {
+            pluginInfo = Object.assign({ files: [] }, pluginInfo);
+
+            pluginInfo.files.forEach((filePath) => {
+                var fileExtension = filePath.split('.').pop();
+
+                if (fileExtension == 'js') {
+                    System.import('../js/og.plugins/' + pluginUri + '/' + filePath).then((plugin) => {
+                        var newPlugin = new plugin.default(this);
+                        this.plugins.push(newPlugin);
+                    });
+                }
+            });
+        });
     }
 
     sendMessage (message) {
