@@ -42,6 +42,7 @@ class OpenGroup extends EventEmitter {
             var connection = new connectionType(peerInfo);
             connection.uuid = uuid();
             this.connections.push(connection);
+            this.emit('newConnection', connection);
 
             connection.on('message', (message) => {
                 if (message.owner) {
@@ -60,42 +61,43 @@ class OpenGroup extends EventEmitter {
     }
 
     addPlugin (pluginUri) {
-        return new Promise(
-            (resolve, reject) => {
-                let pluginJsonPath;
+        return new Promise((resolve, reject) => {
+            let pluginJsonPath;
 
-                if (pluginUri.substr(0, 4) == 'http') {
-                    pluginJsonPath = pluginUri + '/plugin.json';
+            if (pluginUri.substr(0, 4) == 'http') {
+                pluginJsonPath = pluginUri + '/plugin.json';
+            }
+            else {
+                pluginJsonPath = '/js/og.plugins/' + pluginUri + '/plugin.json';
+            }
+
+            return fetch(pluginJsonPath).then((response) => {
+                return response.json();
+            }).then((pluginInfo) => {
+                pluginInfo = Object.assign({ files: [] }, pluginInfo);
+
+                if (pluginInfo.main) {
+                    System.import('../js/og.plugins/' + pluginUri + '/' + pluginInfo.main).then((plugin) => {
+                        var newPlugin = new plugin.default(this);
+                        this.plugins.push(newPlugin);
+                        this.emit('pluginAdded', pluginInfo, newPlugin);
+                        resolve();
+                    });
                 }
                 else {
-                    pluginJsonPath = '/js/og.plugins/' + pluginUri + '/plugin.json';
+                    reject('No main file given to load');
                 }
-
-                return fetch(pluginJsonPath).then((response) => {
-                    return response.json();
-                }).then((pluginInfo) => {
-
-                    pluginInfo = Object.assign({ files: [] }, pluginInfo);
-
-                    if (pluginInfo.main) {
-                        System.import('../js/og.plugins/' + pluginUri + '/' + pluginInfo.main).then((plugin) => {
-                            var newPlugin = new plugin.default(this);
-                            this.plugins.push(newPlugin);
-                            resolve();
-                        });
-                    }
-                    else {
-                        resolve();
-                    }
-                });
-            }
-        );
+            });
+        });
     }
 
     sendMessage (message) {
         this.connections.forEach((connection) => {
             connection.sendMessage(message);
+            this.emit('messageSendToConnection', message, connection);
         });
+
+        this.emit('messageSend', message)
     }
 }
 
