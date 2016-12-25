@@ -1,4 +1,4 @@
 {
   "name": "MultiChat for OpenGroup",
-  "files": ["multichat.js"]
+  "main": "multichat.js"
 }

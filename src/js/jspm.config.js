@@ -31,6 +31,7 @@ SystemJS.config({
   ],
   map: {
     "assert": "npm:jspm-nodelibs-assert@0.2.0",
+    "async": "npm:async@2.1.4",
     "buffer": "npm:jspm-nodelibs-buffer@0.2.1",
     "constants": "npm:jspm-nodelibs-constants@0.2.0",
     "crypto": "npm:jspm-nodelibs-crypto@0.2.0",
@@ -244,6 +245,11 @@ SystemJS.config({
     "npm:jspm-nodelibs-os@0.2.0": {
       "map": {
         "os-browserify": "npm:os-browserify@0.2.1"
+      }
+    },
+    "npm:async@2.1.4": {
+      "map": {
+        "lodash": "npm:lodash@4.17.3"
       }
     }
   }

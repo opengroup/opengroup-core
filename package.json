@@ -10,6 +10,7 @@
       "jspm": "src/js/jspm.config.js"
     },
     "dependencies": {
+      "async": "npm:async@^2.1.4",
       "uuid": "npm:uuid@^3.0.1"
     },
     "devDependencies": {
@@ -35,6 +36,12 @@
         "ignore": [
           "test.js"
         ]
+      },
+      "npm:lodash@4.17.3": {
+        "map": {
+          "buffer": "@empty",
+          "process": "@empty"
+        }
       }
     }
   },

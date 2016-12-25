@@ -3,7 +3,7 @@ import OpenGroup from 'js/og.core/OpenGroup.js';
 var peer1ReturnAnswerCallback;
 
 var groupInfo = {
-    plugins: ['multichat']
+    plugins: ['webrtc', 'multichat']
 };
 
 var myGroup2 = new OpenGroup(groupInfo);
