@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 import OgWebRtc from './OgWebRtc.js';
+import uuid from 'uuid/v4';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -7,6 +8,7 @@ import OgWebRtc from './OgWebRtc.js';
 class OpenGroup extends EventEmitter {
 
     connectionTypes = {'og-webrtc': OgWebRtc};
+    connections = [];
 
     /**
      * @param config.
@@ -23,8 +25,26 @@ class OpenGroup extends EventEmitter {
             throw 'Unknown connection type provided to addPeer()';
         }
         var connectionType = this.connectionTypes[peerInfo.connectionType];
-        this.connection = new connectionType(peerInfo);
-        console.log(this.connection)
+        var connection = new connectionType(peerInfo);
+        connection.uuid = uuid();
+        this.connections.push(connection);
+
+        connection.on('message', (message) => {
+            if (message.owner) {
+                this.emit(message.owner + '.message', message, connection);
+            }
+            else {
+                this.emit('message', message, connection);
+            }
+        });
+
+        return connection;
+    }
+
+    sendMessage (message) {
+        this.connections.forEach((connection) => {
+            connection.sendMessage(message);
+        })
     }
 }
 

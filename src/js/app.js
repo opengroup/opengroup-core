@@ -28,4 +28,12 @@ var peerInfo1 = {
     }
 };
 
-myGroup1.addPeer(peerInfo1);
+var peer1 = myGroup1.addPeer(peerInfo1);
+
+setTimeout(function () {
+    myGroup1.sendMessage({
+        owner: 'og.core',
+        text: 'Hello World'
+    });
+}, 2000);
+

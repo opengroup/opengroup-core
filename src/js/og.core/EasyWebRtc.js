@@ -152,8 +152,10 @@ class EasyWebRtc extends EventEmitter {
      * @param event Event with the webRTC data.
      */
     onDataChannelMessage (event) {
-        var data = JSON.parse(event.data);
-        this.easyWebRtc.emit('message', data);
+        if (event.data) {
+            var data = JSON.parse(event.data);
+            this.easyWebRtc.emit('message', data);
+        }
     }
 
     /**
