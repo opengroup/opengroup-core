@@ -10,7 +10,6 @@ class OpenGroup extends EventEmitter {
     connectionTypes = {};
     connections = [];
     plugins = [];
-    peerQueue = [];
     pluginsAreLoaded = false;
 
     /**
@@ -30,11 +29,6 @@ class OpenGroup extends EventEmitter {
 
         bluebird.all(pluginInits).then(() => {
             this.pluginsAreLoaded = true;
-
-            this.peerQueue.forEach((peerInfo) => {
-                this.addPeer(peerInfo);
-            });
-
             this.emit('ready');
         });
     }
@@ -59,7 +53,9 @@ class OpenGroup extends EventEmitter {
             });
         }
         else {
-            this.peerQueue.push(peerInfo);
+            this.once('ready', () => {
+                this.addPeer(peerInfo);
+            })
         }
     }
 

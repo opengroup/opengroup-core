@@ -103,24 +103,12 @@ class EasyWebRtc extends EventEmitter {
      * @param message The things you want to send over.
      */
     sendMessage (message) {
-        var isReady = () => {
-            return typeof this.dataChannel !== 'undefined' && this.dataChannel.readyState === 'open';
-        };
-
-        var send = () => {
+        if (typeof this.dataChannel !== 'undefined' && this.dataChannel.readyState === 'open') {
             this.dataChannel.send(JSON.stringify(message));
-        };
-
-        if (isReady()) {
-            send();
         } else {
-            setTimeout(() => {
-                if (isReady()) {
-                    send();
-                } else {
-                    throw new Error('Datachannel was not correctly set up');
-                }
-            }, 300);
+            this.once('connected', () => {
+                this.sendMessage(message);
+            });
         }
     }
 
