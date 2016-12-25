@@ -9,6 +9,7 @@ class OpenGroup extends EventEmitter {
 
     connectionTypes = {'og-webrtc': OgWebRtc};
     connections = [];
+    plugins = [];
 
     /**
      * @param config.
@@ -16,8 +17,35 @@ class OpenGroup extends EventEmitter {
      */
     constructor (config = {}) {
         super();
-        this.config = {};
+        this.config = {
+            plugins: []
+        };
         Object.assign(this.config, config);
+
+        this.config.plugins.forEach((pluginUri) => {
+           if (pluginUri.substr(0, 4) == 'http') {
+
+           }
+           else {
+               fetch('/js/og.plugins/' + pluginUri + '/plugin.json').then((response) => {
+                   return response.json();
+               })
+               .then((pluginInfo) => {
+                    if (pluginInfo.files && pluginInfo.files.length) {
+                        pluginInfo.files.forEach((filePath) => {
+                            var fileExtention = filePath.split('.').pop();
+
+                            if (fileExtention == 'js') {
+                                System.import('../js/og.plugins/' + pluginUri + '/' + filePath).then((plugin) => {
+                                    var newPlugin = new plugin.default(this);
+                                    this.plugins.push(newPlugin);
+                                });
+                            }
+                        });
+                    }
+               });
+           }
+        });
     }
 
     addPeer (peerInfo) {
@@ -41,10 +69,14 @@ class OpenGroup extends EventEmitter {
         return connection;
     }
 
+    addPlugin (pluginInfo) {
+
+    }
+
     sendMessage (message) {
         this.connections.forEach((connection) => {
             connection.sendMessage(message);
-        })
+        });
     }
 }
 

@@ -2,7 +2,11 @@ import OpenGroup from 'js/og.core/OpenGroup.js';
 
 var peer1ReturnAnswerCallback;
 
-var myGroup2 = new OpenGroup();
+var groupInfo = {
+    plugins: ['multichat']
+};
+
+var myGroup2 = new OpenGroup(groupInfo);
 var peerInfo2 = {
     connectionType: 'og-webrtc',
     signalerType: 'manual',
@@ -14,7 +18,7 @@ var peerInfo2 = {
     }
 };
 
-var myGroup1 = new OpenGroup();
+var myGroup1 = new OpenGroup(groupInfo);
 var peerInfo1 = {
     connectionType: 'og-webrtc',
     signalerType: 'manual',
