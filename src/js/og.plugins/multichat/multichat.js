@@ -16,7 +16,7 @@ class MultiChat extends EventEmitter {
         Object.assign(this.config, config);
 
         group.on('og.core.multichat.message', (message, connection) => {
-            console.log(message, connection)
+            console.log(message.text)
         })
     }
 

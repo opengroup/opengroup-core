@@ -21,13 +21,13 @@ class OpenGroup extends EventEmitter {
         this.config = { plugins: [] };
         Object.assign(this.config, config);
 
-        var pluginInits = [];
+        var pluginsToLoad = [];
 
         this.config.plugins.forEach((pluginUri) => {
-            pluginInits.push(this.addPlugin(pluginUri));
+            pluginsToLoad.push(this.addPlugin(pluginUri));
         });
 
-        bluebird.all(pluginInits).then(() => {
+        bluebird.all(pluginsToLoad).then(() => {
             this.pluginsAreLoaded = true;
             this.emit('ready');
         });
