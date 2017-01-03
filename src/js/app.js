@@ -40,3 +40,7 @@ myGroup1.once('ready', function () {
         text: 'Hello World'
     });
 });
+
+myGroup1.on('newConnection', (connection) => {
+
+});

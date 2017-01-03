@@ -12,7 +12,7 @@ class EasyWebRtc extends EventEmitter {
     constructor (config) {
         super();
         this.config = {
-            'iceServers': [{ 'url': 'stun:23.21.150.121' }]
+            'iceServers': [{ 'urls': 'stun:23.21.150.121' }]
         };
         this.constraints = {};
 
@@ -120,9 +120,7 @@ class EasyWebRtc extends EventEmitter {
      * @param event The event
      */
     onIceCandidate (event) {
-        if (event.candidate === null) {
-            this.easyWebRtc.emit('sdpComplete', this.localDescription);
-        }
+        this.easyWebRtc.emit('sdpComplete', this.localDescription);
     }
 
     /**

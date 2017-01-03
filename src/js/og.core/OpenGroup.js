@@ -42,7 +42,10 @@ class OpenGroup extends EventEmitter {
             var connection = new connectionType(peerInfo);
             connection.uuid = uuid();
             this.connections.push(connection);
-            this.emit('newConnection', connection);
+
+            connection.once('connected', () => {
+                this.emit('newConnection', connection);
+            });
 
             connection.on('message', (message) => {
                 if (message.owner) {
@@ -62,31 +65,20 @@ class OpenGroup extends EventEmitter {
 
     addPlugin (pluginUri) {
         return new Promise((resolve, reject) => {
-            let pluginJsonPath;
+            let pluginJsPath;
 
             if (pluginUri.substr(0, 4) == 'http') {
-                pluginJsonPath = pluginUri + '/plugin.json';
+                pluginJsPath = pluginUri + '/plugin.js';
             }
             else {
-                pluginJsonPath = '/js/og.plugins/' + pluginUri + '/plugin.json';
+                pluginJsPath = '/js/og.plugins/' + pluginUri + '/plugin.js';
             }
 
-            return fetch(pluginJsonPath).then((response) => {
-                return response.json();
-            }).then((pluginInfo) => {
-                pluginInfo = Object.assign({ files: [] }, pluginInfo);
-
-                if (pluginInfo.main) {
-                    System.import('../js/og.plugins/' + pluginUri + '/' + pluginInfo.main).then((plugin) => {
-                        var newPlugin = new plugin.default(this);
-                        this.plugins.push(newPlugin);
-                        this.emit('pluginAdded', pluginInfo, newPlugin);
-                        resolve();
-                    });
-                }
-                else {
-                    reject('No main file given to load');
-                }
+            System.import(pluginJsPath).then((plugin) => {
+                var newPlugin = new plugin.default(this);
+                this.plugins.push(newPlugin);
+                this.emit('pluginAdded', newPlugin.getName(), newPlugin);
+                resolve();
             });
         });
     }

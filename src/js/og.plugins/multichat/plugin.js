@@ -1,9 +1,11 @@
-import EventEmitter from 'events';
+import Plugin from '../../og.core/Plugin.js';
 
 /**
  * An OpenGroup multichat plugin.
  */
-class MultiChat extends EventEmitter {
+class MultiChat extends Plugin {
+
+    name = 'multichat';
 
     /**
      * @param group.

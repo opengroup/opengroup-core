@@ -1,10 +1,9 @@
 import EventEmitter from 'events';
-import OgWebRtc from './OgWebRtc.js';
 
 /**
- * An OpenGroup webrtc plugin.
+ * An OpenGroup is an object that holds peers and functions as a bus.
  */
-class WebRtc extends EventEmitter {
+class Plugin extends EventEmitter {
 
     /**
      * @param group.
@@ -15,10 +14,13 @@ class WebRtc extends EventEmitter {
         super();
         this.config = {};
         Object.assign(this.config, config);
-        group.connectionTypes['og-webrtc'] = OgWebRtc;
+
     }
 
+    getName () {
+        return this.name ? this.name : 'undefined';
+    }
 
 }
 
-export default WebRtc;
+export default Plugin;
