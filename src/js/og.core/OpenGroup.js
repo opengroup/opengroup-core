@@ -19,6 +19,7 @@ class OpenGroup extends EventEmitter {
     constructor (config = {}) {
         super();
         this.config = { plugins: [] };
+        this.uuid = uuid();
         Object.assign(this.config, config);
 
         var pluginsToLoad = [];
@@ -34,13 +35,15 @@ class OpenGroup extends EventEmitter {
     }
 
     addPeer (peerInfo) {
+        if (!peerInfo.uuid) { throw 'Undefined uuid'; }
         if (this.pluginsAreLoaded) {
             if (!this.connectionTypes[peerInfo.connectionType]) {
                 throw 'Unknown connection type provided to addPeer()';
             }
             var connectionType = this.connectionTypes[peerInfo.connectionType];
             var connection = new connectionType(peerInfo);
-            connection.uuid = uuid();
+
+            connection.uuid = peerInfo.uuid;
             this.connections.push(connection);
 
             connection.once('connected', () => {
@@ -64,17 +67,12 @@ class OpenGroup extends EventEmitter {
     }
 
     addPlugin (pluginUri) {
-        return new Promise((resolve, reject) => {
-            let pluginJsPath;
-
-            if (pluginUri.substr(0, 4) == 'http') {
-                pluginJsPath = pluginUri + '/plugin.js';
-            }
-            else {
-                pluginJsPath = '/js/og.plugins/' + pluginUri + '/plugin.js';
+        return new Promise((resolve) => {
+            if (pluginUri.substr(0, 4) != 'http') {
+                pluginUri = '/js/og.plugins/' + pluginUri;
             }
 
-            System.import(pluginJsPath).then((plugin) => {
+            System.import(pluginUri + '/plugin.js').then((plugin) => {
                 var newPlugin = new plugin.default(this);
                 this.plugins.push(newPlugin);
                 this.emit('pluginAdded', newPlugin.getName(), newPlugin);

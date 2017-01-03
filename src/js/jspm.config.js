@@ -1,7 +1,7 @@
 SystemJS.config({
   paths: {
     "npm:": "lib/npm/",
-    "OpenGroup/": "src/"
+    "OpenGroup/": "js/og.core/"
   },
   browserConfig: {
     "baseURL": "/"

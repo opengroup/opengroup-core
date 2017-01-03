@@ -1,4 +1,4 @@
-import Plugin from '../../og.core/Plugin.js';
+import Plugin from 'OpenGroup/Plugin';
 import OgWebRtc from './OgWebRtc.js';
 
 /**

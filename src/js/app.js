@@ -1,13 +1,20 @@
-import OpenGroup from 'js/og.core/OpenGroup.js';
+import OpenGroup from 'OpenGroup/OpenGroup';
+import uuid from 'uuid/v4';
 
 var peer1ReturnAnswerCallback;
+var peer3ReturnAnswerCallback;
 
 var groupInfo = {
-    plugins: ['webrtc', 'multichat', 'multiconnect']
+    plugins: [
+        'http://og-plugins.daniel/webrtc',
+        'http://og-plugins.daniel/multichat',
+        'multiconnect'
+    ]
 };
 
 var myGroup2 = new OpenGroup(groupInfo);
 var peerInfo2 = {
+    uuid: myGroup2.uuid,
     connectionType: 'og-webrtc',
     signalerType: 'manual',
     signalerInfo: {
@@ -21,6 +28,7 @@ var peerInfo2 = {
 var myGroup1 = new OpenGroup(groupInfo);
 var peerInfo1 = {
     connectionType: 'og-webrtc',
+    uuid: myGroup1.uuid,
     signalerType: 'manual',
     signalerInfo: {
         role: 'initiator',
@@ -34,13 +42,42 @@ var peerInfo1 = {
 
 myGroup1.addPeer(peerInfo1);
 
-myGroup1.once('ready', function () {
-    myGroup1.sendMessage({
-        owner: 'og.core.multichat',
-        text: 'Hello World'
-    });
-});
+// myGroup1.once('ready', function () {
+//     myGroup1.sendMessage({
+//         owner: 'og.core.multichat',
+//         text: 'Hello World'
+//     });
+// });
 
-myGroup1.on('newConnection', (connection) => {
+var myGroup3 = new OpenGroup(groupInfo);
 
-});
+
+var peerInfo4 = {
+    uuid: myGroup3.uuid,
+    connectionType: 'og-webrtc',
+    signalerType: 'manual',
+    signalerInfo: {
+        role: 'answerer',
+        answerCreated: function (answer) {
+            peer3ReturnAnswerCallback(answer);
+        }
+    }
+};
+
+var peerInfo3 = {
+    uuid: uuid(),
+    connectionType: 'og-webrtc',
+    signalerType: 'manual',
+    signalerInfo: {
+        role: 'initiator',
+        offerCreated: function (offer, returnAnswerCallback) {
+            peer3ReturnAnswerCallback = returnAnswerCallback;
+            peerInfo4.signalerInfo.offer = offer;
+            myGroup2.addPeer(peerInfo4);
+        },
+    }
+};
+
+myGroup3.addPeer(peerInfo3);
+
+console.log(myGroup1, myGroup2, myGroup3);

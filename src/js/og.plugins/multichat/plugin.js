@@ -1,4 +1,4 @@
-import Plugin from '../../og.core/Plugin.js';
+import Plugin from 'OpenGroup/Plugin';
 
 /**
  * An OpenGroup multichat plugin.
