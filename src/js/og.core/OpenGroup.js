@@ -9,7 +9,7 @@ class OpenGroup extends EventEmitter {
 
     connectionTypes = {};
     connections = [];
-    plugins = [];
+    plugins = {};
     pluginsAreLoaded = false;
 
     /**
@@ -74,7 +74,7 @@ class OpenGroup extends EventEmitter {
 
             System.import(pluginUri + '/plugin.js').then((plugin) => {
                 var newPlugin = new plugin.default(this);
-                this.plugins.push(newPlugin);
+                this.plugins[newPlugin.getName()] = newPlugin;
                 this.emit('pluginAdded', newPlugin.getName(), newPlugin);
                 resolve();
             });

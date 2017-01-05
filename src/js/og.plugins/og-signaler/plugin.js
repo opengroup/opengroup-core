@@ -1,0 +1,93 @@
+import Plugin from 'OpenGroup/Plugin';
+
+/**
+ * An OpenGroup Og Signaler plugin.
+ */
+class OgSignaler extends Plugin {
+
+    name = 'og-signaler';
+    endpoints = [];
+
+    /**
+     * @param group.
+     * @param config.
+     * @constructor
+     */
+    constructor (group, config = {}) {
+        super();
+        this.config = {};
+        Object.assign(this.config, config);
+        this.group = group;
+    }
+
+    addUrl (url) {
+        var ws = new WebSocket(url);
+        this.endpoints.push(ws);
+
+        ws.onopen = (event) => {
+            ws.send(JSON.stringify({
+                command: 'identify',
+                uuid: this.group.uuid
+            }));
+        };
+
+        ws.onmessage = (event) => {
+            var message = JSON.parse(event.data);
+
+            if (message.command == 'create-offer') {
+                var connectedUuids = this.group.connections.map((myConnection) => myConnection.uuid);
+                if (!connectedUuids.includes(message.uuid)) {
+
+                    this.group.addPeer({
+                        connectionType: 'og-webrtc',
+                        signalerType: 'manual',
+                        uuid: message.uuid,
+                        signalerInfo: {
+                            role: 'initiator',
+                            offerCreated: (offer, returnAnswerCallback) => {
+                                this.returnAnswerCallback = returnAnswerCallback;
+                                ws.send(JSON.stringify({
+                                    command: 'pass-offer',
+                                    uuid: this.group.uuid,
+                                    toUuid: message.uuid,
+                                    offer: btoa(JSON.stringify(offer.toJSON()))
+                                }));
+                            },
+                        }
+                    });
+                }
+            }
+
+            if (message.command == 'create-answer') {
+                var offer = JSON.parse(atob(message.offer));
+
+                this.group.addPeer({
+                    connectionType: 'og-webrtc',
+                    uuid: message.uuid,
+                    signalerType: 'manual',
+                    signalerInfo: {
+                        role: 'answerer',
+                        offer: offer,
+                        answerCreated: (answer) => {
+                            ws.send(JSON.stringify({
+                                command: 'pass-answer',
+                                uuid: this.group.uuid,
+                                toUuid: message.uuid,
+                                answer: btoa(JSON.stringify(answer.toJSON()))
+                            }));
+                        }
+                    }
+                });
+            }
+
+            if (message.command == 'accept-answer') {
+                var answer = JSON.parse(atob(message.answer));
+                this.returnAnswerCallback(answer);
+            }
+
+        };
+    }
+
+}
+
+export default OgSignaler;
