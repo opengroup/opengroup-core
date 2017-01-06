@@ -7,6 +7,7 @@ class OgSignaler extends Plugin {
 
     name = 'og-signaler';
     endpoints = [];
+    returnAnswerCallbacks = {};
 
     /**
      * @param group.
@@ -45,7 +46,7 @@ class OgSignaler extends Plugin {
                         signalerInfo: {
                             role: 'initiator',
                             offerCreated: (offer, returnAnswerCallback) => {
-                                this.returnAnswerCallback = returnAnswerCallback;
+                                this.returnAnswerCallbacks[message.uuid] = returnAnswerCallback;
                                 ws.send(JSON.stringify({
                                     command: 'pass-offer',
                                     uuid: this.group.uuid,
@@ -82,7 +83,7 @@ class OgSignaler extends Plugin {
 
             if (message.command == 'accept-answer') {
                 var answer = JSON.parse(atob(message.answer));
-                this.returnAnswerCallback(answer);
+                this.returnAnswerCallbacks[message.uuid](answer);
             }
 
         };
