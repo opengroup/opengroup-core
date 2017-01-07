@@ -5,6 +5,7 @@ var peer1ReturnAnswerCallback;
 var peer3ReturnAnswerCallback;
 
 var groupInfo = {
+    element: '#group-1',
     plugins: [
         'http://og-plugins.daniel/webrtc',
         'http://og-plugins.daniel/multichat',

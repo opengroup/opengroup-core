@@ -21,6 +21,17 @@ class OgSignaler extends Plugin {
         this.group = group;
     }
 
+    connectionButtons () {
+        return {
+            'og-signaler': {
+                'title': 'Join a group by an url',
+                'callback': () => {
+                    alert('test')
+                }
+            }
+        }
+    }
+
     addUrl (url) {
         var ws = new WebSocket(url);
         this.endpoints.push(ws);

@@ -1,6 +1,7 @@
 import EventEmitter from 'events';
 import uuid from 'uuid/v4';
 import bluebird from 'bluebird';
+import Theme from 'OpenGroup/Theme';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -11,6 +12,7 @@ class OpenGroup extends EventEmitter {
     connections = [];
     plugins = {};
     pluginsAreLoaded = false;
+    infoHookData = {};
 
     /**
      * @param config.
@@ -21,6 +23,7 @@ class OpenGroup extends EventEmitter {
         this.config = { plugins: [] };
         this.uuid = uuid();
         Object.assign(this.config, config);
+        this.theme = new Theme(this, {});
 
         var pluginsToLoad = [];
 
@@ -29,6 +32,8 @@ class OpenGroup extends EventEmitter {
         });
 
         bluebird.all(pluginsToLoad).then(() => {
+            this.triggerInfoHook('connectionButtons');
+            this.theme.render();
             this.pluginsAreLoaded = true;
             this.emit('ready');
         });
@@ -88,6 +93,23 @@ class OpenGroup extends EventEmitter {
         });
 
         this.emit('messageSend', message)
+    }
+
+    triggerInfoHook (hook) {
+        var pluginNames = Object.keys(this.plugins);
+        this.infoHookData[hook] = [];
+        var args = Array.prototype.slice.call(arguments);
+        args.shift();
+
+        pluginNames.forEach((pluginName) => {
+            var plugin = this.plugins[pluginName];
+            if (typeof plugin[hook] === 'function') {
+                var pluginInfoHookData = plugin[hook](...args);
+                if (pluginInfoHookData) {
+                    this.infoHookData[hook].push(pluginInfoHookData);
+                }
+            }
+        });
     }
 }
 
