@@ -22,14 +22,13 @@ class OgSignaler extends Plugin {
     }
 
     connectionButtons () {
-        return {
-            'og-signaler': {
-                'title': 'Join a group by an url',
-                'callback': () => {
-                    alert('test')
-                }
+        return [{
+            'name': 'og-signaler.join-url',
+            'title': 'Join a group by an url',
+            'callback': () => {
+                alert('test')
             }
-        }
+        }];
     }
 
     addUrl (url) {

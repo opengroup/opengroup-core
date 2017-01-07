@@ -33,7 +33,7 @@ class OpenGroup extends EventEmitter {
 
         bluebird.all(pluginsToLoad).then(() => {
             this.triggerInfoHook('connectionButtons');
-            this.theme.render();
+            this.theme.renderAll();
             this.pluginsAreLoaded = true;
             this.emit('ready');
         });
@@ -106,7 +106,7 @@ class OpenGroup extends EventEmitter {
             if (typeof plugin[hook] === 'function') {
                 var pluginInfoHookData = plugin[hook](...args);
                 if (pluginInfoHookData) {
-                    this.infoHookData[hook].push(pluginInfoHookData);
+                    this.infoHookData[hook] = this.infoHookData[hook].concat(pluginInfoHookData);
                 }
             }
         });
