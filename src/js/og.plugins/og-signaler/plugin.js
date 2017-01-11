@@ -26,7 +26,7 @@ class OgSignaler extends Plugin {
             'name': 'og-signaler.join-url',
             'title': 'Join a group by an url',
             'callback': () => {
-                alert('test')
+                this.group.theme.rerender()
             }
         }];
     }

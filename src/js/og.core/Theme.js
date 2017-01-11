@@ -1,5 +1,4 @@
 import EventEmitter from 'events';
-import uuid from 'uuid/v4';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -17,9 +16,9 @@ class Theme extends EventEmitter {
         Object.assign(this.config, config);
         this.group = group;
 
-        this.on('preprocess.connectionButtons', (variables) => {
+        this.on('preprocess', (type, variables) => {
             variables.attributes = {
-                class: ['connection-buttons-wrapper']
+                class: [type]
             }
         });
     }
@@ -36,21 +35,30 @@ class Theme extends EventEmitter {
         if (groupWrapper) {
             groupWrapper.innerHTML = groupMarkup;
 
-            var templateLinks = document.querySelectorAll('[data-template-callback]');
-
-            Array.from(templateLinks).forEach((templateLink) => {
-                templateLink.addEventListener('click', (event) => {
-                    if (templateCallbacks[templateLink.dataset.templateCallback]) {
-                        templateCallbacks[templateLink.dataset.templateCallback]();
-                    }
-                    event.preventDefault();
-                })
-            });
+            this.attachTemplateLinkCallbacks();
         }
+    }
+
+    rerender () {
+        this.group.infoHookData['connectionButtons'][0].title = 'henk'
+      this.renderAll()
+    }
+
+    attachTemplateLinkCallbacks () {
+        var templateLinks = document.querySelectorAll('[data-template-callback]');
+        Array.from(templateLinks).forEach((templateLink) => {
+            templateLink.addEventListener('click', (event) => {
+                if (templateCallbacks[templateLink.dataset.templateCallback]) {
+                    templateCallbacks[templateLink.dataset.templateCallback]();
+                }
+                event.preventDefault();
+            })
+        });
     }
 
     render (type, variables) {
         if (typeof this[type] === 'function') {
+            this.emit('preprocess', type, variables);
             this.emit('preprocess.' + type, variables);
             return this[type](variables);
         }
@@ -74,9 +82,6 @@ class Theme extends EventEmitter {
             return `<a href="${variables.url}">${variables.title}</a>`;
         }
     }
-
-
-
 }
 
 export default Theme;
