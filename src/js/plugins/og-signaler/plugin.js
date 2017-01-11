@@ -23,7 +23,6 @@ class OgSignaler extends Plugin {
 
     connectionButtons () {
         return [{
-            'name': 'og-signaler.join-url',
             'title': 'Join a group by an url',
             'callback': () => {
                 alert('test')

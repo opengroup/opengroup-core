@@ -1,11 +1,13 @@
 import EventEmitter from 'events';
 import Vue from 'vue/dist/vue.common';
-import HtmlTemplate from 'OpenGroup/theme/templates/html.html!text';
+import AppTemplate from 'OpenGroup/theme/templates/app.html!text';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
  */
 class Theme extends EventEmitter {
+
+    config = {};
 
     /**
      * @param group.
@@ -14,7 +16,6 @@ class Theme extends EventEmitter {
      */
     constructor (group, config = {}) {
         super();
-        this.config = {};
         Object.assign(this.config, config);
         this.group = group;
     }
@@ -27,13 +28,19 @@ class Theme extends EventEmitter {
             data[infoHookDataKey] = this.group.infoHookData[infoHookDataKey];
         });
 
+        Vue.component('connection-button', {
+            template: '<div>A custom component!</div>',
+        });
+
         var appTemplateGlue = new Vue({
             el: '#app',
             data: data,
-            template: HtmlTemplate
+            template: AppTemplate
         });
 
+
         console.log(appTemplateGlue)
+
     }
 }
 
