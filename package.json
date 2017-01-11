@@ -12,7 +12,9 @@
     "dependencies": {
       "async": "npm:async@^2.1.4",
       "bluebird": "npm:bluebird@^3.4.7",
-      "uuid": "npm:uuid@^3.0.1"
+      "systemjs-plugin-text": "npm:systemjs-plugin-text@^0.0.9",
+      "uuid": "npm:uuid@^3.0.1",
+      "vue": "npm:vue@^2.1.8"
     },
     "devDependencies": {
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.17"

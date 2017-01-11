@@ -1,7 +1,7 @@
 SystemJS.config({
   paths: {
     "npm:": "lib/npm/",
-    "OpenGroup/": "js/og.core/"
+    "OpenGroup/": "js/"
   },
   browserConfig: {
     "baseURL": "/"
@@ -43,9 +43,11 @@ SystemJS.config({
     "process": "npm:jspm-nodelibs-process@0.2.0",
     "stream": "npm:jspm-nodelibs-stream@0.2.0",
     "string_decoder": "npm:jspm-nodelibs-string_decoder@0.2.0",
+    "text": "npm:systemjs-plugin-text@0.0.9",
     "util": "npm:jspm-nodelibs-util@0.2.1",
     "uuid": "npm:uuid@3.0.1",
-    "vm": "npm:jspm-nodelibs-vm@0.2.0"
+    "vm": "npm:jspm-nodelibs-vm@0.2.0",
+    "vue": "npm:vue@2.1.8"
   },
   packages: {
     "npm:jspm-nodelibs-crypto@0.2.0": {

@@ -1,7 +1,7 @@
 import EventEmitter from 'events';
 import uuid from 'uuid/v4';
 import bluebird from 'bluebird';
-import Theme from 'OpenGroup/Theme';
+import Theme from 'OpenGroup/theme/Theme';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -74,7 +74,7 @@ class OpenGroup extends EventEmitter {
     addPlugin (pluginUri) {
         return new Promise((resolve) => {
             if (pluginUri.substr(0, 4) != 'http') {
-                pluginUri = '/js/og.plugins/' + pluginUri;
+                pluginUri = '/js/plugins/' + pluginUri;
             }
 
             System.import(pluginUri + '/plugin.js').then((plugin) => {

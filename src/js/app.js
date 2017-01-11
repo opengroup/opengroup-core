@@ -1,4 +1,4 @@
-import OpenGroup from 'OpenGroup/OpenGroup';
+import OpenGroup from 'OpenGroup/core/OpenGroup';
 import uuid from 'uuid/v4';
 
 var peer1ReturnAnswerCallback;

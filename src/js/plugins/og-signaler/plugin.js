@@ -1,4 +1,4 @@
-import Plugin from 'OpenGroup/Plugin';
+import Plugin from 'OpenGroup/core/Plugin';
 
 /**
  * An OpenGroup Og Signaler plugin.
@@ -26,7 +26,7 @@ class OgSignaler extends Plugin {
             'name': 'og-signaler.join-url',
             'title': 'Join a group by an url',
             'callback': () => {
-                this.group.theme.rerender()
+                alert('test')
             }
         }];
     }
