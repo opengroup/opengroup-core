@@ -7,6 +7,7 @@ import OgWebRtc from './OgWebRtc.js';
 class WebRtc extends Plugin {
 
     name = 'webrtc';
+    config = {};
 
     /**
      * @param group.
@@ -15,7 +16,6 @@ class WebRtc extends Plugin {
      */
     constructor (group, config = {}) {
         super();
-        this.config = {};
         Object.assign(this.config, config);
         group.connectionTypes['og-webrtc'] = OgWebRtc;
     }

@@ -8,6 +8,7 @@ class OgSignaler extends Plugin {
     name = 'og-signaler';
     endpoints = [];
     returnAnswerCallbacks = {};
+    config = {};
 
     /**
      * @param group.
@@ -16,9 +17,14 @@ class OgSignaler extends Plugin {
      */
     constructor (group, config = {}) {
         super();
-        this.config = {};
         Object.assign(this.config, config);
         this.group = group;
+
+        if (typeof this.config.url == 'string') {
+            this.group.on('ready', () => {
+                this.addUrl(this.config.url);
+            })
+        }
     }
 
     connectionButtons () {

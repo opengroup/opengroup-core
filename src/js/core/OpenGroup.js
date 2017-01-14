@@ -1,7 +1,6 @@
 import EventEmitter from 'events';
 import uuid from 'uuid/v4';
 import bluebird from 'bluebird';
-import Theme from 'OpenGroup/theme/Theme';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -20,20 +19,26 @@ class OpenGroup extends EventEmitter {
      */
     constructor (config = {}) {
         super();
-        this.config = { plugins: [] };
+        this.config = {
+            plugins: {
+                'og-signaler': {},
+                'multiconnect': {},
+                'webrtc': {}
+            }
+        };
         this.uuid = uuid();
         Object.assign(this.config, config);
-        this.theme = new Theme(this, {});
 
         var pluginsToLoad = [];
 
-        this.config.plugins.forEach((pluginUri) => {
-            pluginsToLoad.push(this.addPlugin(pluginUri));
+        var pluginUris = Object.keys(this.config.plugins);
+
+        pluginUris.forEach((pluginUri) => {
+            pluginsToLoad.push(this.addPlugin(pluginUri, this.config.plugins[pluginUri]));
         });
 
         bluebird.all(pluginsToLoad).then(() => {
             this.triggerInfoHook('connectionButtons');
-            this.theme.renderAll();
             this.pluginsAreLoaded = true;
             this.emit('ready');
         });
@@ -71,14 +76,14 @@ class OpenGroup extends EventEmitter {
         }
     }
 
-    addPlugin (pluginUri) {
+    addPlugin (pluginUri, config) {
         return new Promise((resolve) => {
             if (pluginUri.substr(0, 4) != 'http') {
                 pluginUri = '/js/plugins/' + pluginUri;
             }
 
             System.import(pluginUri + '/plugin.js').then((plugin) => {
-                var newPlugin = new plugin.default(this);
+                var newPlugin = new plugin.default(this, config);
                 this.plugins[newPlugin.getName()] = newPlugin;
                 this.emit('pluginAdded', newPlugin.getName(), newPlugin);
                 resolve();

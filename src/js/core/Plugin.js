@@ -12,9 +12,6 @@ class Plugin extends EventEmitter {
      */
     constructor (group, config = {}) {
         super();
-        this.config = {};
-        Object.assign(this.config, config);
-
     }
 
     getName () {

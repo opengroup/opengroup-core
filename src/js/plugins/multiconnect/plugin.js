@@ -6,6 +6,7 @@ import Plugin from 'OpenGroup/core/Plugin';
 class MultiConnect extends Plugin {
 
     name = 'multiconnect';
+    config = {};
 
     /**
      * @param group.
@@ -14,7 +15,6 @@ class MultiConnect extends Plugin {
      */
     constructor (group, config = {}) {
         super();
-        this.config = {};
         Object.assign(this.config, config);
         this.group = group;
 
