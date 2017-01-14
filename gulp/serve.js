@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var reload = global.browserSync.reload;
 
 gulp.task('serve', function () {
     global.browserSync.init({
@@ -9,4 +10,8 @@ gulp.task('serve', function () {
         },
         ghostMode: false
     });
+
+    gulp.watch([global.paths.html, global.paths.js]).on("change", reload);
 });
+
+

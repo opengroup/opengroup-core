@@ -4,6 +4,8 @@ import Vue from 'vue/dist/vue.common';
 // Templates
 import App from 'OpenGroup/theme/templates/app.html!text';
 import Group from 'OpenGroup/theme/templates/group.html!text';
+import GroupList from 'OpenGroup/theme/templates/group-list.html!text';
+import GroupListItem from 'OpenGroup/theme/templates/group-list-item.html!text';
 import ConnectionButton from 'OpenGroup/theme/templates/connection-button.html!text';
 
 
@@ -16,7 +18,7 @@ class Theme extends EventEmitter {
     wrapper = false;
 
     /**
-     * @param group.
+     * @param wrapper.
      * @param config.
      * @constructor
      */
@@ -32,21 +34,29 @@ class Theme extends EventEmitter {
             groups: this.wrapper.groups
         };
 
-        // var infoHookDataKeys = Object.keys(this.group.infoHookData);
-        // infoHookDataKeys.forEach((infoHookDataKey) => {
-        //     data[infoHookDataKey] = this.group.infoHookData[infoHookDataKey];
-        // });
-        //
-        // Vue.component('connection-button', {
-        //     template: ConnectionButton,
-        // });
-        //
+        Vue.component('connection-button', {
+            template: ConnectionButton,
+        });
+
+        Vue.component('group-list', {
+            template: GroupList,
+            props: ['groups']
+        });
+
+        Vue.component('group-list-item', {
+            template: GroupListItem,
+            props: ['group']
+        });
+
+        Vue.component('group', {
+            template: Group,
+        });
+
         var appTemplateGlue = new Vue({
             el: '#app',
             data: data,
             template: App
         });
-
 
         console.log(appTemplateGlue)
 
