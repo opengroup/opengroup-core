@@ -88,7 +88,7 @@ class OpenGroup extends EventEmitter {
     addPlugin (pluginUri, config) {
         return new Promise((resolve) => {
             if (pluginUri.substr(0, 4) != 'http') {
-                pluginUri = '/js/plugins/' + pluginUri;
+                pluginUri = '/plugins/' + pluginUri;
             }
 
             System.import(pluginUri + '/plugin.js').then((plugin) => {
