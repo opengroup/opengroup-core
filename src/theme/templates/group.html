@@ -2,7 +2,9 @@
     <h1 v-if="group.config.name">{{ group.config.name }}</h1>
     <h1 v-if="group.slug">{{ group.slug }}</h1>
 
-    <router-link :to="{ path: '/groups/' + group.slug + '/multichat'}">Multichat</router-link>
+    <router-link
+            v-for="groupSubRoute in group.infoHookData.groupSubRoutes"
+            :to="{ path: '/groups/' + group.slug + '/' + groupSubRoute.path }">{{ groupSubRoute.title }}</router-link>
 
     <router-view></router-view>
 

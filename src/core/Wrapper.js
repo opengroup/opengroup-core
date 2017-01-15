@@ -35,6 +35,7 @@ class Wrapper extends EventEmitter {
             newGroup.on('ready', () => {
                 this.groupsReadyCounter++;
 
+                // TODO one failing group breaks the application.
                 if (this.groupsReadyCounter == this.groupDefinitions.length) {
                     this.renderAll();
                 }
@@ -126,8 +127,6 @@ class Wrapper extends EventEmitter {
                 },
             ]
         };
-
-        console.log(routerData)
 
         var router = new VueRouter(routerData);
 

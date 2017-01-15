@@ -27,6 +27,7 @@ class MultiChat extends Plugin {
         return [
             {
                 path: 'multichat',
+                title: 'Chat',
                 component: {
                     data: function () {
                         return {}
