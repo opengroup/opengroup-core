@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var reload = global.browserSync.reload;
 
-gulp.task('serve', function () {
+gulp.task('serve', ['css'], function () {
     global.browserSync.init({
         server: {
             baseDir: global.paths.src
@@ -12,6 +12,7 @@ gulp.task('serve', function () {
     });
 
     gulp.watch([global.paths.html, global.paths.js]).on("change", reload);
+    gulp.watch([global.paths.postcss], ['css'])
 });
 
 
