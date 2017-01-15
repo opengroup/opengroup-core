@@ -60,6 +60,15 @@ class OpenGroup extends EventEmitter {
                 this.emit('newConnection', connection);
             });
 
+            connection.once('closed', () => {
+                this.emit('closedConnection', connection);
+
+                var index = this.connections.indexOf(connection);
+                if (index != -1) {
+                    this.connections.splice(index, 1);
+                }
+            });
+
             connection.on('message', (message) => {
                 if (message.owner) {
                     this.emit(message.owner + '.message', message, connection);

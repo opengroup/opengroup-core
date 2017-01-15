@@ -1,8 +1,10 @@
 import EventEmitter from 'events';
 import Vue from 'vue/dist/vue.common';
+import VueRouter from 'vue-router';
 
 // Templates
 import App from 'OpenGroup/theme/templates/app.html!text';
+import About from 'OpenGroup/theme/templates/about.html!text';
 import Group from 'OpenGroup/theme/templates/group.html!text';
 import GroupList from 'OpenGroup/theme/templates/group-list.html!text';
 import GroupListItem from 'OpenGroup/theme/templates/group-list-item.html!text';
@@ -30,9 +32,41 @@ class Theme extends EventEmitter {
     }
 
     renderAll () {
+        Vue.use(VueRouter);
+
         var data = {
             groups: this.wrapper.groups
         };
+
+        var router = new VueRouter({
+            routes: [
+                {
+                    path: '/groups',
+                    alias: '/',
+                    component: {
+                        data: function () {
+                            return data;
+                        },
+                        template: GroupList
+                    }
+                },
+                {
+                    path: '/groups/:uuid',
+                    component: {
+                        data: function () {
+                            return data;
+                        },
+                        template: GroupList
+                    }
+                },
+                {
+                    path: '/about',
+                    component: {
+                        template: About
+                    }
+                },
+            ]
+        });
 
         Vue.component('connection-button', {
             template: ConnectionButton,
@@ -53,12 +87,10 @@ class Theme extends EventEmitter {
         });
 
         var appTemplateGlue = new Vue({
-            el: '#app',
-            data: data,
-            template: App
-        });
+            router: router
+        }).$mount('#app');
 
-        console.log(appTemplateGlue)
+        // console.log(appTemplateGlue)
 
     }
 }

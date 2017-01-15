@@ -17,6 +17,8 @@ class Wrapper extends EventEmitter {
         super();
 
         this.parseGroupFromUrl();
+        this.parseGroupsFromSessionStorage();
+        this.saveGroupsToSessionStorage();
 
         this.groupDefinitions.forEach((groupDefinition) => {
             this.groups.push(new OpenGroup(groupDefinition));
@@ -25,14 +27,38 @@ class Wrapper extends EventEmitter {
         this.theme = new Theme(this);
     }
 
+    addGroupDefinition (newGroupDefinition) {
+        var knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.name);
+        if (!knownGroupNames.includes(newGroupDefinition.name)) {
+            this.groupDefinitions.push(newGroupDefinition);
+        }
+    }
+
     parseGroupFromUrl () {
         var hash = decodeURIComponent(window.location.hash.substr(1));
         if (!hash) { return }
-        var json = JSON.parse(hash);
-        this.groupDefinitions.push(json);
-        // window.location.hash = ''
+
+        try {
+            var groupDefinition = JSON.parse(hash);
+            this.addGroupDefinition(groupDefinition);
+            window.location.hash = ''
+        }
+        catch (Exception) {}
     }
 
+    parseGroupsFromSessionStorage () {
+        var existingGroups = JSON.parse(window.sessionStorage.getItem('og-groups'));
+
+        if (existingGroups) {
+            existingGroups.forEach((groupDefinition) => {
+                this.addGroupDefinition(groupDefinition);
+            });
+        }
+    }
+
+    saveGroupsToSessionStorage () {
+        window.sessionStorage.setItem('og-groups', JSON.stringify(this.groupDefinitions));
+    }
 }
 
 export default Wrapper;

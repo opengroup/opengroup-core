@@ -130,7 +130,6 @@ class EasyWebRtc extends EventEmitter {
      * @param event Event with the webRTC data.
      */
     onDataChannelOpen (event) {
-        console.log('connected')
         this.easyWebRtc.emit('connected', event);
     }
 
