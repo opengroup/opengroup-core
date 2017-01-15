@@ -1,4 +1,5 @@
 import Plugin from 'OpenGroup/core/Plugin';
+import MultiChatTemplate from './templates/multichat.html!text';
 
 /**
  * An OpenGroup multichat plugin.
@@ -20,6 +21,20 @@ class MultiChat extends Plugin {
         group.on('og.core.multichat.message', (message, connection) => {
             console.log(message.text)
         })
+    }
+
+    groupSubRoutes () {
+        return [
+            {
+                path: 'multichat',
+                component: {
+                    data: function () {
+                        return {}
+                    },
+                    template: MultiChatTemplate
+                },
+            }
+        ];
     }
 
 

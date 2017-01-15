@@ -1,6 +1,15 @@
 import EventEmitter from 'events';
 import OpenGroup from 'OpenGroup/core/OpenGroup';
-import Theme from 'OpenGroup/theme/Theme';
+import Vue from 'vue/dist/vue.common';
+import VueRouter from 'vue-router';
+
+// Templates
+import App from 'OpenGroup/theme/templates/app.html!text';
+import About from 'OpenGroup/theme/templates/about.html!text';
+import Group from 'OpenGroup/theme/templates/group.html!text';
+import GroupList from 'OpenGroup/theme/templates/group-list.html!text';
+import GroupListItem from 'OpenGroup/theme/templates/group-list-item.html!text';
+import ConnectionButton from 'OpenGroup/theme/templates/connection-button.html!text';
 
 /**
  */
@@ -8,7 +17,7 @@ class Wrapper extends EventEmitter {
 
     groupDefinitions = [];
     groups = [];
-    theme = false;
+    groupsReadyCounter = 0;
 
     /**
      * @constructor
@@ -21,10 +30,16 @@ class Wrapper extends EventEmitter {
         this.saveGroupsToSessionStorage();
 
         this.groupDefinitions.forEach((groupDefinition) => {
-            this.groups.push(new OpenGroup(groupDefinition));
-        });
+            var newGroup = new OpenGroup(groupDefinition);
+            this.groups.push(newGroup);
+            newGroup.on('ready', () => {
+                this.groupsReadyCounter++;
 
-        this.theme = new Theme(this);
+                if (this.groupsReadyCounter == this.groupDefinitions.length) {
+                    this.renderAll();
+                }
+            });
+        });
     }
 
     addGroupDefinition (newGroupDefinition) {
@@ -58,6 +73,88 @@ class Wrapper extends EventEmitter {
 
     saveGroupsToSessionStorage () {
         window.sessionStorage.setItem('og-groups', JSON.stringify(this.groupDefinitions));
+    }
+
+
+    renderAll () {
+        var wrapper = this;
+        Vue.use(VueRouter);
+
+        var data = {
+            groups: this.groups
+        };
+
+        var allGroupSubRoutes = [];
+
+        this.groups.forEach((group) => {
+            group.triggerInfoHook('groupSubRoutes');
+
+            allGroupSubRoutes.push({
+                path: group.slug,
+                component: {
+                    data: function () {
+                        return {
+                            group: group
+                        };
+                    },
+                    template: Group
+                },
+                children: group.infoHookData['groupSubRoutes']
+            });
+
+        });
+
+        var routerData = {
+            routes: [
+                {
+                    path: '/groups',
+                    alias: '/',
+                    name: 'groups',
+                    component: {
+                        data: function () {
+                            return data;
+                        },
+                        template: GroupList
+                    },
+                    children: allGroupSubRoutes
+                },
+                {
+                    path: '/about',
+                    component: {
+                        template: About
+                    }
+                },
+            ]
+        };
+
+        console.log(routerData)
+
+        var router = new VueRouter(routerData);
+
+        Vue.component('connection-button', {
+            template: ConnectionButton,
+        });
+
+        Vue.component('group-list', {
+            template: GroupList,
+            props: ['groups']
+        });
+
+        Vue.component('group-list-item', {
+            template: GroupListItem,
+            props: ['group']
+        });
+
+        Vue.component('group', {
+            template: Group,
+        });
+
+        var appTemplateGlue = new Vue({
+            router: router
+        }).$mount('#app');
+
+        // console.log(appTemplateGlue)
+
     }
 }
 

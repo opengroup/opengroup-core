@@ -1,4 +1,9 @@
-<div class="open-group">
-    <h1>Hello!</h1>
-    <connection-button></connection-button>
+<div v-if="group" class="open-group">
+    <h1 v-if="group.config.name">{{ group.config.name }}</h1>
+    <h1 v-if="group.slug">{{ group.slug }}</h1>
+
+    <router-link :to="{ path: '/groups/' + group.slug + '/multichat'}">Multichat</router-link>
+
+    <router-view></router-view>
+
 </div>

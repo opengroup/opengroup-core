@@ -26,7 +26,10 @@ class OpenGroup extends EventEmitter {
                 'webrtc': {}
             }
         };
-        this.uuid = uuid();
+
+        this.uuid = this.config.uuid ? this.config.uuid : uuid();
+        this.slug = this.config.id ? this.config.id : this.uuid;
+
         Object.assign(this.config, config);
 
         var pluginsToLoad = [];
@@ -111,6 +114,7 @@ class OpenGroup extends EventEmitter {
 
     triggerInfoHook (hook) {
         var pluginNames = Object.keys(this.plugins);
+
         this.infoHookData[hook] = [];
         var args = Array.prototype.slice.call(arguments);
         args.shift();

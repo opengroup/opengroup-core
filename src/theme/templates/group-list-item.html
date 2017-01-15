@@ -1,5 +1,9 @@
+<router-link :to="{ path: '/groups/' + group.slug }">
+
 <div class="group-list-item">
     <h1 v-if="group.config.name">{{ group.config.name }}</h1>
     <h1 v-else>(Unnamed group)</h1>
     <span class="group-member-count">{{ group.connections.length }}</span>
 </div>
+
+</router-link>
