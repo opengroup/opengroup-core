@@ -24,7 +24,6 @@ class MultiChat extends Plugin {
     }
 
     groupSubRoutes (group) {
-        console.log(group)
         return [
             {
                 path: '/groups/' + group.slug + '/multichat',

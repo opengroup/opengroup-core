@@ -1,13 +1,12 @@
-<div class="open-group">
+<div class="group-header">
     <h1 class="group-title">{{ group.config.name }}</h1>
     <span class="group-member-count">{{ group.connections.length }}</span>
 
     <div class="group-menu">
         <router-link
+                class="group-menu-link"
                 v-for="groupSubRoute in group.infoHookData.groupSubRoutes"
-                :to="{ path: '/groups/' + group.slug + '/' + groupSubRoute.path }">{{ groupSubRoute.title }}</router-link>
+                :to="{ path: groupSubRoute.path }">{{ groupSubRoute.title }}</router-link>
     </div>
-
-    <router-view></router-view>
 
 </div>

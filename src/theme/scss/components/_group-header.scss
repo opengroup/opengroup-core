@@ -1,0 +1,41 @@
+.group-header {
+  margin: 20px;
+  border-bottom: 1px solid $green;
+  @include clearfix;
+
+  > .group-title {
+    margin: 0;
+    float: left;
+  }
+
+  > .group-member-count {
+    color: $green;
+    font-size: 12px;
+    float: left;
+
+    &:after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      background-color: $green;
+      border-radius: 50%;
+      margin-left: 5px;
+    }
+  }
+
+  > .group-menu {
+    float: right;
+
+    .group-menu-link {
+      text-decoration: none;
+      color: $black;
+
+      &.router-link-active {
+        color: $green;
+        border-bottom: 5px solid $green;
+      }
+    }
+  }
+
+}

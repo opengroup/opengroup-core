@@ -1,0 +1,23 @@
+.region-sidebar {
+  max-width: 300px;
+  width: 100vw;
+  float: left;
+  height: 100vh;
+}
+
+.region-main {
+  height: 100vh;
+  float: left;
+  width: calc(100% - 300px);
+}
+
+.region-main-header {
+  width: 100%;
+  float: left;
+  @include clearfix;
+}
+
+.region-main-content {
+  width: 100%;
+  float: left;
+}
