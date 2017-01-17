@@ -27,10 +27,10 @@ class OpenGroup extends EventEmitter {
             }
         };
 
-        this.uuid = this.config.uuid ? this.config.uuid : uuid();
-        this.slug = this.config.id ? this.config.id : this.uuid;
-
         Object.assign(this.config, config);
+
+        this.uuid = this.config.uuid ? this.config.uuid : uuid();
+        this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
 
         var pluginsToLoad = [];
 

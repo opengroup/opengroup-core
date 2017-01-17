@@ -8,7 +8,7 @@ process.setMaxListeners(0);
 
 global.paths = {
     'html': './src/**/*.html',
-    'postcss': './src/theme/postcss/**/*.css',
+    'scss': './src/theme/scss/**/*.scss',
     'css': './src/theme/css',
     'js': ['./src/**/*.js', '!./src/lib/**/*.js'],
     'src': './src'

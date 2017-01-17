@@ -1,9 +1,49 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
-
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 body {
-    font-family: 'Open Sans', sans-serif;
-}
+  font-family: 'Open Sans', sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
-}
+  font-weight: 300; }
+
+*:focus {
+  outline: none; }
+
+*::-moz-focus-inner {
+  border: none; }
+
+.group-list-item {
+  float: left;
+  border: 2px solid #eeeeec;
+  text-decoration: none;
+  color: black;
+  min-width: 300px;
+  padding: 10px;
+  position: relative; }
+  .group-list-item:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -2px;
+    height: 100%;
+    width: 6px;
+    background-color: #4e9a06;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; }
+  .group-list-item > .group-title {
+    margin: 0;
+    float: left; }
+  .group-list-item > .group-member-count {
+    color: #4e9a06;
+    font-size: 12px;
+    float: right; }
+    .group-list-item > .group-member-count:after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      display: inline-block;
+      background-color: #4e9a06;
+      border-radius: 50%;
+      margin-left: 5px; }
+  .group-list-item.router-link-active:after, .group-list-item:hover:after {
+    opacity: 1; }

@@ -12,7 +12,7 @@ gulp.task('serve', ['css'], function () {
     });
 
     gulp.watch([global.paths.html, global.paths.js]).on("change", reload);
-    gulp.watch([global.paths.postcss], ['css'])
+    gulp.watch([global.paths.scss], ['css'])
 });
 
 

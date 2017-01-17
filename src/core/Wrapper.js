@@ -2,14 +2,7 @@ import EventEmitter from 'events';
 import OpenGroup from 'OpenGroup/core/OpenGroup';
 import Vue from 'vue/dist/vue.common';
 import VueRouter from 'vue-router';
-
-// Templates
-import App from 'OpenGroup/theme/templates/app.html!text';
-import About from 'OpenGroup/theme/templates/about.html!text';
-import Group from 'OpenGroup/theme/templates/group.html!text';
-import GroupList from 'OpenGroup/theme/templates/group-list.html!text';
-import GroupListItem from 'OpenGroup/theme/templates/group-list-item.html!text';
-import ConnectionButton from 'OpenGroup/theme/templates/connection-button.html!text';
+import bluebird from 'bluebird';
 
 /**
  */
@@ -51,15 +44,24 @@ class Wrapper extends EventEmitter {
     }
 
     parseGroupFromUrl () {
-        var hash = decodeURIComponent(window.location.hash.substr(1));
-        if (!hash) { return }
+        var group = this.getUrlParameter('group');
 
-        try {
-            var groupDefinition = JSON.parse(hash);
-            this.addGroupDefinition(groupDefinition);
-            window.location.hash = ''
+        if (group) {
+            try {
+                var groupDefinition = JSON.parse(group);
+                this.addGroupDefinition(groupDefinition);
+            }
+            catch (Exception) {
+                console.log(Exception)
+            }
         }
-        catch (Exception) {}
+    }
+
+    getUrlParameter (name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
     parseGroupsFromSessionStorage () {
@@ -78,81 +80,91 @@ class Wrapper extends EventEmitter {
 
 
     renderAll () {
-        var wrapper = this;
         Vue.use(VueRouter);
+        var wrapper = this;
 
-        var data = {
-            groups: this.groups
+        var microTemplatesInfo = {
+            'about': {},
+            'connection-button': {},
+            'group-list': { props: ['groups'] },
+            'group-list-item': { props: ['group'] },
+            'group': {}
         };
 
-        var allGroupSubRoutes = [];
+        var templatePromises = [];
 
-        this.groups.forEach((group) => {
-            group.triggerInfoHook('groupSubRoutes');
+        Object.keys(microTemplatesInfo).forEach(function (microTemplateKey) {
+            var microTemplateInfo = microTemplatesInfo[microTemplateKey];
 
-            allGroupSubRoutes.push({
-                path: group.slug,
-                component: {
-                    data: function () {
-                        return {
-                            group: group
-                        };
-                    },
-                    template: Group
-                },
-                children: group.infoHookData['groupSubRoutes']
-            });
-
+            templatePromises.push(System.import('OpenGroup/theme/templates/' + microTemplateKey + '.html!text').then(function (template) {
+                microTemplateInfo.template = template;
+                Vue.component(microTemplateKey, microTemplateInfo);
+            }));
         });
 
-        var routerData = {
-            routes: [
-                {
-                    path: '/groups',
-                    alias: '/',
-                    name: 'groups',
+        // Load all the micro templates async, when all are loaded:
+        bluebird.all(templatePromises).then(() => {
+            var allGroupSubRoutes = [];
+
+            this.groups.forEach((group) => {
+                group.triggerInfoHook('groupSubRoutes');
+
+                var firstSubRoute = {
+                    path: group.slug,
                     component: {
                         data: function () {
-                            return data;
+                            return {
+                                group: group
+                            };
                         },
-                        template: GroupList
+                        template: microTemplatesInfo['group'].template
                     },
-                    children: allGroupSubRoutes
-                },
-                {
-                    path: '/about',
-                    component: {
-                        template: About
-                    }
-                },
-            ]
-        };
+                    children: group.infoHookData['groupSubRoutes']
+                };
 
-        var router = new VueRouter(routerData);
+                // Redirect to the first plugin.
+                if (group.infoHookData['groupSubRoutes'].length) {
+                    firstSubRoute.redirect = '/groups/' + group.slug + '/' + group.infoHookData['groupSubRoutes'][0].path;
+                }
 
-        Vue.component('connection-button', {
-            template: ConnectionButton,
+                allGroupSubRoutes.push(firstSubRoute);
+            });
+
+            var routerData = {
+                routes: [
+                    {
+                        path: '/groups',
+                        alias: '/',
+                        name: 'groups',
+                        component: {
+                            data: function () {
+                                return {
+                                    groups: wrapper.groups
+                                };
+                            },
+                            template: microTemplatesInfo['group-list'].template
+                        },
+                        children: allGroupSubRoutes
+                    },
+                    {
+                        path: '/about',
+                        component: {
+                            template: microTemplatesInfo['about'].template
+                        }
+                    },
+                ]
+            };
+
+            this.router = new VueRouter(routerData);
+
+            var appTemplateGlue = new Vue({
+                router: this.router
+            }).$mount('#app');
+
+            if (appTemplateGlue.$route.matched.length == 0) {
+                this.router.push('/groups')
+            }
         });
-
-        Vue.component('group-list', {
-            template: GroupList,
-            props: ['groups']
-        });
-
-        Vue.component('group-list-item', {
-            template: GroupListItem,
-            props: ['group']
-        });
-
-        Vue.component('group', {
-            template: Group,
-        });
-
-        var appTemplateGlue = new Vue({
-            router: router
-        }).$mount('#app');
-
-        // console.log(appTemplateGlue)
 
     }
 }

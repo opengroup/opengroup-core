@@ -1,20 +1,18 @@
 'use strict';
 
-var postcss = require('gulp-postcss');
 var gulp = require('gulp');
-var autoprefixer = require('autoprefixer');
-var nested = require('postcss-nested');
-var concat = require('gulp-concat');
+var autoprefixer = require('gulp-autoprefixer');
+var sass = require('gulp-sass');
+var sassGlob = require('gulp-sass-glob');
 
 gulp.task('css', function () {
-    var processors = [
-        nested,
-        autoprefixer({browsers: ['last 1 version']})
-    ];
-
-    return gulp.src(global.paths.postcss)
-    .pipe(postcss(processors))
-    .pipe(concat('styles.css'))
+    return gulp.src(global.paths.scss)
+    .pipe(sassGlob())
+    .pipe(sass())
+    .pipe(autoprefixer({
+        browsers: ['last 2 versions'],
+        cascade: false
+    }))
     .pipe(gulp.dest(global.paths.css))
     .pipe(global.browserSync.stream());
 });

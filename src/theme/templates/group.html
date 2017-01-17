@@ -1,10 +1,12 @@
-<div v-if="group" class="open-group">
-    <h1 v-if="group.config.name">{{ group.config.name }}</h1>
-    <h1 v-if="group.slug">{{ group.slug }}</h1>
+<div class="open-group">
+    <h1 class="group-title">{{ group.config.name }}</h1>
+    <span class="group-member-count">{{ group.connections.length }}</span>
 
-    <router-link
-            v-for="groupSubRoute in group.infoHookData.groupSubRoutes"
-            :to="{ path: '/groups/' + group.slug + '/' + groupSubRoute.path }">{{ groupSubRoute.title }}</router-link>
+    <div class="group-menu">
+        <router-link
+                v-for="groupSubRoute in group.infoHookData.groupSubRoutes"
+                :to="{ path: '/groups/' + group.slug + '/' + groupSubRoute.path }">{{ groupSubRoute.title }}</router-link>
+    </div>
 
     <router-view></router-view>
 
