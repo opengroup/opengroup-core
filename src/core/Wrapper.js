@@ -104,33 +104,14 @@ class Wrapper extends EventEmitter {
 
         // Load all the micro templates async, when all are loaded:
         bluebird.all(templatePromises).then(() => {
-            var allGroupSubRoutes = [];
-
-            this.groups.forEach((group) => {
-                group.triggerInfoHook('groupSubRoutes');
-
-                var firstSubRoute = {
-                    path: group.slug,
-                    components: {
-                        header: {
-                            data: function () {
-                                return {
-                                    group: group
-                                };
-                            },
-                            template: microTemplatesInfo['group-header'].template
-                        }
-                    },
-                    children: group.infoHookData['groupSubRoutes']
-                };
-
-                // Redirect to the first plugin.
-                if (group.infoHookData['groupSubRoutes'].length) {
-                    // firstSubRoute.redirect = '/groups/' + group.slug + '/' + group.infoHookData['groupSubRoutes'][0].path;
-                }
-
-                allGroupSubRoutes.push(firstSubRoute);
-            });
+            var groupListComponent = {
+                data: function () {
+                    return {
+                        groups: wrapper.groups
+                    };
+                },
+                template: microTemplatesInfo['group-list'].template
+            };
 
             var routerData = {
                 routes: [
@@ -139,16 +120,8 @@ class Wrapper extends EventEmitter {
                         alias: '/',
                         name: 'groups',
                         components: {
-                            sidebar: {
-                                data: function () {
-                                    return {
-                                        groups: wrapper.groups
-                                    };
-                                },
-                                template: microTemplatesInfo['group-list'].template
-                            }
+                            sidebar: groupListComponent
                         },
-                        children: allGroupSubRoutes
                     },
                     {
                         path: '/about',
@@ -160,6 +133,48 @@ class Wrapper extends EventEmitter {
                     },
                 ]
             };
+
+            this.groups.forEach((group) => {
+                var groupHeaderComponent = {
+                    data: function () {
+                        return {
+                            group: group
+                        };
+                    },
+                    template: microTemplatesInfo['group-header'].template
+                };
+
+                group.triggerInfoHook('groupSubRoutes', group);
+
+                var firstSubRoute = {
+                    path: '/groups/' + group.slug,
+                    components: {
+                        sidebar: groupListComponent,
+                        header: groupHeaderComponent,
+                    }
+                };
+
+                // Redirect to the first plugin.
+                if (group.infoHookData['groupSubRoutes'].length) {
+                    firstSubRoute.redirect = group.infoHookData['groupSubRoutes'][0].path;
+                }
+
+                routerData.routes.push(firstSubRoute);
+
+                // Merge in plugin routes.
+                group.infoHookData['groupSubRoutes'].forEach(function (groupSubRoute) {
+                    // If the plugin does not actively fill the sidebar and the header views.
+                    if (!groupSubRoute.components.sidebar) {
+                        groupSubRoute.components.sidebar = groupListComponent;
+                    }
+
+                    if (!groupSubRoute.components.header) {
+                        groupSubRoute.components.header = groupHeaderComponent;
+                    }
+
+                    routerData.routes.push(groupSubRoute);
+                });
+            });
 
             this.router = new VueRouter(routerData);
 

@@ -23,10 +23,11 @@ class MultiChat extends Plugin {
         })
     }
 
-    groupSubRoutes () {
+    groupSubRoutes (group) {
+        console.log(group)
         return [
             {
-                path: 'multichat',
+                path: '/groups/' + group.slug + '/multichat',
                 title: 'Chat',
                 components: {
                     main: {
