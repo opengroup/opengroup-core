@@ -28,11 +28,13 @@ class MultiChat extends Plugin {
             {
                 path: 'multichat',
                 title: 'Chat',
-                component: {
-                    data: function () {
-                        return {}
-                    },
-                    template: MultiChatTemplate
+                components: {
+                    main: {
+                        data: function () {
+                            return {}
+                        },
+                        template: MultiChatTemplate
+                    }
                 },
             }
         ];

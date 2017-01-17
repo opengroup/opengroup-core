@@ -88,7 +88,7 @@ class Wrapper extends EventEmitter {
             'connection-button': {},
             'group-list': { props: ['groups'] },
             'group-list-item': { props: ['group'] },
-            'group': {}
+            'group-header': {}
         };
 
         var templatePromises = [];
@@ -111,20 +111,22 @@ class Wrapper extends EventEmitter {
 
                 var firstSubRoute = {
                     path: group.slug,
-                    component: {
-                        data: function () {
-                            return {
-                                group: group
-                            };
-                        },
-                        template: microTemplatesInfo['group'].template
+                    components: {
+                        header: {
+                            data: function () {
+                                return {
+                                    group: group
+                                };
+                            },
+                            template: microTemplatesInfo['group-header'].template
+                        }
                     },
                     children: group.infoHookData['groupSubRoutes']
                 };
 
                 // Redirect to the first plugin.
                 if (group.infoHookData['groupSubRoutes'].length) {
-                    firstSubRoute.redirect = '/groups/' + group.slug + '/' + group.infoHookData['groupSubRoutes'][0].path;
+                    // firstSubRoute.redirect = '/groups/' + group.slug + '/' + group.infoHookData['groupSubRoutes'][0].path;
                 }
 
                 allGroupSubRoutes.push(firstSubRoute);
@@ -136,20 +138,24 @@ class Wrapper extends EventEmitter {
                         path: '/groups',
                         alias: '/',
                         name: 'groups',
-                        component: {
-                            data: function () {
-                                return {
-                                    groups: wrapper.groups
-                                };
-                            },
-                            template: microTemplatesInfo['group-list'].template
+                        components: {
+                            sidebar: {
+                                data: function () {
+                                    return {
+                                        groups: wrapper.groups
+                                    };
+                                },
+                                template: microTemplatesInfo['group-list'].template
+                            }
                         },
                         children: allGroupSubRoutes
                     },
                     {
                         path: '/about',
-                        component: {
-                            template: microTemplatesInfo['about'].template
+                        components: {
+                            main: {
+                                template: microTemplatesInfo['about'].template
+                            }
                         }
                     },
                 ]
