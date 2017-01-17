@@ -1,0 +1,18 @@
+.group-menu {
+  @include clearfix;
+
+  .group-menu-link {
+    float: left;
+    text-decoration: none;
+    color: $black;
+    padding: 16px 20px;
+    transition: color $speed $easing, border $speed $easing;
+    border-bottom: 5px solid transparent;
+
+    &:hover,
+    &.router-link-active {
+      color: $green;
+      border-bottom: 5px solid $green;
+    }
+  }
+}

@@ -74,6 +74,8 @@ class Wrapper extends EventEmitter {
         }
     }
 
+
+    // TODO move to OpenGroup.js
     saveGroupsToSessionStorage () {
         window.sessionStorage.setItem('og-groups', JSON.stringify(this.groupDefinitions));
     }

@@ -20,11 +20,7 @@ class OpenGroup extends EventEmitter {
     constructor (config = {}) {
         super();
         this.config = {
-            plugins: {
-                'og-signaler': {},
-                'multiconnect': {},
-                'webrtc': {}
-            }
+            plugins: {}
         };
 
         Object.assign(this.config, config);

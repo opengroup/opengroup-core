@@ -1,5 +1,4 @@
 .group-header {
-  margin: 20px;
   border-bottom: 1px solid $green;
   @include clearfix;
 
@@ -26,16 +25,6 @@
 
   > .group-menu {
     float: right;
-
-    .group-menu-link {
-      text-decoration: none;
-      color: $black;
-
-      &.router-link-active {
-        color: $green;
-        border-bottom: 5px solid $green;
-      }
-    }
   }
 
 }
