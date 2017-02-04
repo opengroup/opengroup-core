@@ -90,7 +90,24 @@ class Wrapper extends EventEmitter {
             'connection-button': {},
             'group-list': { props: ['groups'] },
             'group-list-item': { props: ['group'] },
-            'group-header': {}
+            'group-header': {
+                props: ['group'],
+                computed: {
+                    // TODO this does not work.
+                    sortedSubRoutes: function () {
+                        console.log(this);
+                        // TODO migrate to templateHelpers.sortByKey(this.group.infoHookData.groupSubRoutes, 'weight');
+                        return this.group.infoHookData.groupSubRoutes.sort(function(a, b){
+                            var aWeight = a.weight ? a.weight : 0,
+                                bWeight = b.weight ? b.weight : 0;
+
+                            if (aWeight < bWeight) return -1;
+                            if (aWeight > bWeight) return 1;
+                            return 0;
+                        });
+                    }
+                }
+            }
         };
 
         var templatePromises = [];
@@ -143,6 +160,7 @@ class Wrapper extends EventEmitter {
                             group: group
                         };
                     },
+                    computed: microTemplatesInfo['group-header'].computed,
                     template: microTemplatesInfo['group-header'].template
                 };
 

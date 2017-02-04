@@ -5,7 +5,7 @@
     <div class="group-menu">
         <router-link
                 class="group-menu-link"
-                v-for="groupSubRoute in group.infoHookData.groupSubRoutes"
+                v-for="groupSubRoute in sortedSubRoutes"
                 :to="{ path: groupSubRoute.path }">{{ groupSubRoute.title }}</router-link>
     </div>
 

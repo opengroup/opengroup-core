@@ -23,7 +23,8 @@ class Group extends Plugin {
         return [
             {
                 path: '/groups/' + group.slug + '/settings',
-                title: 'Group settings',
+                title: 'Settings',
+                weight: 1000,
                 components: {
                     main: {
                         data: function () {
