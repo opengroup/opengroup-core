@@ -8,6 +8,7 @@ class MultiChat extends Plugin {
 
     name = 'multichat';
     config = {};
+    messages = [];
 
     /**
      * @param group.
@@ -18,12 +19,14 @@ class MultiChat extends Plugin {
         super();
         Object.assign(this.config, config);
 
-        group.on('og.core.multichat.message', (message, connection) => {
-            console.log(message.text)
+        group.on('og.core.multichat.message', (object, connection) => {
+            this.messages.push(object.message);
         })
     }
 
     groupSubRoutes (group) {
+        var plugin = this;
+
         return [
             {
                 path: '/groups/' + group.slug + '/multichat',
@@ -31,7 +34,25 @@ class MultiChat extends Plugin {
                 components: {
                     main: {
                         data: function () {
-                            return {}
+                            return {
+                                newMessage: '',
+                                messages: plugin.messages
+                            }
+                        },
+                        methods: {
+                            sendChat: function (event) {
+                                if ((event.metaKey || event.ctrlKey) && event.keyCode == 13) {
+
+                                    group.sendMessage({
+                                        owner: 'og.core.multichat',
+                                        message: {
+                                            text: this.newMessage
+                                        }
+                                    });
+
+                                    this.newMessage = '';
+                                }
+                            }
                         },
                         template: MultiChatTemplate
                     }

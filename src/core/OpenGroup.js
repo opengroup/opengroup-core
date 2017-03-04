@@ -31,10 +31,7 @@ class OpenGroup extends EventEmitter {
 
         this.uuid = this.config.uuid;
         this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
-
-        if (!this.lid) {
-            this.lid = window.prompt('Please enter your identity');
-        }
+        this.ensureLid();
 
         var pluginsToLoad = [];
 
@@ -50,6 +47,17 @@ class OpenGroup extends EventEmitter {
             this.save();
             this.emit('ready');
         });
+    }
+
+    ensureLid () {
+        if (!this.lid) {
+            this.lid = sessionStorage.getItem('og-lid-' + this.uuid);
+
+            if (!this.lid) {
+                this.lid = window.prompt('Please enter your identity');
+                sessionStorage.setItem('og-lid-' + this.uuid, this.lid);
+            }
+        }
     }
 
     addPeer (peerInfo) {
