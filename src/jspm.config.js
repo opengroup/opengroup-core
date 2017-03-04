@@ -1,10 +1,17 @@
 SystemJS.config({
   paths: {
-    "npm:": "lib/npm/",
-    "OpenGroup/": "./"
+    "npm:": "lib/npm/"
   },
   browserConfig: {
-    "baseURL": "/"
+    "baseURL": "/",
+    "paths": {
+      "OpenGroup/": "./"
+    }
+  },
+  nodeConfig: {
+    "paths": {
+      "OpenGroup/": "src/"
+    }
   },
   devConfig: {
     "map": {
@@ -46,6 +53,7 @@ SystemJS.config({
     "process": "npm:jspm-nodelibs-process@0.2.0",
     "stream": "npm:jspm-nodelibs-stream@0.2.0",
     "string_decoder": "npm:jspm-nodelibs-string_decoder@0.2.0",
+    "underscore": "npm:underscore@1.8.3",
     "util": "npm:jspm-nodelibs-util@0.2.1",
     "uuid": "npm:uuid@3.0.1",
     "vm": "npm:jspm-nodelibs-vm@0.2.0",

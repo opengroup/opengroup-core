@@ -3,6 +3,7 @@ import OpenGroup from 'OpenGroup/core/OpenGroup';
 import Vue from 'vue/dist/vue.common';
 import VueRouter from 'vue-router';
 import bluebird from 'bluebird';
+import _ from 'underscore';
 
 /**
  */
@@ -20,7 +21,6 @@ class Wrapper extends EventEmitter {
 
         this.parseGroupFromUrl();
         this.parseGroupsFromSessionStorage();
-        this.saveGroupsToSessionStorage();
 
         this.groupDefinitions.forEach((groupDefinition) => {
             var newGroup = new OpenGroup(groupDefinition);
@@ -37,8 +37,8 @@ class Wrapper extends EventEmitter {
     }
 
     addGroupDefinition (newGroupDefinition) {
-        var knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.name);
-        if (!knownGroupNames.includes(newGroupDefinition.name)) {
+        var knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.uuid);
+        if (!knownGroupNames.includes(newGroupDefinition.uuid)) {
             this.groupDefinitions.push(newGroupDefinition);
         }
     }
@@ -68,18 +68,11 @@ class Wrapper extends EventEmitter {
         var existingGroups = JSON.parse(window.sessionStorage.getItem('og-groups'));
 
         if (existingGroups) {
-            existingGroups.forEach((groupDefinition) => {
+            _.forEach(existingGroups, (groupDefinition) => {
                 this.addGroupDefinition(groupDefinition);
             });
         }
     }
-
-
-    // TODO move to OpenGroup.js
-    saveGroupsToSessionStorage () {
-        window.sessionStorage.setItem('og-groups', JSON.stringify(this.groupDefinitions));
-    }
-
 
     renderAll () {
         Vue.use(VueRouter);
@@ -93,18 +86,8 @@ class Wrapper extends EventEmitter {
             'group-header': {
                 props: ['group'],
                 computed: {
-                    // TODO this does not work.
                     sortedSubRoutes: function () {
-                        console.log(this);
-                        // TODO migrate to templateHelpers.sortByKey(this.group.infoHookData.groupSubRoutes, 'weight');
-                        return this.group.infoHookData.groupSubRoutes.sort(function(a, b){
-                            var aWeight = a.weight ? a.weight : 0,
-                                bWeight = b.weight ? b.weight : 0;
-
-                            if (aWeight < bWeight) return -1;
-                            if (aWeight > bWeight) return 1;
-                            return 0;
-                        });
+                        return _.sortBy(this.group.infoHookData.groupSubRoutes, 'weight').reverse();
                     }
                 }
             }

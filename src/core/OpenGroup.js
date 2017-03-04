@@ -25,8 +25,16 @@ class OpenGroup extends EventEmitter {
 
         Object.assign(this.config, config);
 
-        this.uuid = this.config.uuid ? this.config.uuid : uuid();
+        if (!this.config.uuid) {
+            throw new Error('The group has no uuid');
+        }
+
+        this.uuid = this.config.uuid;
         this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
+
+        if (!this.lid) {
+            this.lid = window.prompt('Please enter your identity');
+        }
 
         var pluginsToLoad = [];
 
@@ -39,6 +47,7 @@ class OpenGroup extends EventEmitter {
         bluebird.all(pluginsToLoad).then(() => {
             this.triggerInfoHook('connectionButtons');
             this.pluginsAreLoaded = true;
+            this.save();
             this.emit('ready');
         });
     }
@@ -124,6 +133,13 @@ class OpenGroup extends EventEmitter {
                 }
             }
         });
+    }
+
+    save () {
+        var allGroups = JSON.parse(sessionStorage.getItem('og-groups'));
+        if (!allGroups) { allGroups = {}; }
+        allGroups[this.uuid] = this.config;
+        sessionStorage.setItem('og-groups', JSON.stringify(allGroups))
     }
 }
 

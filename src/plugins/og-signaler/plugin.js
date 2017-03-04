@@ -43,7 +43,7 @@ class OgSignaler extends Plugin {
         ws.onopen = (event) => {
             ws.send(JSON.stringify({
                 command: 'identify',
-                uuid: this.group.uuid
+                uuid: this.group.lid
             }));
         };
 
@@ -51,7 +51,7 @@ class OgSignaler extends Plugin {
             var message = JSON.parse(event.data);
 
             if (message.command == 'create-offer') {
-                var connectedUuids = this.group.connections.map((myConnection) => myConnection.uuid);
+                var connectedUuids = this.group.connections.map((connection) => connection.uuid);
                 if (!connectedUuids.includes(message.uuid)) {
 
                     this.group.addPeer({
@@ -64,7 +64,7 @@ class OgSignaler extends Plugin {
                                 this.returnAnswerCallbacks[message.uuid] = returnAnswerCallback;
                                 ws.send(JSON.stringify({
                                     command: 'pass-offer',
-                                    uuid: this.group.uuid,
+                                    uuid: this.group.lid,
                                     toUuid: message.uuid,
                                     offer: btoa(JSON.stringify(offer.toJSON()))
                                 }));
@@ -87,7 +87,7 @@ class OgSignaler extends Plugin {
                         answerCreated: (answer) => {
                             ws.send(JSON.stringify({
                                 command: 'pass-answer',
-                                uuid: this.group.uuid,
+                                uuid: this.group.lid,
                                 toUuid: message.uuid,
                                 answer: btoa(JSON.stringify(answer.toJSON()))
                             }));

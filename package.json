@@ -7,12 +7,13 @@
       "packages": "src/lib"
     },
     "configFiles": {
-      "jspm": "src/js/jspm.config.js"
+      "jspm": "src/jspm.config.js"
     },
     "dependencies": {
       "async": "npm:async@^2.1.4",
       "bluebird": "npm:bluebird@^3.4.7",
       "systemjs-plugin-text": "npm:systemjs-plugin-text@^0.0.9",
+      "underscore": "npm:underscore@^1.8.3",
       "uuid": "npm:uuid@^3.0.1",
       "vue": "npm:vue@^2.1.8",
       "vue-router": "npm:vue-router@^2.1.1"

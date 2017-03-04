@@ -45,3 +45,8 @@ describe('EasyWebRtc', () => {
     });
 });
 
+describe('Berekening', () => {
+    it('should calculate correctly for alumnium', () => {
+        expect(a).toEqual(b);
+    });
+});
