@@ -5,8 +5,15 @@
     <div class="group-menu">
         <router-link
                 class="group-menu-link"
-                v-for="groupSubRoute in sortedSubRoutes"
-                :to="{ path: groupSubRoute.path }">{{ groupSubRoute.title }}</router-link>
+                v-for="route in group.menu"
+                :to="{ path: route.path }">{{ route.title }}</router-link>
+    </div>
+
+    <div class="settings-menu">
+        <router-link
+                class="settings-menu-link"
+                v-for="route in submenu"
+                :to="{ path: route.path }">{{ route.title }}</router-link>
     </div>
 
 </div>

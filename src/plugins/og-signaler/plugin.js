@@ -1,4 +1,5 @@
 import Plugin from 'OpenGroup/core/Plugin';
+import OgSignalerSettingsTemplate from './templates/og-signaler.html!text';
 
 /**
  * An OpenGroup Og Signaler plugin.
@@ -19,6 +20,10 @@ class OgSignaler extends Plugin {
         super();
         Object.assign(this.config, config);
         this.group = group;
+        this.pluginData = group.config.plugins['og-signaler'];
+        if (!this.pluginData.url) {
+            this.pluginData.url = '';
+        }
 
         if (typeof this.config.url == 'string') {
             this.group.on('ready', () => {
@@ -27,17 +32,35 @@ class OgSignaler extends Plugin {
         }
     }
 
-    connectionButtons () {
-        return [{
-            'title': 'Join a group by an url',
-            'callback': () => {
-                alert('test')
+    groupSubRoutes (group) {
+        var plugin = this;
+
+        return [
+            {
+                path: '/groups/' + group.slug + '/settings/og-signaler',
+                title: 'Connect via a signaler',
+                weight: 1000,
+                components: {
+                    main: {
+                        data: function () {
+                            return {
+                                signalerUrl: plugin.pluginData.url
+                            }
+                        },
+                        methods: {
+                            saveSettings: function () {
+
+                            }
+                        },
+                        template: OgSignalerSettingsTemplate
+                    }
+                },
             }
-        }];
+        ];
     }
 
     addUrl (url) {
-        var ws = new WebSocket(url);
+        var ws = new WebSocket('ws://' + url);
         this.endpoints.push(ws);
 
         ws.onopen = (event) => {

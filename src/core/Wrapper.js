@@ -74,7 +74,30 @@ class Wrapper extends EventEmitter {
         }
     }
 
+    nestMenu (items) {
+        let hashTable = Object.create(null);
+
+        items.forEach(item => hashTable[item.path] = { ...item, childNodes : [] } );
+
+        let dataTree = [];
+
+        items.forEach( item => {
+            var itemPathSplit = item.path.split('/');
+            var parentPath = itemPathSplit;
+            parentPath.pop();
+            parentPath = parentPath.join('/');
+            if ( itemPathSplit.length > 1 ) hashTable[parentPath].childNodes.push(hashTable[item.path]);
+            else dataTree.push(hashTable[item.path]);
+        });
+
+        return {
+            nested: dataTree,
+            hashed: hashTable
+        };
+    }
+
     renderAll () {
+        var routerData = {};
         Vue.use(VueRouter);
         var wrapper = this;
 
@@ -84,12 +107,7 @@ class Wrapper extends EventEmitter {
             'group-list': { props: ['groups'] },
             'group-list-item': { props: ['group'] },
             'group-header': {
-                props: ['group'],
-                computed: {
-                    sortedSubRoutes: function () {
-                        return _.sortBy(this.group.infoHookData.groupSubRoutes, 'weight').reverse();
-                    }
-                }
+                props: ['group']
             }
         };
 
@@ -115,7 +133,7 @@ class Wrapper extends EventEmitter {
                 template: microTemplatesInfo['group-list'].template
             };
 
-            var routerData = {
+            routerData = {
                 routes: [
                     {
                         path: '/groups',
@@ -139,7 +157,15 @@ class Wrapper extends EventEmitter {
             this.groups.forEach((group) => {
                 var groupHeaderComponent = {
                     data: function () {
+                        var submenu = group.menuHash[location.hash.substr(1)].childNodes;
+
+                        window.addEventListener("hashchange", function () {
+                            submenu = group.menuHash[location.hash.substr(1)].childNodes;
+                            console.log(submenu)
+                        }, false);
+
                         return {
+                            submenu: submenu,
                             group: group
                         };
                     },
@@ -177,6 +203,12 @@ class Wrapper extends EventEmitter {
 
                     routerData.routes.push(groupSubRoute);
                 });
+            });
+
+            var menu = wrapper.nestMenu(routerData.routes);
+            this.groups.forEach((group) => {
+                group.menu = menu.hashed['/groups/' + group.slug].childNodes;
+                group.menuHash = menu.hashed;
             });
 
             this.router = new VueRouter(routerData);
