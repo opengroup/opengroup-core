@@ -31,6 +31,7 @@ class MultiChat extends Plugin {
             {
                 path: '/groups/' + group.slug + '/multichat',
                 title: 'Chat',
+                weight: -99,
                 components: {
                     main: {
                         data: function () {

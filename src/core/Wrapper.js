@@ -77,6 +77,11 @@ class Wrapper extends EventEmitter {
     nestMenu (items) {
         let hashTable = Object.create(null);
 
+        items = _(items).chain()
+        .sortBy('weight')
+        .sortBy((item) => item.path.split('/').length)
+        .value();
+
         items.forEach(item => hashTable[item.path] = { ...item, childNodes : [] } );
 
         let dataTree = [];
