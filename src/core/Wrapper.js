@@ -101,6 +101,18 @@ class Wrapper extends EventEmitter {
         Vue.use(VueRouter);
         var wrapper = this;
 
+        var getSubMenu = function (context) {
+            var submenu = [];
+
+            context.items.forEach((item) => {
+                if (item.path == context.$router.currentRoute.path.substr(0, item.path.length)) {
+                    submenu = item.childNodes;
+                }
+            });
+
+            return submenu;
+        };
+
         var microTemplatesInfo = {
             'about': {},
             'connection-button': {},
@@ -111,18 +123,15 @@ class Wrapper extends EventEmitter {
             },
             'nested-menu': {
                 props: ['items'],
+                data: function () {
+                    return {
+                        submenu: getSubMenu(this)
+                    };
+                },
                 watch: {
-                    submenu: function (val) {
-                        var submenu = [];
-
-                        this.items.forEach((item) => {
-                            if (item.path == this.$router.currentRoute.path) {
-                                submenu = item.childNodes;
-                            }
-                        });
-
-                        return submenu;
-                    }
+                    '$route': function() {
+                        this.submenu = getSubMenu(this);
+                    },
                 }
             }
         };
