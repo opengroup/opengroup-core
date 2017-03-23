@@ -1,16 +1,16 @@
 .group-header {
-  border-bottom: 1px solid $green;
   @include clearfix;
 
   > .group-title {
     margin: 0;
     float: left;
+    margin-right: -100%;
   }
 
-  > .group-member-count {
+  .group-member-count {
     color: $green;
     font-size: 12px;
-    float: left;
+    display: inline-block;
 
     &:after {
       content: '';

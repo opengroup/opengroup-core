@@ -108,6 +108,22 @@ class Wrapper extends EventEmitter {
             'group-list-item': { props: ['group'] },
             'group-header': {
                 props: ['group']
+            },
+            'nested-menu': {
+                props: ['items'],
+                watch: {
+                    submenu: function (val) {
+                        var submenu = [];
+
+                        this.items.forEach((item) => {
+                            if (item.path == this.$router.currentRoute.path) {
+                                submenu = item.childNodes;
+                            }
+                        });
+
+                        return submenu;
+                    }
+                }
             }
         };
 
@@ -157,15 +173,7 @@ class Wrapper extends EventEmitter {
             this.groups.forEach((group) => {
                 var groupHeaderComponent = {
                     data: function () {
-                        var submenu = group.menuHash[location.hash.substr(1)].childNodes;
-
-                        window.addEventListener("hashchange", function () {
-                            submenu = group.menuHash[location.hash.substr(1)].childNodes;
-                            console.log(submenu)
-                        }, false);
-
                         return {
-                            submenu: submenu,
                             group: group
                         };
                     },
@@ -216,6 +224,8 @@ class Wrapper extends EventEmitter {
             var appTemplateGlue = new Vue({
                 router: this.router
             }).$mount('#app');
+
+            window.vuething = appTemplateGlue
 
             if (appTemplateGlue.$route.matched.length == 0) {
                 this.router.push('/groups')

@@ -1,0 +1,11 @@
+<div class="nested-menu">
+    <ul class="menu-list">
+        <li v-for="item in items" class="menu-item">
+            <router-link
+                    class="menu-link"
+                    :to="{ path: item.path }">{{ item.title }}</router-link>
+        </li>
+    </ul>
+
+    <nested-menu v-if="submenu.length" v-bind:items="submenu"></nested-menu>
+</div>

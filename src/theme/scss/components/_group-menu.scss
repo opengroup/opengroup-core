@@ -1,9 +1,50 @@
-.group-menu {
+.nested-menu {
+  float: left;
+  clear: both;
   @include clearfix;
+  width: 100%;
+}
 
-  .group-menu-link {
+.group-menu {
+  padding: 0;
+  overflow: hidden;
+  margin: 0;
+  float: left;
+  clear: none;
+  width: 100%;
+  position: relative;
+
+  .menu-item {
+    float: left;
+    list-style: none;
+  }
+
+  .menu-list {
+    float: right;
+    padding: 0;
+    position: relative;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100vw;
+      background-color: $green;
+      height: 1px;
+    }
+  }
+
+  .group-sub-menu > .menu-list {
+    float: left;
+    width: 100%;
+  }
+
+  .menu-link {
     float: left;
     text-decoration: none;
+    white-space: nowrap;
     color: $black;
     padding: 16px 20px;
     transition: color $speed $easing, border $speed $easing;
@@ -13,6 +54,10 @@
     &.router-link-active {
       color: $green;
       border-bottom: 5px solid $green;
+    }
+
+    &.router-link-active + .group-sub-menu > .menu-list {
+      display: block;
     }
   }
 }
