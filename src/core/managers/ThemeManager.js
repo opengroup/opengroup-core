@@ -11,7 +11,9 @@ class ThemeManager extends EventEmitter {
         'group-header',
         'group-settings',
         'plugin-settings-form',
-        'nested-menu'
+        'nested-menu',
+        'sidebar',
+        'profile-teaser'
     ];
 
     components = {};

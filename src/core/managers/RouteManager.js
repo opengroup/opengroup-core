@@ -17,7 +17,7 @@ class RouteManager extends EventEmitter {
                 name: 'groups',
                 title: 'Groups',
                 components: {
-                    sidebar: Vue.options.components['group-list']
+                    sidebar: Vue.options.components['sidebar']
                 },
             },
             {
@@ -49,7 +49,7 @@ class RouteManager extends EventEmitter {
                 },
                 title: group.config.name,
                 components: {
-                    sidebar: Vue.options.components['group-list'],
+                    sidebar: Vue.options.components['sidebar'],
                     header: Vue.options.components['group-header'],
                 }
             });
@@ -62,7 +62,7 @@ class RouteManager extends EventEmitter {
                 },
                 title: 'Settings',
                 components: {
-                    sidebar: Vue.options.components['group-list'],
+                    sidebar: Vue.options.components['sidebar'],
                     header: Vue.options.components['group-header'],
                     main: Vue.options.components['group-settings'],
                 }
@@ -90,7 +90,7 @@ class RouteManager extends EventEmitter {
                     plugin.groupSubRoutes().forEach((subRoute) => {
                         subRoute.path = '/groups/' + group.slug + subRoute.subPath;
                         subRoute.components = {};
-                        subRoute.components.sidebar = Vue.options.components['group-list'];
+                        subRoute.components.sidebar = Vue.options.components['sidebar'];
                         subRoute.components.header = Vue.options.components['group-header'];
                         subRoute.components.main = {
                             template: subRoute.template,
@@ -119,7 +119,7 @@ class RouteManager extends EventEmitter {
                 group: group,
             },
             components: {
-                sidebar: Vue.options.components['group-list'],
+                sidebar: Vue.options.components['sidebar'],
                 header: Vue.options.components['group-header'],
                 main: {
                     template: `<div>

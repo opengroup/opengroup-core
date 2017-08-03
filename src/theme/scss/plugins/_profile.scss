@@ -124,3 +124,23 @@ $camera-size: 200px;
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+.profile-teaser {
+  overflow: hidden;
+  width: 80px;
+  height: 80px;
+  border: 2px solid black;
+  border-radius: 50%;
+  position: relative;
+  float: left;
+  margin: 20px;
+}
+
+.profile-teaser-snapshot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}

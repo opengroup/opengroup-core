@@ -38,6 +38,15 @@ class Profile extends Plugin {
             components: {
                 main: {
                     template: ProfileTemplate,
+                    beforeRouteLeave (to, from, next) {
+                        if (this.dataUri) {
+                            Webcam.reset();
+                            next();
+                        }
+                        else {
+                            next(false);
+                        }
+                    },
                     mounted: function () {
                         Webcam.set({
                             width: 320,
