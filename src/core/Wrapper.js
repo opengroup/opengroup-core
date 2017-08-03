@@ -78,8 +78,8 @@ class Wrapper extends EventEmitter {
         let hashTable = Object.create(null);
 
         items = _(items).chain()
-        .sortBy('weight')
         .sortBy((item) => item.path.split('/').length)
+        .sortBy('weight')
         .value();
 
         items.forEach(item => hashTable[item.path] = { ...item, childNodes : [] } );

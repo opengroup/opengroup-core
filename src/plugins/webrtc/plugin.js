@@ -20,22 +20,6 @@ class WebRtc extends Plugin {
         group.connectionTypes['og-webrtc'] = OgWebRtc;
     }
 
-    connectionButtons () {
-        return [
-            {
-                'title': 'Invite a friend',
-                'callback': () => {
-                    alert('test')
-                }
-            },
-            {
-                'title': 'I received a code',
-                'callback': () => {
-                    alert('test')
-                }
-            }
-        ];
-    }
 }
 
 export default WebRtc;
