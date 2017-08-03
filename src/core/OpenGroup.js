@@ -11,7 +11,6 @@ class OpenGroup extends EventEmitter {
     connections = [];
     plugins = {};
     pluginsAreLoaded = false;
-    infoHookData = {};
 
     /**
      * @param config.
@@ -42,9 +41,7 @@ class OpenGroup extends EventEmitter {
         });
 
         bluebird.all(pluginsToLoad).then(() => {
-            this.triggerInfoHook('connectionButtons');
             this.pluginsAreLoaded = true;
-            this.save();
             this.emit('ready');
         });
     }
@@ -125,30 +122,6 @@ class OpenGroup extends EventEmitter {
         this.emit('messageSend', message)
     }
 
-    triggerInfoHook (hook) {
-        let pluginNames = Object.keys(this.plugins);
-
-        this.infoHookData[hook] = [];
-        let args = Array.prototype.slice.call(arguments);
-        args.shift();
-
-        pluginNames.forEach((pluginName) => {
-            let plugin = this.plugins[pluginName];
-            if (typeof plugin[hook] === 'function') {
-                let pluginInfoHookData = plugin[hook](...args);
-                if (pluginInfoHookData) {
-                    this.infoHookData[hook] = this.infoHookData[hook].concat(pluginInfoHookData);
-                }
-            }
-        });
-    }
-
-    save () {
-        let allGroups = JSON.parse(sessionStorage.getItem('og-groups'));
-        if (!allGroups) { allGroups = {}; }
-        allGroups[this.uuid] = this.config;
-        sessionStorage.setItem('og-groups', JSON.stringify(allGroups))
-    }
 }
 
 export default OpenGroup;

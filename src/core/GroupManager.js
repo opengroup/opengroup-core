@@ -28,6 +28,13 @@ class GroupManager extends EventEmitter {
         });
     }
 
+    addGroupDefinition (newGroupDefinition) {
+        let knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.uuid);
+        if (!knownGroupNames.includes(newGroupDefinition.uuid)) {
+            this.groupDefinitions.push(newGroupDefinition);
+        }
+    }
+
     parseGroupFromUrl () {
         let group = this.getUrlParameter('group');
 
@@ -39,13 +46,6 @@ class GroupManager extends EventEmitter {
             catch (Exception) {
                 console.log(Exception)
             }
-        }
-    }
-
-    addGroupDefinition (newGroupDefinition) {
-        let knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.uuid);
-        if (!knownGroupNames.includes(newGroupDefinition.uuid)) {
-            this.groupDefinitions.push(newGroupDefinition);
         }
     }
 
@@ -64,6 +64,16 @@ class GroupManager extends EventEmitter {
         let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
         let results = regex.exec(location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    getGroups () {
+        return this.groups;
+    }
+
+    getCurrentGroup () {
+        if (this.wrapper.vueRoot.$route.meta.group) {
+            return this.wrapper.vueRoot.$route.meta.group;
+        }
     }
 }
 
