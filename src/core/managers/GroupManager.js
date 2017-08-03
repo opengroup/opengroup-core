@@ -15,7 +15,7 @@ class GroupManager extends EventEmitter {
         this.parseGroupsFromSessionStorage();
 
         this.groupDefinitions.forEach((groupDefinition) => {
-            let newGroup = new OpenGroup(groupDefinition);
+            let newGroup = new OpenGroup(this.wrapper, groupDefinition);
             this.groups.push(newGroup);
             newGroup.on('ready', () => {
                 this.groupsReadyCounter++;

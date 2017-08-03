@@ -53,6 +53,8 @@ class Wrapper extends EventEmitter {
         this.vueRoot = new Vue({
             router: this.router
         }).$mount(this.options.selector);
+
+        this.emit('ready');
     }
 }
 

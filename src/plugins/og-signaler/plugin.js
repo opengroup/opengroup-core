@@ -58,7 +58,6 @@ class OgSignaler extends Plugin {
     }
 
     addUrl (url) {
-        console.log(url)
         let ws = new WebSocket('ws://' + url);
         this.endpoints.push(ws);
         this.connectedUrls.push(url);

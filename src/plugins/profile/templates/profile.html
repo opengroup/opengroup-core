@@ -1,0 +1,14 @@
+<div class="profile-page-wrapper" :class="{'has-snapshot': dataUri}">
+    <h1>Hello!</h1>
+
+    <div class="profile-camera-wrapper">
+    <div class="profile-camera-inner">
+        <img class="profile-snapshot" :src="dataUri"/>
+        <div id="camera" class="profile-camera"></div>
+    </div>
+    <div class="profile-snap" @click="snap()"></div>
+    </div>
+
+    <router-link class="continue" v-if="dataUri" :to="{ path: '/groups' }">Continue</router-link>
+
+</div>

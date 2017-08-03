@@ -16,8 +16,9 @@ class OpenGroup extends EventEmitter {
      * @param config.
      * @constructor
      */
-    constructor (config = {}) {
+    constructor (wrapper, config = {}) {
         super();
+        this.wrapper = wrapper;
         this.config = {
             plugins: {}
         };
@@ -30,7 +31,6 @@ class OpenGroup extends EventEmitter {
 
         this.uuid = this.config.uuid;
         this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
-        this.ensureLid();
 
         let pluginsToLoad = [];
 
@@ -42,6 +42,7 @@ class OpenGroup extends EventEmitter {
 
         bluebird.all(pluginsToLoad).then(() => {
             this.pluginsAreLoaded = true;
+            this.ensureLid();
             this.emit('ready');
         });
     }
@@ -51,7 +52,13 @@ class OpenGroup extends EventEmitter {
             this.lid = sessionStorage.getItem('og-lid-' + this.uuid);
 
             if (!this.lid) {
-                this.lid = window.prompt('Please enter your identity');
+                this.lid = false;
+                this.emit('ensure-lid');
+
+                if (!this.lid) {
+                    this.lid = window.prompt('Please enter your identity');
+                }
+
                 sessionStorage.setItem('og-lid-' + this.uuid, this.lid);
             }
         }

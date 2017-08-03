@@ -138,6 +138,10 @@ h1, h2, h3, h4, h5, h6 {
     .group-menu .menu-link.router-link-active + .group-sub-menu > .menu-list {
       display: block; }
 
+.settings-page-item {
+  clear: both;
+  float: left; }
+
 .multichat-textarea {
   width: 100%;
   border: 0;
@@ -150,6 +154,89 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 0; }
   .multichat-chat-message.self {
     float: right; }
+
+.profile-camera-wrapper {
+  width: 200px;
+  height: 200px;
+  position: relative; }
+
+.profile-camera-inner {
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: relative; }
+  .profile-camera-inner:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+    z-index: 2;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0) scale(1); }
+
+.profile-camera,
+.profile-snapshot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; }
+
+.has-snapshot .profile-snapshot {
+  z-index: 2; }
+
+.profile-snap {
+  width: 60px;
+  height: 60px;
+  background-color: black;
+  position: absolute;
+  right: 0;
+  border-radius: 50%;
+  top: 50%;
+  z-index: 3;
+  cursor: pointer;
+  transform: translate(50%, -50%);
+  transition: all 0.3s ease-in-out; }
+  .profile-snap:before, .profile-snap:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transition: all 0.3s ease-in-out;
+    background-color: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(0) scale(1); }
+  .profile-snap:hover:before, .profile-snap:hover:after {
+    transform: translate(-50%, -50%) rotate(0) scale(1.5); }
+
+.has-snapshot .profile-camera-inner:after {
+  animation: flash .1s; }
+
+.has-snapshot .profile-snap {
+  background-color: white; }
+  .has-snapshot .profile-snap:before, .has-snapshot .profile-snap:after {
+    height: 4px;
+    border-radius: 0;
+    background-color: black; }
+  .has-snapshot .profile-snap:before {
+    transform: translate(-50%, -50%) rotate(135deg); }
+  .has-snapshot .profile-snap:after {
+    transform: translate(-50%, -50%) rotate(45deg); }
+
+@keyframes flash {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 
 .region-sidebar {
   max-width: 100vw;

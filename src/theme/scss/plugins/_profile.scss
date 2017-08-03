@@ -1,0 +1,114 @@
+$camera-size: 200px;
+
+.profile-page-wrapper {
+
+}
+
+.profile-camera-wrapper {
+  width: $camera-size;
+  height: $camera-size;
+  position: relative;
+}
+
+.profile-camera-inner {
+  overflow: hidden;
+  width: $camera-size;
+  height: $camera-size;
+  border-radius: 50%;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transition: all $speed $easing;
+    background-color: white;
+    z-index: 2;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0) scale(1);
+  }
+}
+
+.profile-camera,
+.profile-snapshot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.has-snapshot {
+  .profile-snapshot {
+    z-index: 2;
+  }
+}
+
+.profile-snap {
+  width: 60px;
+  height: 60px;
+  background-color: black;
+  position: absolute;
+  right: 0;
+  border-radius: 50%;
+  top: 50%;
+  z-index: 3;
+  cursor: pointer;
+  transform: translate(50%, -50%);
+  transition: all $speed $easing;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transition: all $speed $easing;
+    background-color: red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) rotate(0) scale(1);
+  }
+
+  &:hover {
+    &:before, &:after {
+      transform: translate(-50%, -50%) rotate(0) scale(1.5);
+    }
+  }
+}
+
+.has-snapshot {
+  .profile-camera-inner:after {
+    animation: flash .1s;
+  }
+
+  .profile-snap {
+    background-color: white;
+
+    &:before,
+    &:after {
+      height: 4px;
+      border-radius: 0;
+      background-color: black;
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(135deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+  }
+}
+
+@keyframes flash {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

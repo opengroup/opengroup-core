@@ -70,6 +70,15 @@ class RouteManager extends EventEmitter {
 
             // Setting forms for plugins.
             _.forEach(group.plugins, (plugin) => {
+                if (typeof plugin.routes === 'function') {
+                    plugin.routes().forEach((route) => {
+                        groupRoutes.push(route);
+                    });
+                }
+            });
+
+            // Setting forms for plugins.
+            _.forEach(group.plugins, (plugin) => {
                 if (typeof plugin.settingsForm === 'function') {
                     groupRoutes.push(this.createPluginSettingsRoute(plugin, group));
                 }
