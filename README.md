@@ -36,5 +36,5 @@ OpenGroup is written in ES6 and uses JSPM for managing packages. Also gulp is us
 
 OpenGroup is a work in progress, if you want to join, please do!
 
-If you want to know a bit more you can check out the slide of a presentation that was made for OpenGroup.
+If you want to know a bit more you can check out the slides of a presentation that was made for OpenGroup.
 http://opengroup.io/opengroup-presentation
