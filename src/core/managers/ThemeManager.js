@@ -10,7 +10,8 @@ class ThemeManager extends EventEmitter {
         'group-list-item',
         'group-header',
         'group-settings',
-        'plugin-settings-form'
+        'plugin-settings-form',
+        'nested-menu'
     ];
 
     components = {};

@@ -42,6 +42,18 @@ class MenuManager extends EventEmitter {
         }
     }
 
+    getSubMenu (context) {
+        let submenu = [];
+
+        context.items.forEach((item) => {
+            if (item.path === context.$router.currentRoute.path.substr(0, item.path.length)) {
+                submenu = item.children;
+            }
+        });
+
+        return submenu;
+    }
+
 }
 
 export default MenuManager;

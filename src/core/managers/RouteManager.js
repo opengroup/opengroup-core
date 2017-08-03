@@ -60,7 +60,7 @@ class RouteManager extends EventEmitter {
                 meta: {
                     group: group,
                 },
-                title: group.config.name + ' settings',
+                title: 'Settings',
                 components: {
                     sidebar: Vue.options.components['group-list'],
                     header: Vue.options.components['group-header'],
