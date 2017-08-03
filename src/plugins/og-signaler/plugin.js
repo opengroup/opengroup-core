@@ -9,6 +9,7 @@ class OgSignaler extends Plugin {
     endpoints = [];
     returnAnswerCallbacks = {};
     config = {};
+    connectedUrls = [];
 
     /**
      * @param group.
@@ -24,7 +25,7 @@ class OgSignaler extends Plugin {
             this.pluginData.url = '';
         }
 
-        if (typeof this.config.url === 'string' && this.validWebsocketsUrl(this.config.url)) {
+        if (this.validWebsocketsUrl(this.config.url)) {
             this.group.on('ready', () => {
                 this.addUrl(this.config.url);
             })
@@ -33,26 +34,34 @@ class OgSignaler extends Plugin {
 
     // TODO add validation on the url.
     validWebsocketsUrl (url) {
-        return !!url;
+        return typeof url === 'string' && !!url;
     }
 
     settingsForm () {
         return {
             path: 'connect-via-url',
             title: 'Connect via an URL',
-            schema: {
+            schema: [{
                 type: 'input',
                 inputType: 'text',
                 label: 'Server Websocket address',
                 model: 'url',
                 required: true
-            }
+            }]
+        }
+    }
+
+    saveSettings () {
+        if (!this.connectedUrls.includes(this.pluginData.url) && this.validWebsocketsUrl(this.pluginData.url)) {
+            this.addUrl(this.pluginData.url);
         }
     }
 
     addUrl (url) {
+        console.log(url)
         let ws = new WebSocket('ws://' + url);
         this.endpoints.push(ws);
+        this.connectedUrls.push(url);
 
         ws.onopen = (event) => {
             ws.send(JSON.stringify({

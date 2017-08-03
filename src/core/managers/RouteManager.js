@@ -77,13 +77,28 @@ class RouteManager extends EventEmitter {
                 main: {
                     template: `<div>
                         <h1>{{ title }}</h1>
-                        <vue-form-generator :schema="schema" :model="model"></vue-form-generator>
+                        <vue-form-generator :schema="schema" :model="model" :options="formOptions">
+                        </vue-form-generator>
                     </div>`,
                     data: function () {
                         return {
                             title: settingsFormInfo.title,
                             model: group.config.plugins[plugin.name],
-                            schema: settingsFormInfo.schema
+                            schema: {
+                                fields: [...settingsFormInfo.schema, {
+                                    'type': 'submit',
+                                    onSubmit: () => {
+                                        plugin.saveSettings();
+                                    },
+                                    validateBeforeSubmit: true,
+                                    buttonText: 'Save settings'
+                                }]
+                            },
+                            formOptions: {
+                                validateAfterLoad: true,
+                                validateAfterChanged: true,
+                                fieldIdPrefix: plugin.name
+                            }
                         }
                     }
                 }
