@@ -1,5 +1,4 @@
 import Plugin from 'OpenGroup/core/Plugin';
-import OgSignalerSettingsTemplate from './templates/og-signaler.html!text';
 
 /**
  * An OpenGroup Og Signaler plugin.
@@ -37,31 +36,17 @@ class OgSignaler extends Plugin {
         return !!url;
     }
 
-    groupSubRoutes (group) {
-        let plugin = this;
-
-        return [
-            {
-                path: '/groups/' + group.slug + '/settings/og-signaler',
-                title: 'Connect via an URL',
-                weight: 1000,
-                components: {
-                    main: {
-                        data: function () {
-                            return {
-                                signalerUrl: plugin.pluginData.url
-                            }
-                        },
-                        methods: {
-                            saveSettings: function () {
-
-                            }
-                        },
-                        template: OgSignalerSettingsTemplate
-                    }
-                },
+    pluginSettingsForm () {
+        return {
+            title: 'Connect via an URL',
+            schema: {
+                type: 'input',
+                inputType: 'text',
+                label: 'Server Websocket address',
+                model: 'url',
+                required: true
             }
-        ];
+        }
     }
 
     addUrl (url) {

@@ -61,6 +61,7 @@ SystemJS.config({
     "uuid": "npm:uuid@3.0.1",
     "vm": "npm:jspm-nodelibs-vm@0.2.0",
     "vue": "npm:vue@2.1.8",
+    "vue-form-generator": "npm:vue-form-generator@2.0.0",
     "vue-router": "npm:vue-router@2.1.1"
   },
   packages: {

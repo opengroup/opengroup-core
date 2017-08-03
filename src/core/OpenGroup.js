@@ -33,9 +33,9 @@ class OpenGroup extends EventEmitter {
         this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
         this.ensureLid();
 
-        var pluginsToLoad = [];
+        let pluginsToLoad = [];
 
-        var pluginUris = Object.keys(this.config.plugins);
+        let pluginUris = Object.keys(this.config.plugins);
 
         pluginUris.forEach((pluginUri) => {
             pluginsToLoad.push(this.addPlugin(pluginUri, this.config.plugins[pluginUri]));
@@ -66,8 +66,8 @@ class OpenGroup extends EventEmitter {
             if (!this.connectionTypes[peerInfo.connectionType]) {
                 throw 'Unknown connection type provided to addPeer()';
             }
-            var connectionType = this.connectionTypes[peerInfo.connectionType];
-            var connection = new connectionType(peerInfo);
+            let connectionType = this.connectionTypes[peerInfo.connectionType];
+            let connection = new connectionType(peerInfo);
 
             connection.uuid = peerInfo.uuid;
             this.connections.push(connection);
@@ -79,8 +79,8 @@ class OpenGroup extends EventEmitter {
             connection.once('closed', () => {
                 this.emit('closedConnection', connection);
 
-                var index = this.connections.indexOf(connection);
-                if (index != -1) {
+                let index = this.connections.indexOf(connection);
+                if (index !== -1) {
                     this.connections.splice(index, 1);
                 }
             });
@@ -103,12 +103,12 @@ class OpenGroup extends EventEmitter {
 
     addPlugin (pluginUri, config) {
         return new Promise((resolve) => {
-            if (pluginUri.substr(0, 4) != 'http') {
+            if (pluginUri.substr(0, 4) !== 'http') {
                 pluginUri = '/plugins/' + pluginUri;
             }
 
             System.import(pluginUri + '/plugin.js').then((plugin) => {
-                var newPlugin = new plugin.default(this, config);
+                let newPlugin = new plugin.default(this, config);
                 this.plugins[newPlugin.getName()] = newPlugin;
                 this.emit('pluginAdded', newPlugin.getName(), newPlugin);
                 resolve();
@@ -126,16 +126,16 @@ class OpenGroup extends EventEmitter {
     }
 
     triggerInfoHook (hook) {
-        var pluginNames = Object.keys(this.plugins);
+        let pluginNames = Object.keys(this.plugins);
 
         this.infoHookData[hook] = [];
-        var args = Array.prototype.slice.call(arguments);
+        let args = Array.prototype.slice.call(arguments);
         args.shift();
 
         pluginNames.forEach((pluginName) => {
-            var plugin = this.plugins[pluginName];
+            let plugin = this.plugins[pluginName];
             if (typeof plugin[hook] === 'function') {
-                var pluginInfoHookData = plugin[hook](...args);
+                let pluginInfoHookData = plugin[hook](...args);
                 if (pluginInfoHookData) {
                     this.infoHookData[hook] = this.infoHookData[hook].concat(pluginInfoHookData);
                 }
@@ -144,7 +144,7 @@ class OpenGroup extends EventEmitter {
     }
 
     save () {
-        var allGroups = JSON.parse(sessionStorage.getItem('og-groups'));
+        let allGroups = JSON.parse(sessionStorage.getItem('og-groups'));
         if (!allGroups) { allGroups = {}; }
         allGroups[this.uuid] = this.config;
         sessionStorage.setItem('og-groups', JSON.stringify(allGroups))
