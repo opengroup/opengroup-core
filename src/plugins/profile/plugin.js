@@ -22,6 +22,7 @@ class Profile extends Plugin {
         Object.assign(this.config, config);
 
         this.group.on('ensure-lid', () => {
+            // TODO do we need this lid?
             this.group.lid = 'profile-temporary';
             this.wrapper.once('ready', () => {
                 this.wrapper.router.push('/profile');
