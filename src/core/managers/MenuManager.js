@@ -3,7 +3,8 @@ import _ from 'underscore';
 
 class MenuManager extends EventEmitter {
 
-    menuItemsFlat = [];
+    menuItemsFlat = {};
+    menuItemsTree = [];
 
     constructor (wrapper) {
         super();
@@ -11,15 +12,34 @@ class MenuManager extends EventEmitter {
     }
 
     indexMenuItems () {
-        this.wrapper.routes.forEach((route) => {
-            this.menuItemsFlat.push({
+        let sortedRoutes = _(this.wrapper.routes).chain()
+        .sortBy((menuItem) => menuItem.path.substr(1).split('/').length)
+        .sortBy('weight')
+        .value();
+
+        sortedRoutes.forEach((route) => {
+            this.menuItemsFlat[route.path] = {
                 route: route.name,
                 path: route.path,
-                title: route.title
-            })
-        })
+                title: route.title,
+                children: []
+            }
+        });
 
-        console.table(this.menuItemsFlat)
+        sortedRoutes.forEach(route => {
+            let menuItemPathSplit = route.path.split('/');
+            let parentPath = menuItemPathSplit;
+            parentPath.pop();
+            parentPath = parentPath.join('/');
+            if ( menuItemPathSplit.length > 1 ) this.menuItemsFlat[parentPath].children.push(this.menuItemsFlat[route.path]);
+            else this.menuItemsTree.push(this.menuItemsFlat[route.path]);
+        });
+    }
+
+    getMenuItemByPath (path) {
+        if (this.menuItemsFlat[path]) {
+            return this.menuItemsFlat[path];
+        }
     }
 
 }
