@@ -9,6 +9,7 @@ class ThemeManager extends EventEmitter {
         'group-list',
         'group-list-item',
         'group-header',
+        'group-settings',
         'plugin-settings-form'
     ];
 

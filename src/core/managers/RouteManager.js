@@ -15,6 +15,7 @@ class RouteManager extends EventEmitter {
                 path: '/groups',
                 alias: '/',
                 name: 'groups',
+                title: 'Groups',
                 components: {
                     sidebar: Vue.options.components['group-list']
                 },
@@ -22,6 +23,7 @@ class RouteManager extends EventEmitter {
             {
                 path: '/about',
                 name: 'about',
+                title: 'About OpenGroup',
                 components: {
                     main: Vue.options.components['about']
                 }
@@ -45,9 +47,24 @@ class RouteManager extends EventEmitter {
                 meta: {
                     group: group,
                 },
+                title: group.config.name,
                 components: {
                     sidebar: Vue.options.components['group-list'],
                     header: Vue.options.components['group-header'],
+                }
+            });
+
+            groupRoutes.push({
+                path: '/groups/' + group.slug + '/settings',
+                name: group.slug + ':settings',
+                meta: {
+                    group: group,
+                },
+                title: group.config.name + ' settings',
+                components: {
+                    sidebar: Vue.options.components['group-list'],
+                    header: Vue.options.components['group-header'],
+                    main: Vue.options.components['group-settings'],
                 }
             });
 
@@ -68,6 +85,7 @@ class RouteManager extends EventEmitter {
         return {
             path: '/groups/' + group.slug + '/settings/' + settingsFormInfo.path,
             name: group.slug + ':' + plugin.name,
+            title: settingsFormInfo.title,
             meta: {
                 group: group,
             },

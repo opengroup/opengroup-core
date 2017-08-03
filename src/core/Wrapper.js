@@ -13,6 +13,8 @@ import RouteManager from 'OpenGroup/core/managers/RouteManager';
  */
 class Wrapper extends EventEmitter {
 
+    routes = [];
+
     options = {
         selector: '#app',
         theme: 'OpenGroup/theme',
@@ -41,9 +43,11 @@ class Wrapper extends EventEmitter {
         Vue.use(VueRouter);
 
         this.themeManager.registerComponents();
+        this.routes = this.routeManager.getRoutes();
+        this.menuManager.indexMenuItems();
 
         this.router = new VueRouter({
-            routes: this.routeManager.getRoutes()
+            routes: this.routes
         });
 
         this.vueRoot = new Vue({
