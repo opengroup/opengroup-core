@@ -5,6 +5,5 @@ export default function (wrapper) {
                 groups: wrapper.groupManager.getGroups()
             }
         }
-
     }
 };

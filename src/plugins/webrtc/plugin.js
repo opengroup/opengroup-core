@@ -20,6 +20,24 @@ class WebRtc extends Plugin {
         group.connectionTypes['og-webrtc'] = OgWebRtc;
     }
 
+    settingsForm () {
+        return {
+            path: 'signaler-manual',
+            title: 'Manual',
+            schema: [{
+                type: 'input',
+                inputType: 'text',
+                label: 'Answer',
+                model: 'answer',
+                required: true
+            }]
+        }
+    }
+
+    saveSettings () {
+
+    }
+
 }
 
 export default WebRtc;

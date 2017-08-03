@@ -17,19 +17,20 @@ class MultiChat extends Plugin {
      */
     constructor (group, config = {}) {
         super();
+        this.group = group;
         Object.assign(this.config, config);
 
-        group.on('og.core.multichat.message', (object, connection) => {
+        this.group.on('og.core.multichat.message', (object, connection) => {
             this.messages.push(object.message);
         })
     }
 
-    groupSubRoutes (group) {
+    groupSubRoutes () {
         let plugin = this;
 
         return [
             {
-                path: '/groups/' + group.slug + '/multichat',
+                path: '/groups/' + this.group.slug + '/multichat',
                 title: 'Chat',
                 weight: -99,
                 components: {
@@ -42,9 +43,9 @@ class MultiChat extends Plugin {
                         },
                         methods: {
                             sendChat: function (event) {
-                                if ((event.metaKey || event.ctrlKey) && event.keyCode == 13) {
+                                if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
 
-                                    group.sendMessage({
+                                    this.group.sendMessage({
                                         owner: 'og.core.multichat',
                                         message: {
                                             text: this.newMessage

@@ -16,25 +16,28 @@ class Group extends Plugin {
      */
     constructor (group, config = {}) {
         super();
+        this.group = group;
         Object.assign(this.config, config);
     }
 
-    groupSubRoutes (group) {
+    groupSubRoutes () {
+        let plugin = this;
+
         return [
             {
-                path: '/groups/' + group.slug + '/settings',
+                path: '/groups/' + this.group.slug + '/settings',
                 title: 'Settings',
                 weight: 1000,
                 components: {
                     main: {
                         data: function () {
                             return {
-                                groupName: group.config.name
+                                groupName: plugin.group.config.name
                             }
                         },
                         methods: {
                             saveSettings: function () {
-                                group.config.name = this.groupName;
+                                this.group.config.name = this.groupName;
                             }
                         },
                         template: GroupSettingsTemplate

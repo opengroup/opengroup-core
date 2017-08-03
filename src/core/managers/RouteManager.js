@@ -54,26 +54,26 @@ class RouteManager extends EventEmitter {
                 }
             });
 
-            groupRoutes.push({
-                path: '/groups/' + group.slug + '/settings',
-                name: group.slug + ':settings',
-                meta: {
-                    group: group,
-                },
-                title: 'Settings',
-                components: {
-                    sidebar: Vue.options.components['group-list'],
-                    header: Vue.options.components['group-header'],
-                    main: Vue.options.components['group-settings'],
-                }
-            });
-
             // Setting forms for plugins.
             _.forEach(group.plugins, (plugin) => {
                 if (typeof plugin.settingsForm === 'function') {
                     groupRoutes.push(this.createPluginSettingsRoute(plugin, group));
                 }
-            })
+            });
+
+            // SubRoutes of plugins
+            _.forEach(group.plugins, (plugin) => {
+                if (typeof plugin.groupSubRoutes === 'function') {
+                    plugin.groupSubRoutes().forEach((subRoute) => {
+                        subRoute.components.sidebar = Vue.options.components['group-list'];
+                        subRoute.components.header = Vue.options.components['group-header'];
+                        subRoute.meta = {
+                            group: group,
+                        };
+                        groupRoutes.push(subRoute);
+                    });
+                }
+            });
         });
 
         return groupRoutes;
@@ -104,7 +104,7 @@ class RouteManager extends EventEmitter {
                             model: group.config.plugins[plugin.name],
                             schema: {
                                 fields: [...settingsFormInfo.schema, {
-                                    'type': 'submit',
+                                    type: 'submit',
                                     onSubmit: () => {
                                         plugin.saveSettings();
                                     },
