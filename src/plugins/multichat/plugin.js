@@ -25,7 +25,7 @@ class MultiChat extends Plugin {
     }
 
     groupSubRoutes (group) {
-        var plugin = this;
+        let plugin = this;
 
         return [
             {

@@ -7,8 +7,9 @@ class GroupManager extends EventEmitter {
     groups = [];
     groupsReadyCounter = 0;
 
-    constructor () {
+    constructor (wrapper) {
         super();
+        this.wrapper = wrapper;
 
         this.parseGroupFromUrl();
         this.parseGroupsFromSessionStorage();

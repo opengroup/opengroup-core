@@ -7,6 +7,7 @@ import _ from 'underscore';
 import 'OpenGroup/theme/css/styles.css!';
 import GroupManager from 'OpenGroup/core/GroupManager';
 import MenuManager from 'OpenGroup/core/MenuManager';
+import ThemeManager from 'OpenGroup/core/ThemeManager';
 
 /**
  */
@@ -21,18 +22,13 @@ class Wrapper extends EventEmitter {
      */
     constructor (options) {
         super();
-
         this.options = Object.assign(this.options, options);
         this.element = document.querySelector(this.options.selector);
-        this.element.innerHTML = `
-        <div class="region-sidebar"><router-view name="sidebar"></router-view></div>
-        <div class="region-main">
-            <div class="region-main-header"><router-view name="header"></router-view></div>
-            <div class="region-main-content"><router-view name="main"></router-view></div>
-        </div>`;
 
-        this.menuManager = new MenuManager();
-        this.groupManager = new GroupManager();
+        this.menuManager = new MenuManager(this);
+        this.themeManager = new ThemeManager(this);
+        this.groupManager = new GroupManager(this);
+
         this.groupManager.on('ready', () => {
             this.renderAll();
         })

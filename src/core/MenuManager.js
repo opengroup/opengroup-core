@@ -3,8 +3,9 @@ import _ from 'underscore';
 
 class MenuManager extends EventEmitter {
 
-    constructor () {
+    constructor (wrapper) {
         super();
+        this.wrapper = wrapper;
     }
 
     nestMenu (items) {
