@@ -25,20 +25,25 @@ class OgSignaler extends Plugin {
             this.pluginData.url = '';
         }
 
-        if (typeof this.config.url == 'string') {
+        if (typeof this.config.url === 'string' && this.validWebsocketsUrl(this.config.url)) {
             this.group.on('ready', () => {
                 this.addUrl(this.config.url);
             })
         }
     }
 
+    // TODO add validation on the url.
+    validWebsocketsUrl (url) {
+        return !!url;
+    }
+
     groupSubRoutes (group) {
-        var plugin = this;
+        let plugin = this;
 
         return [
             {
                 path: '/groups/' + group.slug + '/settings/og-signaler',
-                title: 'Connect via a signaler',
+                title: 'Connect via an URL',
                 weight: 1000,
                 components: {
                     main: {
@@ -60,7 +65,7 @@ class OgSignaler extends Plugin {
     }
 
     addUrl (url) {
-        var ws = new WebSocket('ws://' + url);
+        let ws = new WebSocket('ws://' + url);
         this.endpoints.push(ws);
 
         ws.onopen = (event) => {
@@ -71,10 +76,10 @@ class OgSignaler extends Plugin {
         };
 
         ws.onmessage = (event) => {
-            var message = JSON.parse(event.data);
+            let message = JSON.parse(event.data);
 
-            if (message.command == 'create-offer') {
-                var connectedUuids = this.group.connections.map((connection) => connection.uuid);
+            if (message.command === 'create-offer') {
+                let connectedUuids = this.group.connections.map((connection) => connection.uuid);
                 if (!connectedUuids.includes(message.uuid)) {
 
                     this.group.addPeer({
@@ -97,8 +102,8 @@ class OgSignaler extends Plugin {
                 }
             }
 
-            if (message.command == 'create-answer') {
-                var offer = JSON.parse(atob(message.offer));
+            if (message.command === 'create-answer') {
+                let offer = JSON.parse(atob(message.offer));
 
                 this.group.addPeer({
                     connectionType: 'og-webrtc',
@@ -119,8 +124,8 @@ class OgSignaler extends Plugin {
                 });
             }
 
-            if (message.command == 'accept-answer') {
-                var answer = JSON.parse(atob(message.answer));
+            if (message.command === 'accept-answer') {
+                let answer = JSON.parse(atob(message.answer));
                 this.returnAnswerCallbacks[message.uuid](answer);
             }
 

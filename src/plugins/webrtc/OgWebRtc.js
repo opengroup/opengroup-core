@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 import EasyWebRtcManualSignaler from './EasyWebRtcManualSignaler.js';
+import './webrtc.polyfill.js';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.

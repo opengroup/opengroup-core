@@ -6,19 +6,10 @@
 </head>
 <body>
 
-    <script src="polyfills/webrtc.polyfill.js"></script>
     <script src="lib/system.js"></script>
     <script src="jspm.config.js"></script>
     <script>System.import('./app.js').catch(console.error.bind(console));</script>
-    <link href="theme/css/styles.css" media="all" rel="stylesheet" />
-
-    <div id="app">
-        <div class="region-sidebar"><router-view name="sidebar"></router-view></div>
-        <div class="region-main">
-            <div class="region-main-header"><router-view name="header"></router-view></div>
-            <div class="region-main-content"><router-view name="main"></router-view></div>
-        </div>
-    </div>
+    <div id="app"></div>
 
 </body>
 </html>

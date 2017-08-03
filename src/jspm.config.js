@@ -1,6 +1,7 @@
 SystemJS.config({
   paths: {
-    "npm:": "lib/npm/"
+    "npm:": "lib/npm/",
+    "github:": "lib/github/"
   },
   browserConfig: {
     "baseURL": "/",
@@ -37,9 +38,11 @@ SystemJS.config({
 SystemJS.config({
   packageConfigPaths: [
     "npm:@*/*.json",
-    "npm:*.json"
+    "npm:*.json",
+    "github:*/*.json"
   ],
   map: {
+    "css": "github:systemjs/plugin-css@0.1.35",
     "assert": "npm:jspm-nodelibs-assert@0.2.0",
     "async": "npm:async@2.1.4",
     "bluebird": "npm:bluebird@3.4.7",

@@ -4,6 +4,7 @@ import Vue from 'vue/dist/vue.common';
 import VueRouter from 'vue-router';
 import bluebird from 'bluebird';
 import _ from 'underscore';
+import 'OpenGroup/theme/css/styles.css!';
 
 /**
  */
@@ -12,24 +13,36 @@ class Wrapper extends EventEmitter {
     groupDefinitions = [];
     groups = [];
     groupsReadyCounter = 0;
+    options = {
+        selector: '#app'
+    };
 
     /**
      * @constructor
      */
-    constructor () {
+    constructor (options) {
         super();
+
+        this.options = Object.assign(this.options, options);
+        this.element = document.querySelector(this.options.selector);
+        this.element.innerHTML = `
+        <div class="region-sidebar"><router-view name="sidebar"></router-view></div>
+        <div class="region-main">
+            <div class="region-main-header"><router-view name="header"></router-view></div>
+            <div class="region-main-content"><router-view name="main"></router-view></div>
+        </div>`;
 
         this.parseGroupFromUrl();
         this.parseGroupsFromSessionStorage();
 
         this.groupDefinitions.forEach((groupDefinition) => {
-            var newGroup = new OpenGroup(groupDefinition);
+            let newGroup = new OpenGroup(groupDefinition);
             this.groups.push(newGroup);
             newGroup.on('ready', () => {
                 this.groupsReadyCounter++;
 
                 // TODO one failing group breaks the application.
-                if (this.groupsReadyCounter == this.groupDefinitions.length) {
+                if (this.groupsReadyCounter === this.groupDefinitions.length) {
                     this.renderAll();
                 }
             });
@@ -37,18 +50,18 @@ class Wrapper extends EventEmitter {
     }
 
     addGroupDefinition (newGroupDefinition) {
-        var knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.uuid);
+        let knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.uuid);
         if (!knownGroupNames.includes(newGroupDefinition.uuid)) {
             this.groupDefinitions.push(newGroupDefinition);
         }
     }
 
     parseGroupFromUrl () {
-        var group = this.getUrlParameter('group');
+        let group = this.getUrlParameter('group');
 
         if (group) {
             try {
-                var groupDefinition = JSON.parse(group);
+                let groupDefinition = JSON.parse(group);
                 this.addGroupDefinition(groupDefinition);
             }
             catch (Exception) {
@@ -59,13 +72,13 @@ class Wrapper extends EventEmitter {
 
     getUrlParameter (name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
+        let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        let results = regex.exec(location.search);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
     parseGroupsFromSessionStorage () {
-        var existingGroups = JSON.parse(window.sessionStorage.getItem('og-groups'));
+        let existingGroups = JSON.parse(window.sessionStorage.getItem('og-groups'));
 
         if (existingGroups) {
             _.forEach(existingGroups, (groupDefinition) => {
@@ -87,8 +100,8 @@ class Wrapper extends EventEmitter {
         let dataTree = [];
 
         items.forEach( item => {
-            var itemPathSplit = item.path.split('/');
-            var parentPath = itemPathSplit;
+            let itemPathSplit = item.path.split('/');
+            let parentPath = itemPathSplit;
             parentPath.pop();
             parentPath = parentPath.join('/');
             if ( itemPathSplit.length > 1 ) hashTable[parentPath].childNodes.push(hashTable[item.path]);
@@ -102,15 +115,15 @@ class Wrapper extends EventEmitter {
     }
 
     renderAll () {
-        var routerData = {};
+        let routerData = {};
         Vue.use(VueRouter);
-        var wrapper = this;
+        let wrapper = this;
 
-        var getSubMenu = function (context) {
-            var submenu = [];
+        let getSubMenu = function (context) {
+            let submenu = [];
 
             context.items.forEach((item) => {
-                if (item.path == context.$router.currentRoute.path.substr(0, item.path.length)) {
+                if (item.path === context.$router.currentRoute.path.substr(0, item.path.length)) {
                     submenu = item.childNodes;
                 }
             });
@@ -118,7 +131,7 @@ class Wrapper extends EventEmitter {
             return submenu;
         };
 
-        var microTemplatesInfo = {
+        let microTemplatesInfo = {
             'about': {},
             'connection-button': {},
             'group-list': { props: ['groups'] },
@@ -141,10 +154,10 @@ class Wrapper extends EventEmitter {
             }
         };
 
-        var templatePromises = [];
+        let templatePromises = [];
 
         Object.keys(microTemplatesInfo).forEach(function (microTemplateKey) {
-            var microTemplateInfo = microTemplatesInfo[microTemplateKey];
+            let microTemplateInfo = microTemplatesInfo[microTemplateKey];
 
             templatePromises.push(System.import('OpenGroup/theme/templates/' + microTemplateKey + '.html!text').then(function (template) {
                 microTemplateInfo.template = template;
@@ -154,7 +167,7 @@ class Wrapper extends EventEmitter {
 
         // Load all the micro templates async, when all are loaded:
         bluebird.all(templatePromises).then(() => {
-            var groupListComponent = {
+            let groupListComponent = {
                 data: function () {
                     return {
                         groups: wrapper.groups
@@ -185,7 +198,7 @@ class Wrapper extends EventEmitter {
             };
 
             this.groups.forEach((group) => {
-                var groupHeaderComponent = {
+                let groupHeaderComponent = {
                     data: function () {
                         return {
                             group: group
@@ -197,7 +210,7 @@ class Wrapper extends EventEmitter {
 
                 group.triggerInfoHook('groupSubRoutes', group);
 
-                var firstSubRoute = {
+                let firstSubRoute = {
                     path: '/groups/' + group.slug,
                     components: {
                         sidebar: groupListComponent,
@@ -227,7 +240,7 @@ class Wrapper extends EventEmitter {
                 });
             });
 
-            var menu = wrapper.nestMenu(routerData.routes);
+            let menu = wrapper.nestMenu(routerData.routes);
             this.groups.forEach((group) => {
                 group.menu = menu.hashed['/groups/' + group.slug].childNodes;
                 group.menuHash = menu.hashed;
@@ -235,13 +248,13 @@ class Wrapper extends EventEmitter {
 
             this.router = new VueRouter(routerData);
 
-            var appTemplateGlue = new Vue({
+            let appTemplateGlue = new Vue({
                 router: this.router
             }).$mount('#app');
 
-            window.vuething = appTemplateGlue
+            window.vuething = appTemplateGlue;
 
-            if (appTemplateGlue.$route.matched.length == 0) {
+            if (appTemplateGlue.$route.matched.length === 0) {
                 this.router.push('/groups')
             }
         });
