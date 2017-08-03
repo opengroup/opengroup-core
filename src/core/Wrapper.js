@@ -4,10 +4,10 @@ import Vue from 'vue/dist/vue.common';
 import VueRouter from 'vue-router';
 import VueFormGenerator from 'vue-form-generator';
 
-import GroupManager from 'OpenGroup/core/GroupManager';
-import MenuManager from 'OpenGroup/core/MenuManager';
-import ThemeManager from 'OpenGroup/core/ThemeManager';
-import RouteManager from 'OpenGroup/core/RouteManager';
+import GroupManager from 'OpenGroup/core/managers/GroupManager';
+import MenuManager from 'OpenGroup/core/managers/MenuManager';
+import ThemeManager from 'OpenGroup/core/managers/ThemeManager';
+import RouteManager from 'OpenGroup/core/managers/RouteManager';
 
 /**
  */
@@ -42,10 +42,8 @@ class Wrapper extends EventEmitter {
 
         this.themeManager.registerComponents();
 
-        let routes = this.routeManager.getRoutes();
-
         this.router = new VueRouter({
-            routes: routes
+            routes: this.routeManager.getRoutes()
         });
 
         this.vueRoot = new Vue({

@@ -8,7 +8,8 @@ class ThemeManager extends EventEmitter {
         'about',
         'group-list',
         'group-list-item',
-        'group-header'
+        'group-header',
+        'plugin-settings-form'
     ];
 
     components = {};
