@@ -23,30 +23,23 @@ class Group extends Plugin {
     groupSubRoutes () {
         let plugin = this;
 
-        return [
-            {
-                path: '/groups/' + this.group.slug + '/settings',
-                title: 'Settings',
-                weight: 1000,
-                components: {
-                    main: {
-                        data: function () {
-                            return {
-                                groupName: plugin.group.config.name
-                            }
-                        },
-                        methods: {
-                            saveSettings: function () {
-                                this.group.config.name = this.groupName;
-                            }
-                        },
-                        template: GroupSettingsTemplate
-                    }
-                },
-            }
-        ];
+        return [{
+            title: 'Group',
+            subPath: '/settings/group',
+            weight: 1000,
+            template: GroupSettingsTemplate,
+            data: function () {
+                return {
+                    groupName: plugin.group.config.name
+                }
+            },
+            methods: {
+                saveSettings: function () {
+                    this.group.config.name = this.groupName;
+                }
+            },
+        }];
     }
-
 
 }
 

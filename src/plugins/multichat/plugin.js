@@ -28,39 +28,38 @@ class MultiChat extends Plugin {
     groupSubRoutes () {
         let plugin = this;
 
-        return [
-            {
-                path: '/groups/' + this.group.slug + '/multichat',
-                title: 'Chat',
-                weight: -99,
-                components: {
-                    main: {
-                        data: function () {
-                            return {
-                                newMessage: '',
-                                messages: plugin.messages
-                            }
-                        },
-                        methods: {
-                            sendChat: function (event) {
-                                if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
+        return [{
+            title: 'Chat',
+            subPath: '/multichat',
+            weight: -10,
+            template: MultiChatTemplate,
+            data: function () {
+                return {
+                    newMessage: '',
+                    messages: plugin.messages
+                }
+            },
+            methods: {
+                sendChat: function (event) {
+                    if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
 
-                                    this.group.sendMessage({
-                                        owner: 'og.core.multichat',
-                                        message: {
-                                            text: this.newMessage
-                                        }
-                                    });
+                        plugin.messages.push({
+                            text: this.newMessage,
+                            self: true
+                        });
 
-                                    this.newMessage = '';
-                                }
+                        plugin.group.sendMessage({
+                            owner: 'og.core.multichat',
+                            message: {
+                                text: this.newMessage
                             }
-                        },
-                        template: MultiChatTemplate
+                        });
+
+                        this.newMessage = '';
                     }
-                },
-            }
-        ];
+                }
+            },
+        }];
     }
 
 

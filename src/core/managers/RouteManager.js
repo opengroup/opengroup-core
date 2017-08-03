@@ -54,6 +54,20 @@ class RouteManager extends EventEmitter {
                 }
             });
 
+            groupRoutes.push({
+                path: '/groups/' + group.slug + '/settings',
+                name: group.slug + ':settings',
+                meta: {
+                    group: group,
+                },
+                title: 'Settings',
+                components: {
+                    sidebar: Vue.options.components['group-list'],
+                    header: Vue.options.components['group-header'],
+                    main: Vue.options.components['group-settings'],
+                }
+            });
+
             // Setting forms for plugins.
             _.forEach(group.plugins, (plugin) => {
                 if (typeof plugin.settingsForm === 'function') {
@@ -65,11 +79,17 @@ class RouteManager extends EventEmitter {
             _.forEach(group.plugins, (plugin) => {
                 if (typeof plugin.groupSubRoutes === 'function') {
                     plugin.groupSubRoutes().forEach((subRoute) => {
+                        subRoute.path = '/groups/' + group.slug + subRoute.subPath;
+                        subRoute.components = {};
                         subRoute.components.sidebar = Vue.options.components['group-list'];
                         subRoute.components.header = Vue.options.components['group-header'];
-                        subRoute.meta = {
-                            group: group,
+                        subRoute.components.main = {
+                            template: subRoute.template,
+                            data: subRoute.data,
+                            methods: subRoute.methods,
                         };
+                        subRoute.meta = { group: group };
+
                         groupRoutes.push(subRoute);
                     });
                 }
@@ -95,7 +115,7 @@ class RouteManager extends EventEmitter {
                 main: {
                     template: `<div>
                         <h1>{{ title }}</h1>
-                        <vue-form-generator :schema="schema" :model="model" :options="formOptions">
+                        <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
                         </vue-form-generator>
                     </div>`,
                     data: function () {
@@ -115,7 +135,7 @@ class RouteManager extends EventEmitter {
                             formOptions: {
                                 validateAfterLoad: true,
                                 validateAfterChanged: true,
-                                fieldIdPrefix: plugin.name
+                                fieldIdPrefix: plugin.name,
                             }
                         }
                     }

@@ -4,3 +4,13 @@
   border-bottom: 2px solid $green;
   resize: none;
 }
+
+.multichat-chat-message {
+  clear: both;
+  float: left;
+  padding: 10px 0;
+
+  &.self {
+    float: right;
+  }
+}
