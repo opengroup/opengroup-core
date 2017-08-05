@@ -29,15 +29,12 @@ class Wrapper extends EventEmitter {
         this.options = Object.assign(this.options, options);
         this.element = document.querySelector(this.options.selector);
 
-        this.menuManager = new MenuManager(this);
         this.themeManager = new ThemeManager(this);
         this.groupManager = new GroupManager(this);
+        this.menuManager = new MenuManager(this);
         this.routeManager = new RouteManager(this);
         this.profileManager = new ProfileManager(this);
-
-        this.groupManager.on('ready', () => {
-            this.startVue();
-        })
+        this.startVue();
     }
 
     startVue () {
@@ -45,7 +42,7 @@ class Wrapper extends EventEmitter {
         Vue.use(VueRouter);
 
         this.themeManager.registerComponents();
-        this.routes = this.routeManager.getRoutes();
+        this.routes = this.routeManager.getAppRoutes();
         this.menuManager.indexMenuItems();
 
         this.router = new VueRouter({
@@ -56,6 +53,7 @@ class Wrapper extends EventEmitter {
             router: this.router
         }).$mount(this.options.selector);
 
+        this.emit('preReady');
         this.emit('ready');
     }
 }

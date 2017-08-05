@@ -13,6 +13,7 @@ class OpenGroup extends EventEmitter {
     pluginsAreLoaded = false;
 
     /**
+     * @param wrapper.
      * @param config.
      * @constructor
      */
@@ -42,26 +43,8 @@ class OpenGroup extends EventEmitter {
 
         bluebird.all(pluginsToLoad).then(() => {
             this.pluginsAreLoaded = true;
-            this.ensureLid();
             this.emit('ready');
         });
-    }
-
-    ensureLid () {
-        if (!this.lid) {
-            this.lid = sessionStorage.getItem('og-lid-' + this.uuid);
-
-            if (!this.lid) {
-                this.lid = false;
-                this.emit('ensure-lid');
-
-                if (!this.lid) {
-                    this.lid = window.prompt('Please enter your identity');
-                }
-
-                sessionStorage.setItem('og-lid-' + this.uuid, this.lid);
-            }
-        }
     }
 
     addPeer (peerInfo) {

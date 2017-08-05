@@ -3,7 +3,7 @@
 
     <div class="profile-camera-wrapper">
         <div class="profile-camera-inner">
-            <img class="profile-snapshot" :src="model.dataUri"/>
+            <img class="profile-snapshot" v-if="model.dataUri" :src="model.dataUri"/>
             <div id="camera" class="profile-camera"></div>
         </div>
         <div class="profile-snap" @click="snap()"></div>

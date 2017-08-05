@@ -9,9 +9,16 @@ class MenuManager extends EventEmitter {
     constructor (wrapper) {
         super();
         this.wrapper = wrapper;
+
+        this.wrapper.groupManager.on('newGroup', () => {
+            this.indexMenuItems();
+        });
     }
 
     indexMenuItems () {
+        this.menuItemsFlat = {};
+        this.menuItemsTree = [];
+
         let sortedRoutes = _(this.wrapper.routes).chain()
         .sortBy((menuItem) => menuItem.path.substr(1).split('/').length)
         .sortBy('weight')

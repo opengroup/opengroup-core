@@ -3,36 +3,32 @@ import _ from 'underscore';
 import OpenGroup from 'OpenGroup/core/OpenGroup';
 
 class GroupManager extends EventEmitter {
-    groupDefinitions = [];
     groups = [];
-    groupsReadyCounter = 0;
 
     constructor (wrapper) {
         super();
         this.wrapper = wrapper;
 
-        this.parseGroupFromUrl();
-        this.parseGroupsFromSessionStorage();
-
-        this.groupDefinitions.forEach((groupDefinition) => {
-            let newGroup = new OpenGroup(this.wrapper, groupDefinition);
-            this.groups.push(newGroup);
-            newGroup.on('ready', () => {
-                this.groupsReadyCounter++;
-
-                // TODO one failing group breaks the application.
-                if (this.groupsReadyCounter === this.groupDefinitions.length) {
-                    this.emit('ready');
-                }
-            });
-        });
+        this.wrapper.on('ready', () => {
+            this.parseGroupFromUrl();
+        })
     }
 
-    addGroupDefinition (newGroupDefinition) {
-        let knownGroupNames = this.groupDefinitions.map((groupDefinition) => groupDefinition.uuid);
-        if (!knownGroupNames.includes(newGroupDefinition.uuid)) {
-            this.groupDefinitions.push(newGroupDefinition);
+    addGroup (groupManifest) {
+        if (this.validGroupManifest(groupManifest)) {
+            let newGroup = new OpenGroup(this.wrapper, groupManifest);
+            this.groups.push(newGroup);
+            this.emit('newGroup', newGroup);
+            return newGroup;
         }
+        else {
+            throw 'The group manifest is invalid';
+        }
+    }
+
+    // TODO make group manifest validation.
+    validGroupManifest (groupManifest) {
+        return true;
     }
 
     parseGroupFromUrl () {
@@ -40,8 +36,9 @@ class GroupManager extends EventEmitter {
 
         if (group) {
             try {
-                let groupDefinition = JSON.parse(group);
-                this.addGroupDefinition(groupDefinition);
+                let groupManifest = JSON.parse(group);
+                let newGroup = this.addGroup(groupManifest);
+                this.wrapper.router.push('/groups/' + newGroup.slug);
             }
             catch (Exception) {
                 console.log(Exception)
@@ -49,20 +46,10 @@ class GroupManager extends EventEmitter {
         }
     }
 
-    parseGroupsFromSessionStorage () {
-        let existingGroups = JSON.parse(window.sessionStorage.getItem('og-groups'));
-
-        if (existingGroups) {
-            _.forEach(existingGroups, (groupDefinition) => {
-                this.addGroupDefinition(groupDefinition);
-            });
-        }
-    }
-
     getUrlParameter (name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        let results = regex.exec(location.search);
+        let results = regex.exec('?' + location.hash.split('?')[1]);
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 

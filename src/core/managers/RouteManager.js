@@ -7,10 +7,16 @@ class RouteManager extends EventEmitter {
     constructor (wrapper) {
         super();
         this.wrapper = wrapper;
+
+        this.wrapper.on('preReady', () => {
+            this.wrapper.groupManager.on('newGroup', (group) => {
+                this.createGroupRoutes(group);
+            });
+        })
     }
 
     getAppRoutes () {
-        let routes = [
+        return [
             {
                 path: '/groups',
                 alias: '/',
@@ -27,89 +33,89 @@ class RouteManager extends EventEmitter {
                 components: {
                     main: Vue.options.components['about']
                 }
+            },
+            {
+                path: '/profile',
+                name: 'profile',
+                components: {
+                    main: Vue.options.components['profile']
+                }
             }
         ];
-
-        this.emit('routesAlter', routes);
-
-        return routes;
     }
 
-    createGroupRoutes () {
+    createGroupRoutes (group) {
         let groupRoutes = [];
-        let groups = this.wrapper.groupManager.getGroups();
 
         // Maybe you wonder why we don't use dynamic routes,
         // it has to do with allowing different versions of one plugin in two groups,
         // maybe it is still possible to use dynamic loading, it think it would get quite complex,
         // but please prove me wrong with a pull request.
 
-        groups.forEach((group) => {
-            groupRoutes.push({
-                path: '/groups/' + group.slug,
-                name: group.slug,
-                meta: {
-                    group: group,
-                },
-                title: group.config.name,
-                components: {
-                    sidebar: Vue.options.components['sidebar'],
-                    header: Vue.options.components['group-header'],
-                }
-            });
-
-            groupRoutes.push({
-                path: '/groups/' + group.slug + '/settings',
-                name: group.slug + ':settings',
-                meta: {
-                    group: group,
-                },
-                title: 'Settings',
-                components: {
-                    sidebar: Vue.options.components['sidebar'],
-                    header: Vue.options.components['group-header'],
-                    main: Vue.options.components['group-settings'],
-                }
-            });
-
-            // Setting forms for plugins.
-            _.forEach(group.plugins, (plugin) => {
-                if (typeof plugin.routes === 'function') {
-                    plugin.routes().forEach((route) => {
-                        groupRoutes.push(route);
-                    });
-                }
-            });
-
-            // Setting forms for plugins.
-            _.forEach(group.plugins, (plugin) => {
-                if (typeof plugin.settingsForm === 'function') {
-                    groupRoutes.push(this.createPluginSettingsRoute(plugin, group));
-                }
-            });
-
-            // SubRoutes of plugins
-            _.forEach(group.plugins, (plugin) => {
-                if (typeof plugin.groupSubRoutes === 'function') {
-                    plugin.groupSubRoutes().forEach((subRoute) => {
-                        subRoute.path = '/groups/' + group.slug + subRoute.subPath;
-                        subRoute.components = {};
-                        subRoute.components.sidebar = Vue.options.components['sidebar'];
-                        subRoute.components.header = Vue.options.components['group-header'];
-                        subRoute.components.main = {
-                            template: subRoute.template,
-                            data: subRoute.data,
-                            methods: subRoute.methods,
-                        };
-                        subRoute.meta = { group: group };
-
-                        groupRoutes.push(subRoute);
-                    });
-                }
-            });
+        groupRoutes.push({
+            path: '/groups/' + group.slug,
+            name: group.slug,
+            meta: {
+                group: group,
+            },
+            title: group.config.name,
+            components: {
+                sidebar: Vue.options.components['sidebar'],
+                header: Vue.options.components['group-header'],
+            }
         });
 
-        return groupRoutes;
+        groupRoutes.push({
+            path: '/groups/' + group.slug + '/settings',
+            name: group.slug + ':settings',
+            meta: {
+                group: group,
+            },
+            title: 'Settings',
+            components: {
+                sidebar: Vue.options.components['sidebar'],
+                header: Vue.options.components['group-header'],
+                main: Vue.options.components['group-settings'],
+            }
+        });
+
+        // Setting forms for plugins.
+        _.forEach(group.plugins, (plugin) => {
+            if (typeof plugin.routes === 'function') {
+                plugin.routes().forEach((route) => {
+                    groupRoutes.push(route);
+                });
+            }
+        });
+
+        // Setting forms for plugins.
+        _.forEach(group.plugins, (plugin) => {
+            if (typeof plugin.settingsForm === 'function') {
+                groupRoutes.push(this.createPluginSettingsRoute(plugin, group));
+            }
+        });
+
+        // SubRoutes of plugins
+        _.forEach(group.plugins, (plugin) => {
+            if (typeof plugin.groupSubRoutes === 'function') {
+                plugin.groupSubRoutes().forEach((subRoute) => {
+                    subRoute.path = '/groups/' + group.slug + subRoute.subPath;
+                    subRoute.components = {};
+                    subRoute.components.sidebar = Vue.options.components['sidebar'];
+                    subRoute.components.header = Vue.options.components['group-header'];
+                    subRoute.components.main = {
+                        template: subRoute.template,
+                        data: subRoute.data,
+                        methods: subRoute.methods,
+                    };
+                    subRoute.meta = { group: group };
+
+                    groupRoutes.push(subRoute);
+                });
+            }
+        });
+
+        this.wrapper.this.router.addRoutes(groupRoutes);
     }
 
     createPluginSettingsRoute (plugin, group) {
@@ -157,9 +163,6 @@ class RouteManager extends EventEmitter {
         }
     }
 
-    getRoutes () {
-        return [...this.getAppRoutes(), ...this.createGroupRoutes()];
-    }
 }
 
 export default RouteManager;

@@ -3,6 +3,8 @@ import Webcam from 'jhuckaby/webcamjs';
 export default function (wrapper) {
     return {
         beforeRouteLeave (to, from, next) {
+            sessionStorage.setItem('opengroup-nickname', this.model.nickname);
+
             if (this.model.dataUri) {
                 next();
             }
@@ -15,7 +17,7 @@ export default function (wrapper) {
                 width: 320,
                 height: 240,
                 image_format: 'jpeg',
-                jpeg_quality: 90
+                jpeg_quality: 100
             });
 
             if (!this.model.dataUri) {
@@ -26,7 +28,7 @@ export default function (wrapper) {
         data: function () {
             return {
                 model: {
-                    dataUri: sessionStorage.getItem('opengroup-avatar') || '',
+                    dataUri: sessionStorage.getItem('opengroup-avatar') || false,
                     nickname: sessionStorage.getItem('opengroup-nickname') || '',
                 },
 

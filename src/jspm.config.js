@@ -63,7 +63,7 @@ SystemJS.config({
     "vm": "npm:jspm-nodelibs-vm@0.2.0",
     "vue": "npm:vue@2.1.8",
     "vue-form-generator": "npm:vue-form-generator@2.0.0",
-    "vue-router": "npm:vue-router@2.1.1"
+    "vue-router": "npm:vue-router@2.7.0"
   },
   packages: {
     "npm:jspm-nodelibs-crypto@0.2.0": {
