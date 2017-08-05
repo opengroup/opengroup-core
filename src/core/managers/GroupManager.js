@@ -1,5 +1,4 @@
 import EventEmitter from 'events';
-import _ from 'underscore';
 import OpenGroup from 'OpenGroup/core/OpenGroup';
 
 class GroupManager extends EventEmitter {
@@ -32,7 +31,7 @@ class GroupManager extends EventEmitter {
 
     // TODO make group manifest validation.
     validGroupManifest (groupManifest) {
-        return true;
+        return groupManifest && typeof groupManifest === 'object';
     }
 
     parseGroupFromUrl () {
