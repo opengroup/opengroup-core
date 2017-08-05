@@ -12,6 +12,6 @@
     <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
     </vue-form-generator>
 
-    <router-link class="continue" v-if="dataUri" :to="{ path: '/groups' }">Continue</router-link>
+    <router-link class="continue" v-if="dataUri && model.nickname.length > 2" :to="{ path: '/groups' }">Continue</router-link>
 
 </div>

@@ -21,6 +21,12 @@ class Profile extends Plugin {
 
         Object.assign(this.config, config);
 
+        this.pluginData = group.config.plugins['profile'];
+
+        if (!this.pluginData.nickname) {
+            this.pluginData.nickname = sessionStorage.getItem('opengroup-nickname') || '';
+        }
+
         this.group.on('ensure-lid', () => {
             // TODO do we need this lid?
             this.group.lid = 'profile-temporary';
@@ -40,8 +46,11 @@ class Profile extends Plugin {
                 main: {
                     template: ProfileTemplate,
                     beforeRouteLeave (to, from, next) {
+                        if (plugin.pluginData.nickname) {
+                            sessionStorage.setItem('opengroup-nickname', plugin.pluginData.nickname);
+                        }
+
                         if (this.dataUri) {
-                            Webcam.reset();
                             next();
                         }
                         else {
@@ -56,7 +65,9 @@ class Profile extends Plugin {
                             jpeg_quality: 90
                         });
 
-                        Webcam.attach('#camera');
+                        if (!this.dataUri) {
+                            Webcam.attach('#camera');
+                        }
                     },
                     data: function () {
                         let dataUri = sessionStorage.getItem('opengroup-avatar');
@@ -64,9 +75,7 @@ class Profile extends Plugin {
                         return {
                             dataUri: dataUri,
 
-                            model: {
-                                nickname: ''
-                            },
+                            model: plugin.pluginData,
 
                             schema: {
                                 fields: [
@@ -95,11 +104,16 @@ class Profile extends Plugin {
                                 Webcam.snap((dataUri) => {
                                     this.dataUri = dataUri;
                                     sessionStorage.setItem('opengroup-avatar', dataUri);
+                                    Webcam.reset();
                                 });
                             }
                             else {
-                                this.dataUri = false;
-                                sessionStorage.setItem('opengroup-avatar', false);
+                                Webcam.attach('#camera');
+                                Webcam.on('live', () => {
+                                    this.dataUri = false;
+                                    sessionStorage.setItem('opengroup-avatar', false);
+                                    Webcam.off('live');
+                                });
                             }
                         }
                     }
