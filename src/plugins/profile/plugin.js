@@ -59,8 +59,34 @@ class Profile extends Plugin {
                         Webcam.attach('#camera');
                     },
                     data: function () {
+                        let dataUri = sessionStorage.getItem('opengroup-avatar');
+
                         return {
-                            dataUri: false
+                            dataUri: dataUri,
+
+                            model: {
+                                nickname: ''
+                            },
+
+                            schema: {
+                                fields: [
+                                    {
+                                        type: "input",
+                                        inputType: "text",
+                                        label: "Nickname",
+                                        model: "nickname",
+                                        id: "nick_name",
+                                        placeholder: "Your nickname",
+                                        required: true
+                                    },
+                                ],
+                            },
+
+                            formOptions: {
+                                validateAfterLoad: true,
+                                validateAfterChanged: true,
+                                fieldIdPrefix: 'user-'
+                            }
                         }
                     },
                     methods: {
