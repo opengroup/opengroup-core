@@ -8,6 +8,7 @@ import GroupManager from 'OpenGroup/core/managers/GroupManager';
 import MenuManager from 'OpenGroup/core/managers/MenuManager';
 import ThemeManager from 'OpenGroup/core/managers/ThemeManager';
 import RouteManager from 'OpenGroup/core/managers/RouteManager';
+import ProfileManager from 'OpenGroup/core/managers/ProfileManager';
 
 /**
  */
@@ -32,6 +33,7 @@ class Wrapper extends EventEmitter {
         this.themeManager = new ThemeManager(this);
         this.groupManager = new GroupManager(this);
         this.routeManager = new RouteManager(this);
+        this.profileManager = new ProfileManager(this);
 
         this.groupManager.on('ready', () => {
             this.startVue();

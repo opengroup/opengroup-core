@@ -13,7 +13,8 @@ class ThemeManager extends EventEmitter {
         'plugin-settings-form',
         'nested-menu',
         'sidebar',
-        'profile-teaser'
+        'profile-teaser',
+        'profile'
     ];
 
     components = {};

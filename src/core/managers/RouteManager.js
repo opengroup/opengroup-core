@@ -10,7 +10,7 @@ class RouteManager extends EventEmitter {
     }
 
     getAppRoutes () {
-        return [
+        let routes = [
             {
                 path: '/groups',
                 alias: '/',
@@ -29,6 +29,10 @@ class RouteManager extends EventEmitter {
                 }
             }
         ];
+
+        this.emit('routesAlter', routes);
+
+        return routes;
     }
 
     createGroupRoutes () {

@@ -1,0 +1,17 @@
+<div class="profile-page-wrapper" :class="{'has-snapshot': model.dataUri}">
+    <h1>Hello!</h1>
+
+    <div class="profile-camera-wrapper">
+        <div class="profile-camera-inner">
+            <img class="profile-snapshot" :src="model.dataUri"/>
+            <div id="camera" class="profile-camera"></div>
+        </div>
+        <div class="profile-snap" @click="snap()"></div>
+    </div>
+
+    <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
+    </vue-form-generator>
+
+    <router-link class="continue" v-if="model.dataUri && model.nickname.length > 2" :to="{ path: '/groups' }">Continue</router-link>
+
+</div>
