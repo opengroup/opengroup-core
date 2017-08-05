@@ -42,6 +42,7 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
+    "systemjs-plugin-text": "npm:systemjs-plugin-text@0.0.9",
     "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@1.0.22",
     "css": "github:systemjs/plugin-css@0.1.35",
     "assert": "npm:jspm-nodelibs-assert@0.2.0",

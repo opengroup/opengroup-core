@@ -115,7 +115,7 @@ class RouteManager extends EventEmitter {
             }
         });
 
-        this.wrapper.this.router.addRoutes(groupRoutes);
+        this.wrapper.router.addRoutes(groupRoutes);
     }
 
     createPluginSettingsRoute (plugin, group) {

@@ -60,6 +60,21 @@
           "buffer": "@empty",
           "process": "@empty"
         }
+      },
+      "npm:vue@2.1.8": {
+        "main": "dist/vue.common.js",
+        "format": "cjs",
+        "meta": {
+          "*": {
+            "globals": {
+              "process": "process"
+            }
+          },
+          "*.json": {
+            "format": "json"
+          }
+        },
+        "map": {}
       }
     }
   },
