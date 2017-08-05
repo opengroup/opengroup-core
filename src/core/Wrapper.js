@@ -43,7 +43,7 @@ class Wrapper extends EventEmitter {
 
         this.themeManager.registerComponents();
         this.routes = this.routeManager.getAppRoutes();
-        this.menuManager.indexMenuItems();
+        this.menuManager.indexMenuItems(this.routes);
 
         this.router = new VueRouter({
             routes: this.routes

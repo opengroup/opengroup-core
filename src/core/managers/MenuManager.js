@@ -10,16 +10,15 @@ class MenuManager extends EventEmitter {
         super();
         this.wrapper = wrapper;
 
-        this.wrapper.groupManager.on('newGroup', () => {
-            this.indexMenuItems();
+        this.wrapper.on('preReady', () => {
+            this.wrapper.routeManager.on('addedGroupRoutes', (groupRoutes, group) => {
+                this.indexMenuItems(groupRoutes);
+            });
         });
     }
 
-    indexMenuItems () {
-        this.menuItemsFlat = {};
-        this.menuItemsTree = [];
-
-        let sortedRoutes = _(this.wrapper.routes).chain()
+    indexMenuItems (routes) {
+        let sortedRoutes = _(routes).chain()
         .sortBy((menuItem) => menuItem.path.substr(1).split('/').length)
         .sortBy('weight')
         .value();

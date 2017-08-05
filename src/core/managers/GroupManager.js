@@ -18,7 +18,11 @@ class GroupManager extends EventEmitter {
         if (this.validGroupManifest(groupManifest)) {
             let newGroup = new OpenGroup(this.wrapper, groupManifest);
             this.groups.push(newGroup);
-            this.emit('newGroup', newGroup);
+
+            newGroup.once('ready', () => {
+                this.emit('newGroup', newGroup);
+            });
+
             return newGroup;
         }
         else {
