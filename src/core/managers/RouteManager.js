@@ -48,27 +48,35 @@ class RouteManager extends EventEmitter {
                             template: `<component :is="$route.params.plugin"></component>`
                         }
                     },
-                    /*
                     {
-                        path: '/groups/' + group.slug + '/settings/' + settingsFormInfo.path,
-                        name: group.slug + ':' + plugin.name,
-                        title: settingsFormInfo.title,
-                        meta: {
-                            group: group,
-                        },
-                        components: {
-                            sidebar: Vue.options.components['sidebar'],
-                            header: Vue.options.components['group-header'],
-                            main: {
-                                template: `<div>
-                                    <h1>{{ title }}</h1>
-                                    <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
-                                    </vue-form-generator>
-                                </div>`,
-                                data: function () {
+                        path: 'settings',
+                        name: 'groups.group.settings',
+                        title: 'Plugin',
+                        component: {
+                            template: `<h1>Group settings</h1>`
+                        }
+                    },
+                    {
+                        path: 'settings/:plugin',
+                        name: 'groups.group.settings.plugin',
+                        title: 'Plugin',
+                        component: {
+                            template: `
+                            <div>
+                                <h1>{{ title }}</h1>
+                                <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
+                                </vue-form-generator>
+                            </div>`,
+                            data: function () {
+                                let currentGroup = wrapper.groupManager.getCurrentGroup();
+                                let plugin = currentGroup.plugins[this.$route.params.plugin];
+
+                                if (typeof plugin.settingsForm === 'function') {
+                                    let settingsFormInfo = plugin.settingsForm();
+
                                     return {
                                         title: settingsFormInfo.title,
-                                        model: group.config.plugins[plugin.name],
+                                        model: currentGroup.config.plugins[plugin.name],
                                         schema: {
                                             fields: [...settingsFormInfo.schema, {
                                                 type: 'submit',
@@ -86,9 +94,14 @@ class RouteManager extends EventEmitter {
                                         }
                                     }
                                 }
+
+                                // Plugin has no settings form.
+                                else {
+                                    return {}
+                                }
                             }
                         }
-                    } */
+                    },
                 ]
             },
             {

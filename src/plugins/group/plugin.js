@@ -9,6 +9,10 @@ class Group extends Plugin {
     name = 'group';
     config = {};
 
+    componentNames = [
+        'group-settings'
+    ];
+
     /**
      * @param group.
      * @param config.
@@ -20,24 +24,10 @@ class Group extends Plugin {
         Object.assign(this.config, config);
     }
 
-    groupSubRoutes () {
-        let plugin = this;
-
+    getMenuItems () {
         return [{
-            title: 'Group',
-            subPath: '/settings/group',
-            weight: 1000,
-            template: GroupSettingsTemplate,
-            data: function () {
-                return {
-                    groupName: plugin.group.config.name
-                }
-            },
-            methods: {
-                saveSettings: function () {
-                    this.group.config.name = this.groupName;
-                }
-            },
+            title: 'Settings',
+            path: '/groups/' + this.group.slug + '/group-settings'
         }];
     }
 
