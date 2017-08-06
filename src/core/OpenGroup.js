@@ -1,6 +1,7 @@
 import EventEmitter from 'events';
 import uuid from 'uuid/v4';
 import bluebird from 'bluebird';
+import _ from 'underscore';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -121,6 +122,11 @@ class OpenGroup extends EventEmitter {
         this.emit('messageSend', message)
     }
 
+    getMenuItems () {
+        return _.reduce(this.plugins, (menuItems, plugin) => {
+            return menuItems.concat(plugin.getMenuItems());
+        }, [])
+    }
 }
 
 export default OpenGroup;

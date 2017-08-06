@@ -18,6 +18,10 @@ class Plugin extends EventEmitter {
         return this.name ? this.name : 'undefined';
     }
 
+    getMenuItems () {
+        return [];
+    }
+
 }
 
 export default Plugin;

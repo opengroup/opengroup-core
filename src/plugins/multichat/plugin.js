@@ -1,5 +1,4 @@
 import Plugin from 'OpenGroup/core/Plugin';
-import MultiChatTemplate from './templates/multichat.html!text';
 
 /**
  * An OpenGroup multichat plugin.
@@ -8,14 +7,6 @@ class MultiChat extends Plugin {
 
     name = 'multichat';
     config = {};
-    messages = [];
-
-    menuItems = [
-        {
-            title: 'Chat',
-            component: 'multichat'
-        }
-    ];
 
     componentNames = [
         'multichat'
@@ -31,9 +22,18 @@ class MultiChat extends Plugin {
         this.group = group;
         Object.assign(this.config, config);
 
+        // TODO use props.
         this.group.on('og.core.multichat.message', (object, connection) => {
             this.messages.push(object.message);
         })
+    }
+
+    getMenuItems () {
+        return [{
+            title: 'Chat',
+            component: 'multichat',
+            path: '/groups/' + this.group.slug + '/multichat'
+        }];
     }
 }
 

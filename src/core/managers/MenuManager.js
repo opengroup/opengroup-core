@@ -11,8 +11,9 @@ class MenuManager extends EventEmitter {
         this.wrapper = wrapper;
 
         this.wrapper.on('preReady', () => {
-            this.wrapper.groupManager.on('newGroup', () => {
-                // this.indexMenuItems();
+            this.wrapper.groupManager.on('newGroup', (group) => {
+                let groupMenuItems = group.getMenuItems();
+                this.indexMenuItems(groupMenuItems);
             });
         });
     }
@@ -25,7 +26,7 @@ class MenuManager extends EventEmitter {
 
         sortedRoutes.forEach((route) => {
             this.menuItemsFlat[route.path] = {
-                route: route.name,
+                route: route.name ? route.name : '',
                 path: route.path,
                 title: route.title,
                 children: []
@@ -37,13 +38,21 @@ class MenuManager extends EventEmitter {
             let parentPath = menuItemPathSplit;
             parentPath.pop();
             parentPath = parentPath.join('/');
+
+            // Fix for dynamic paths.
+            if (!this.menuItemsFlat[parentPath]) {
+                this.menuItemsFlat[parentPath] = {
+                    children: []
+                }
+            }
+
             if ( menuItemPathSplit.length > 1 ) this.menuItemsFlat[parentPath].children.push(this.menuItemsFlat[route.path]);
             else this.menuItemsTree.push(this.menuItemsFlat[route.path]);
         });
     }
 
     getMenuItemByPath (path) {
-        if (this.menuItemsFlat[path]) {
+        if (this.menuItemsFlat && this.menuItemsFlat[path]) {
             return this.menuItemsFlat[path];
         }
     }
