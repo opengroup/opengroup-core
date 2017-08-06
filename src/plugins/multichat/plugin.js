@@ -35,43 +35,6 @@ class MultiChat extends Plugin {
             this.messages.push(object.message);
         })
     }
-
-        /*
-        let plugin = this;
-
-        return [{
-            title: 'Chat',
-            subPath: '/multichat',
-            weight: -10,
-            template: MultiChatTemplate,
-            data: function () {
-                return {
-                    newMessage: '',
-                    messages: plugin.messages
-                }
-            },
-            methods: {
-                sendChat: function (event) {
-                    if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
-
-                        plugin.messages.push({
-                            text: this.newMessage,
-                            self: true
-                        });
-
-                        plugin.group.sendMessage({
-                            owner: 'og.core.multichat',
-                            message: {
-                                text: this.newMessage
-                            }
-                        });
-
-                        this.newMessage = '';
-                    }
-                }
-            },
-        }];
-    } */
 }
 
 export default MultiChat;

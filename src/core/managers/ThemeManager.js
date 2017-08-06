@@ -39,16 +39,12 @@ class ThemeManager extends EventEmitter {
         });
     }
 
-    registerComponent (componentName, path) {
-        if (!path) {
-            path = this.wrapper.options.theme + '/components/' + componentName + '.js';
-        }
-
-        this.components[componentName] = Vue.component(componentName, () => System.import(path)
+    registerComponent (componentName, basePath = this.wrapper.options.theme) {
+        this.components[componentName] = Vue.component(componentName, () => System.import(basePath + '/components/' + componentName + '.js')
         .then((component) => {
             let componentExecuted = component.default(this.wrapper);
             if (!componentExecuted.template) {
-                return this.getTemplate(componentName).then((template) => {
+                return this.getTemplate(componentName, basePath).then((template) => {
                     componentExecuted.template = template;
                     return componentExecuted;
                 });
@@ -59,8 +55,8 @@ class ThemeManager extends EventEmitter {
         }));
     }
 
-    getTemplate (templateName) {
-        return System.import(this.wrapper.options.theme + '/templates/' + templateName + '.html!text');
+    getTemplate (templateName, basePath = this.wrapper.options.theme) {
+        return System.import(basePath + '/templates/' + templateName + '.html!text');
     }
 }
 

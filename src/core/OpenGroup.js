@@ -102,7 +102,7 @@ class OpenGroup extends EventEmitter {
 
                 if (newPlugin.componentNames) {
                     newPlugin.componentNames.forEach((componentName) => {
-                        this.wrapper.themeManager.registerComponent(componentName, pluginUri + '/components/' + componentName + '.js');
+                        this.wrapper.themeManager.registerComponent(componentName, pluginUri);
                     });
                 }
 
