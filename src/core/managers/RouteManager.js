@@ -10,6 +10,7 @@ class RouteManager extends EventEmitter {
     }
 
     getAppRoutes () {
+        let routeManager = this;
         let wrapper = this.wrapper;
 
         return [
@@ -41,6 +42,14 @@ class RouteManager extends EventEmitter {
                 },
                 children: [
                     {
+                        path: 'settings',
+                        name: 'groups.group.settings',
+                        title: 'Plugin',
+                        component: {
+                            template: `<h1>Group settings</h1>`
+                        }
+                    },
+                    {
                         path: ':plugin',
                         name: 'groups.group.plugin',
                         title: 'Plugin',
@@ -57,14 +66,6 @@ class RouteManager extends EventEmitter {
                         }
                     },
                     {
-                        path: 'settings',
-                        name: 'groups.group.settings',
-                        title: 'Plugin',
-                        component: {
-                            template: `<h1>Group settings</h1>`
-                        }
-                    },
-                    {
                         path: 'settings/:plugin',
                         name: 'groups.group.settings.plugin',
                         title: 'Plugin',
@@ -75,38 +76,14 @@ class RouteManager extends EventEmitter {
                                 <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
                                 </vue-form-generator>
                             </div>`,
+                            watch: {
+                                // This is neede else the whole form get's 'cached'.
+                                '$route': function() {
+                                    Object.assign(this, routeManager.createSettingsRoute(this));
+                                },
+                            },
                             data: function () {
-                                let currentGroup = wrapper.groupManager.getCurrentGroup();
-                                let plugin = currentGroup.plugins[this.$route.params.plugin];
-
-                                if (typeof plugin.settingsForm === 'function') {
-                                    let settingsFormInfo = plugin.settingsForm();
-
-                                    return {
-                                        title: settingsFormInfo.title,
-                                        model: currentGroup.config.plugins[plugin.name],
-                                        schema: {
-                                            fields: [...settingsFormInfo.schema, {
-                                                type: 'submit',
-                                                onSubmit: () => {
-                                                    plugin.saveSettings();
-                                                },
-                                                validateBeforeSubmit: true,
-                                                buttonText: 'Save settings'
-                                            }]
-                                        },
-                                        formOptions: {
-                                            validateAfterLoad: true,
-                                            validateAfterChanged: true,
-                                            fieldIdPrefix: plugin.name,
-                                        }
-                                    }
-                                }
-
-                                // Plugin has no settings form.
-                                else {
-                                    return {}
-                                }
+                                return routeManager.createSettingsRoute(this);
                             }
                         }
                     },
@@ -127,6 +104,39 @@ class RouteManager extends EventEmitter {
         ];
     }
 
+    createSettingsRoute (context) {
+        let currentGroup = this.wrapper.groupManager.getCurrentGroup();
+        let plugin = currentGroup.plugins[context.$route.params.plugin];
+
+        if (typeof plugin.settingsForm === 'function') {
+            let settingsFormInfo = plugin.settingsForm();
+
+            return {
+                title: settingsFormInfo.title,
+                model: currentGroup.config.plugins[plugin.name],
+                schema: {
+                    fields: [...settingsFormInfo.schema, {
+                        type: 'submit',
+                        onSubmit: () => {
+                            plugin.saveSettings();
+                        },
+                        validateBeforeSubmit: true,
+                        buttonText: 'Save settings'
+                    }]
+                },
+                formOptions: {
+                    validateAfterLoad: true,
+                    validateAfterChanged: true,
+                    fieldIdPrefix: plugin.name,
+                }
+            }
+        }
+
+        // Plugin has no settings form.
+        else {
+            return {}
+        }
+    }
 }
 
 export default RouteManager;
