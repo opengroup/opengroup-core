@@ -11,6 +11,7 @@ class OpenGroup extends EventEmitter {
     connections = [];
     plugins = {};
     pluginsAreLoaded = false;
+    state = 'starting';
 
     /**
      * @param wrapper.
@@ -43,6 +44,7 @@ class OpenGroup extends EventEmitter {
 
         bluebird.all(pluginsToLoad).then(() => {
             this.pluginsAreLoaded = true;
+            this.state = 'ready';
             this.emit('ready');
         });
     }
@@ -97,6 +99,13 @@ class OpenGroup extends EventEmitter {
             System.import(pluginUri + '/plugin.js').then((plugin) => {
                 let newPlugin = new plugin.default(this, config);
                 this.plugins[newPlugin.getName()] = newPlugin;
+
+                if (newPlugin.componentNames) {
+                    newPlugin.componentNames.forEach((componentName) => {
+                        this.wrapper.themeManager.registerComponent(componentName, pluginUri + '/components/' + componentName + '.js');
+                    });
+                }
+
                 this.emit('pluginAdded', newPlugin.getName(), newPlugin);
                 resolve();
             });

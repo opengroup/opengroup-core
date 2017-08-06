@@ -10,6 +10,17 @@ class MultiChat extends Plugin {
     config = {};
     messages = [];
 
+    menuItems = [
+        {
+            title: 'Chat',
+            component: 'multichat'
+        }
+    ];
+
+    componentNames = [
+        'multichat'
+    ];
+
     /**
      * @param group.
      * @param config.
@@ -25,7 +36,7 @@ class MultiChat extends Plugin {
         })
     }
 
-    groupSubRoutes () {
+        /*
         let plugin = this;
 
         return [{
@@ -60,9 +71,7 @@ class MultiChat extends Plugin {
                 }
             },
         }];
-    }
-
-
+    } */
 }
 
 export default MultiChat;

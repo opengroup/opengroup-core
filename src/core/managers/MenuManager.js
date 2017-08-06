@@ -11,8 +11,8 @@ class MenuManager extends EventEmitter {
         this.wrapper = wrapper;
 
         this.wrapper.on('preReady', () => {
-            this.wrapper.routeManager.on('addedGroupRoutes', (groupRoutes, group) => {
-                this.indexMenuItems(groupRoutes);
+            this.wrapper.groupManager.on('newGroup', () => {
+                // this.indexMenuItems();
             });
         });
     }

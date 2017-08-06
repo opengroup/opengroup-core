@@ -40,8 +40,7 @@ class GroupManager extends EventEmitter {
         if (group) {
             try {
                 let groupManifest = JSON.parse(group);
-                let newGroup = this.addGroup(groupManifest);
-                this.wrapper.router.push('/groups/' + newGroup.slug);
+                this.addGroup(groupManifest);
             }
             catch (Exception) {
                 console.log(Exception)
@@ -53,6 +52,11 @@ class GroupManager extends EventEmitter {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
         let results = regex.exec('?' + location.hash.split('?')[1]);
+
+        if (!results) {
+            results = regex.exec('?' + location.search);
+        }
+
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
@@ -60,10 +64,13 @@ class GroupManager extends EventEmitter {
         return this.groups;
     }
 
+    getGroupBySlug (slug) {
+        return this.groups.filter((group) => group.slug === slug)[0];
+    }
+
     getCurrentGroup () {
-        if (this.wrapper.vueRoot.$route.meta.group) {
-            return this.wrapper.vueRoot.$route.meta.group;
-        }
+        let slug = this.wrapper.vueRoot.$route.params.slug;
+        return this.getGroupBySlug(slug);
     }
 }
 

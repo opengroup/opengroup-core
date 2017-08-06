@@ -21,6 +21,8 @@ class Wrapper extends EventEmitter {
         theme: 'OpenGroup/theme',
     };
 
+    state = 'starting';
+
     /**
      * @constructor
      */
@@ -53,7 +55,9 @@ class Wrapper extends EventEmitter {
             router: this.router
         }).$mount(this.options.selector);
 
+        this.state = 'preReady';
         this.emit('preReady');
+        this.state = 'ready';
         this.emit('ready');
     }
 }
