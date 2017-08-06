@@ -13,6 +13,16 @@ class MenuManager extends EventEmitter {
         this.wrapper.on('preReady', () => {
             this.wrapper.groupManager.on('newGroup', (group) => {
                 let groupMenuItems = group.getMenuItems();
+
+                _(group.plugins).each((plugin) => {
+                    if (typeof plugin.settingsForm === 'function') {
+                        groupMenuItems.push({
+                            title: plugin.settingsForm()['title'],
+                            path: '/groups/' + group.slug + '/group-settings/' + plugin.name
+                        });
+                    }
+                });
+
                 this.indexMenuItems(groupMenuItems);
             });
         });
