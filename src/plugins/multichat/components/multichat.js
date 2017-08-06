@@ -8,7 +8,9 @@ export default function (wrapper) {
             let currentGroup = wrapper.groupManager.getCurrentGroup();
 
             currentGroup.on('og.core.multichat.message', (object, connection) => {
-                this.messages.push(object.message);
+                let message = object.message;
+                message.ownerUuid = connection.uuid;
+                this.messages.push(message);
             });
 
             return {
@@ -17,6 +19,9 @@ export default function (wrapper) {
             }
         },
         methods: {
+            getProfile (uuid) {
+                return wrapper.profileManager.getProfile(uuid);
+            },
             sendChat: function (event) {
                 if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
 

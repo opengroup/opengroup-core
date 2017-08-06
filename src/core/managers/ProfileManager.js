@@ -35,19 +35,26 @@ class ProfileManager extends EventEmitter {
         });
     }
 
-    getProfile () {
-        let savedProfile = sessionStorage.getItem('opengroup-profile');
-
-        let profile = {
-            nickname: '',
-            snapshot: ''
-        };
-
-        if (savedProfile) {
-            profile = JSON.parse(savedProfile);
+    getProfile (uuid = false) {
+        if (uuid) {
+            if (this.profilesOfOthers[uuid]) {
+                return this.profilesOfOthers[uuid];
+            }
         }
+        else {
+            let savedProfile = sessionStorage.getItem('opengroup-profile');
 
-        return profile;
+            let profile = {
+                nickname: '',
+                snapshot: ''
+            };
+
+            if (savedProfile) {
+                profile = JSON.parse(savedProfile);
+            }
+
+            return profile;
+        }
     }
 
     saveProfile (profile) {
