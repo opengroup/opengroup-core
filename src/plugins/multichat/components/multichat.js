@@ -5,6 +5,12 @@ export default function (wrapper) {
                 this.messages = [];
             }
 
+            let currentGroup = wrapper.groupManager.getCurrentGroup();
+
+            currentGroup.on('og.core.multichat.message', (object, connection) => {
+                this.messages.push(object.message);
+            });
+
             return {
                 newMessage: '',
                 messages: this.messages

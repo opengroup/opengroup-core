@@ -21,11 +21,6 @@ class MultiChat extends Plugin {
         super();
         this.group = group;
         Object.assign(this.config, config);
-
-        // TODO use props.
-        this.group.on('og.core.multichat.message', (object, connection) => {
-            this.messages.push(object.message);
-        })
     }
 
     getMenuItems () {

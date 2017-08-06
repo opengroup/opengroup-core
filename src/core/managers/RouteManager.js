@@ -44,6 +44,7 @@ class RouteManager extends EventEmitter {
                     {
                         path: 'settings',
                         name: 'groups.group.settings',
+                        weight: -99,
                         title: 'Plugin',
                         component: {
                             template: `<h1>Group settings</h1>`

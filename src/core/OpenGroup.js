@@ -31,6 +31,8 @@ class OpenGroup extends EventEmitter {
             throw new Error('The group has no uuid');
         }
 
+        // TODO generate a unique local ID.
+        this.lid = sessionStorage.getItem('opengroup-nickname');
         this.uuid = this.config.uuid;
         this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
 
