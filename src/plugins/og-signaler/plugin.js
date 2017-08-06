@@ -39,7 +39,7 @@ class OgSignaler extends Plugin {
 
     settingsForm () {
         return {
-            path: 'signaler-url',
+            subPath: 'signaler-url',
             title: 'Connect via an URL',
             schema: [{
                 type: 'input',

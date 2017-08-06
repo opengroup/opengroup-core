@@ -1,7 +1,5 @@
 import EventEmitter from 'events';
-import uuid from 'uuid/v4';
 import bluebird from 'bluebird';
-import _ from 'underscore';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -13,6 +11,7 @@ class OpenGroup extends EventEmitter {
     plugins = {};
     pluginsAreLoaded = false;
     state = 'starting';
+    menuItems = [];
 
     /**
      * @param wrapper.
@@ -107,6 +106,23 @@ class OpenGroup extends EventEmitter {
                     });
                 }
 
+                if (newPlugin.getMenuItems) {
+                    newPlugin.getMenuItems().forEach((menuItem) => {
+                        if (!menuItem.path) {
+                            menuItem.path = '/groups/' + this.slug + '/' + menuItem.subPath;
+                        }
+                        this.menuItems.push(menuItem);
+                    });
+                }
+
+
+                if (typeof newPlugin.settingsForm === 'function') {
+                    this.menuItems.push({
+                        title: newPlugin.settingsForm()['title'],
+                        path: '/groups/' + this.slug + '/settings/' + newPlugin.name
+                    });
+                }
+
                 this.emit('pluginAdded', newPlugin.getName(), newPlugin);
                 resolve();
             });
@@ -123,9 +139,7 @@ class OpenGroup extends EventEmitter {
     }
 
     getMenuItems () {
-        return _.reduce(this.plugins, (menuItems, plugin) => {
-            return menuItems.concat(plugin.getMenuItems());
-        }, [])
+        return this.menuItems;
     }
 }
 

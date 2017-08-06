@@ -31,7 +31,8 @@ class MultiChat extends Plugin {
     getMenuItems () {
         return [{
             title: 'Chat',
-            path: '/groups/' + this.group.slug + '/multichat'
+            component: 'multichat',
+            subPath: 'chat',
         }];
     }
 }

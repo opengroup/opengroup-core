@@ -1,5 +1,4 @@
 import Plugin from 'OpenGroup/core/Plugin';
-import GroupSettingsTemplate from './templates/group-settings.html!text';
 
 /**
  * An OpenGroup multichat plugin.
@@ -27,7 +26,8 @@ class Group extends Plugin {
     getMenuItems () {
         return [{
             title: 'Settings',
-            path: '/groups/' + this.group.slug + '/group-settings'
+            component: 'group-settings',
+            subPath: 'settings'
         }];
     }
 

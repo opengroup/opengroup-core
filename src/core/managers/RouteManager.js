@@ -45,7 +45,15 @@ class RouteManager extends EventEmitter {
                         name: 'groups.group.plugin',
                         title: 'Plugin',
                         component: {
-                            template: `<component :is="$route.params.plugin"></component>`
+                            template: `<component :is="componentName"></component>`,
+                            data: function () {
+                                let currentGroup = wrapper.groupManager.getCurrentGroup();
+                                let currentMenuItem = currentGroup.menuItems.filter((menuItem) => menuItem.subPath === this.$route.params.plugin)[0];
+
+                                return {
+                                    componentName: currentMenuItem.component
+                                };
+                            }
                         }
                     },
                     {
