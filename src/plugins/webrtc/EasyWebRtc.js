@@ -139,7 +139,8 @@ class EasyWebRtc extends EventEmitter {
      */
     onDataChannelMessage (event) {
         if (event.data) {
-            var data = JSON.parse(event.data);
+            // TODO If the message is to long if breaks in firefox.
+            let data = JSON.parse(event.data);
             this.easyWebRtc.emit('message', data);
         }
     }

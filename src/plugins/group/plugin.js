@@ -27,7 +27,8 @@ class Group extends Plugin {
         return [{
             title: 'Settings',
             component: 'group-settings',
-            subPath: 'settings'
+            subPath: 'settings',
+            weight: 999
         }];
     }
 

@@ -22,6 +22,18 @@ class GroupManager extends EventEmitter {
                 this.emit('newGroup', newGroup);
             });
 
+            newGroup.on('message', (message, connection) => {
+                this.emit('message', message, connection, newGroup);
+
+                if (message.owner) {
+                    this.emit(message.owner + '.message', message, connection, newGroup);
+                }
+            });
+
+            newGroup.on('newConnection', (connection) => {
+                this.emit('newConnection', connection, newGroup);
+            });
+
             return newGroup;
         }
         else {
@@ -71,6 +83,12 @@ class GroupManager extends EventEmitter {
     getCurrentGroup () {
         let slug = this.wrapper.vueRoot.$route.params.slug;
         return this.getGroupBySlug(slug);
+    }
+
+    sendMessage(message) {
+        this.groups.forEach((group) => {
+            group.sendMessage(message)
+        })
     }
 }
 

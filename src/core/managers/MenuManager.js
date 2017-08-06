@@ -62,7 +62,7 @@ class MenuManager extends EventEmitter {
 
         context.items.forEach((item) => {
             if (item.path === context.$router.currentRoute.path.substr(0, item.path.length)) {
-                submenu = item.children;
+                submenu = _(item.children).sortBy('weight');
             }
         });
 

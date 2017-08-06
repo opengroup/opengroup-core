@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 import bluebird from 'bluebird';
+import uuid from 'uuid/v4';
 
 /**
  * An OpenGroup is an object that holds peers and functions as a bus.
@@ -31,8 +32,7 @@ class OpenGroup extends EventEmitter {
             throw new Error('The group has no uuid');
         }
 
-        // TODO generate a unique local ID.
-        this.lid = sessionStorage.getItem('opengroup-nickname');
+        this.lid = uuid();
         this.uuid = this.config.uuid;
         this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
 
@@ -80,9 +80,8 @@ class OpenGroup extends EventEmitter {
                 if (message.owner) {
                     this.emit(message.owner + '.message', message, connection);
                 }
-                else {
-                    this.emit('message', message, connection);
-                }
+
+                this.emit('message', message, connection);
             });
         }
         else {
@@ -134,10 +133,10 @@ class OpenGroup extends EventEmitter {
     sendMessage (message) {
         this.connections.forEach((connection) => {
             connection.sendMessage(message);
-            this.emit('messageSendToConnection', message, connection);
+            this.emit('messageSentToConnection', message, connection);
         });
 
-        this.emit('messageSend', message)
+        this.emit('messageSent', message)
     }
 
     getMenuItems () {

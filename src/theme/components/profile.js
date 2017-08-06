@@ -2,36 +2,24 @@ import Webcam from 'jhuckaby/webcamjs';
 
 export default function (wrapper) {
     return {
-        beforeRouteLeave (to, from, next) {
-            sessionStorage.setItem('opengroup-nickname', this.model.nickname);
-
-            if (this.model.dataUri) {
-                next();
-            }
-            else {
-                next(false);
-            }
-        },
         mounted: function () {
             Webcam.set({
                 width: 320,
                 height: 240,
                 image_format: 'jpeg',
-                jpeg_quality: 100
+                jpeg_quality: 70
             });
 
-            if (!this.model.dataUri) {
+            if (!this.model.snapshot) {
                 Webcam.attach('#camera');
             }
         },
 
         data: function () {
-            return {
-                model: {
-                    dataUri: sessionStorage.getItem('opengroup-avatar') || false,
-                    nickname: sessionStorage.getItem('opengroup-nickname') || '',
-                },
+            let profile = wrapper.profileManager.getProfile();
 
+            return {
+                model: profile,
                 schema: {
                     fields: [
                         {
@@ -43,6 +31,17 @@ export default function (wrapper) {
                             placeholder: "Your nickname",
                             required: true
                         },
+                        {
+                            type: 'submit',
+                            onSubmit: () => {
+                                if (this.model.nickname && this.model.snapshot) {
+                                    wrapper.profileManager.saveProfile(this.model);
+                                    wrapper.router.push('/groups');
+                                }
+                            },
+                            validateBeforeSubmit: true,
+                            buttonText: 'Save profile'
+                        }
                     ],
                 },
 
@@ -54,18 +53,16 @@ export default function (wrapper) {
         },
         methods: {
             snap: function () {
-                if (!this.model.dataUri) {
-                    Webcam.snap((dataUri) => {
-                        this.model.dataUri = dataUri;
-                        sessionStorage.setItem('opengroup-avatar', this.model.dataUri);
+                if (!this.model.snapshot) {
+                    Webcam.snap((newSnapshot) => {
+                        this.model.snapshot = newSnapshot;
                         Webcam.reset();
                     });
                 }
                 else {
                     Webcam.attach('#camera');
                     Webcam.on('live', () => {
-                        this.model.dataUri = false;
-                        sessionStorage.setItem('opengroup-avatar', false);
+                        this.model.snapshot = false;
                         Webcam.off('live');
                     });
                 }

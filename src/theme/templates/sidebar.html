@@ -1,4 +1,7 @@
 <div class="sidebar">
-    <profile-teaser></profile-teaser>
+    <router-link class="profile-teaser" :to="{ path: '/profile' }">
+        <profile-teaser :profile="profile"></profile-teaser>
+    </router-link>
+
     <group-list></group-list>
 </div>

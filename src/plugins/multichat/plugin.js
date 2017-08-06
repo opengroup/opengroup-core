@@ -28,6 +28,7 @@ class MultiChat extends Plugin {
             title: 'Chat',
             component: 'multichat',
             subPath: 'chat',
+            weight: -9999
         }];
     }
 }
