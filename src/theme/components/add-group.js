@@ -35,7 +35,13 @@ export default function (wrapper) {
     ];
 
     let schema = {
-        fields: [],
+        fields: [{
+            type: 'input',
+            inputType: 'text',
+            label: 'Name',
+            model: 'name',
+            required: true
+        }],
     };
 
     let model = {
@@ -83,7 +89,20 @@ export default function (wrapper) {
     schema.fields.push({
         type: 'submit',
         onSubmit: () => {
-            console.log(model.plugins)
+            _(model.plugins).each((pluginDefinition) => {
+                delete pluginDefinition.enabled;
+            });
+
+            if (!model.uuid) {
+                model.uuid = model.name.toLowerCase().replace(/ /g, '-');
+            }
+
+            if (!model.slug) {
+                model.slug = model.name.toLowerCase().replace(/ /g, '-');
+            }
+
+            wrapper.groupManager.addGroup(model);
+            wrapper.router.push('/groups/' + model.slug);
         },
         validateBeforeSubmit: true,
         buttonText: 'Add group'
