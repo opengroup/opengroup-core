@@ -6,6 +6,8 @@ import OgWebRtc from './OgWebRtc.js';
  */
 class WebRtc extends Plugin {
 
+    label = 'WebRTC';
+    description = 'Lorem ipsum';
     name = 'webrtc';
     config = {};
 
@@ -18,24 +20,6 @@ class WebRtc extends Plugin {
         super();
         Object.assign(this.config, config);
         group.connectionTypes['og-webrtc'] = OgWebRtc;
-    }
-
-    settingsForm () {
-        return {
-            path: 'signaler-manual',
-            title: 'Manual',
-            schema: [{
-                type: 'input',
-                inputType: 'text',
-                label: 'Answer',
-                model: 'answer',
-                required: true
-            }]
-        }
-    }
-
-    saveSettings () {
-
     }
 
 }

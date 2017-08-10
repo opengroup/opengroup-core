@@ -109,7 +109,7 @@ class OpenGroup extends EventEmitter {
 
                 if (newPlugin.getMenuItems) {
                     newPlugin.getMenuItems().forEach((menuItem) => {
-                        if (!menuItem.path) {
+                        if (!menuItem.path && menuItem.subPath) {
                             menuItem.path = '/groups/' + this.slug + '/' + menuItem.subPath;
                         }
                         this.menuItems.push(menuItem);

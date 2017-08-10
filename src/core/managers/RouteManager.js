@@ -22,6 +22,13 @@ class RouteManager extends EventEmitter {
                 component: Vue.options.components['groups']
             },
             {
+                path: '/add-group',
+                alias: '/',
+                name: 'add-group',
+                title: 'Add group',
+                component: Vue.options.components['add-group'],
+            },
+            {
                 path: '/groups/:slug',
                 name: 'groups.group',
                 title: 'Group',
@@ -78,7 +85,7 @@ class RouteManager extends EventEmitter {
                                 </vue-form-generator>
                             </div>`,
                             watch: {
-                                // This is neede else the whole form get's 'cached'.
+                                // This is needed else the whole form get's 'cached'.
                                 '$route': function() {
                                     Object.assign(this, routeManager.createSettingsRoute(this));
                                 },
@@ -138,6 +145,21 @@ class RouteManager extends EventEmitter {
             return {}
         }
     }
+
+    getUrlParameter (name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        // example.com/#/?foo=bar
+        let results = regex.exec('?' + location.hash.split('?')[1]);
+
+        // example.com?foo=bar/#/
+        if (!results) {
+            results = regex.exec('?' + location.search);
+        }
+
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
 }
 
 export default RouteManager;

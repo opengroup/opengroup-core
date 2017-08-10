@@ -5,6 +5,8 @@ import Plugin from 'OpenGroup/core/Plugin';
  */
 class Group extends Plugin {
 
+    label = 'Group';
+    description = 'Lorem ipsum';
     name = 'group';
     config = {};
 

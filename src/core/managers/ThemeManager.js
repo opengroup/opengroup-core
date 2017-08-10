@@ -16,6 +16,7 @@ class ThemeManager extends EventEmitter {
         'profile',
         'groups',
         'group',
+        'add-group'
     ];
 
     components = {};

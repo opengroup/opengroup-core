@@ -5,6 +5,8 @@ import Plugin from 'OpenGroup/core/Plugin';
  */
 class MultiConnect extends Plugin {
 
+    label = 'MultiConnect';
+    description = 'Lorem ipsum';
     name = 'multiconnect';
     config = {};
 

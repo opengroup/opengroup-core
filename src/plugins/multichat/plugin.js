@@ -5,6 +5,8 @@ import Plugin from 'OpenGroup/core/Plugin';
  */
 class MultiChat extends Plugin {
 
+    label = 'MultiChat';
+    description = 'Lorem ipsum';
     name = 'multichat';
     config = {};
 

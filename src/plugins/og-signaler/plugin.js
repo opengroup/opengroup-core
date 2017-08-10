@@ -5,6 +5,8 @@ import Plugin from 'OpenGroup/core/Plugin';
  */
 class OgSignaler extends Plugin {
 
+    label = 'Signaler via URL';
+    description = 'Lorem ipsum';
     name = 'og-signaler';
     endpoints = [];
     returnAnswerCallbacks = {};

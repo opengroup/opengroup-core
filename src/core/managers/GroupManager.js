@@ -47,7 +47,7 @@ class GroupManager extends EventEmitter {
     }
 
     parseGroupFromUrl () {
-        let group = this.getUrlParameter('group');
+        let group = this.wrapper.routeManager.getUrlParameter('group');
 
         if (group) {
             try {
@@ -58,18 +58,6 @@ class GroupManager extends EventEmitter {
                 console.log(Exception)
             }
         }
-    }
-
-    getUrlParameter (name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        let results = regex.exec('?' + location.hash.split('?')[1]);
-
-        if (!results) {
-            results = regex.exec('?' + location.search);
-        }
-
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
     getGroups () {
