@@ -81,6 +81,7 @@ export default function (wrapper) {
                 field.visible = () => {
                     return model.plugins[plugin.instance.name].enabled
                 };
+                field.model = 'plugins.' + plugin.instance.name + '.' + field.model;
                 schema.fields.push(field);
             })
         }
