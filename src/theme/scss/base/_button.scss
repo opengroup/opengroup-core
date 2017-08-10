@@ -1,6 +1,6 @@
 .button {
   border: 1px solid $primary;
-  padding: $padding;
+  padding: $padding - 6px $padding;
   text-decoration: none;
   color: $primary;
   display: inline-block;
@@ -9,14 +9,22 @@
   cursor: pointer;
 
   &.primary {
-    padding: $padding - 2px;
+    padding: $padding - 6px $padding - 2px;
     border: 3px solid $primary;
     font-weight: bold;
     background-color: lighten($primary, 66);
   }
 
-  &:hover {
+  &:not(.disabled):hover {
     background-color: $primary;
     color: $white;
   }
+  
+  &.disabled {
+    border-color: $gray;
+    cursor: not-allowed;
+    color: $gray;
+    background-color: transparent;
+  }
+
 }

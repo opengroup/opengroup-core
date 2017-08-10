@@ -1,6 +1,27 @@
 $camera-size: 200px;
 
 .page.profile {
+  max-width: $camera-size;
+  margin: 0 auto;
+  max-height: 90vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  > * {
+    margin-bottom: $padding * 2;
+    float: left;
+    clear: both;
+    width: 100%;
+    text-align: center;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    text-align: center;
+  }
+
   .camera-wrapper {
     width: $camera-size;
     height: $camera-size;
@@ -11,7 +32,6 @@ $camera-size: 200px;
     overflow: hidden;
     width: $camera-size;
     height: $camera-size;
-    border: 2px solid black;
     border-radius: 50%;
     position: relative;
 
@@ -49,8 +69,8 @@ $camera-size: 200px;
   .snap {
     width: 60px;
     height: 60px;
-    background-color: black;
-    border: 4px solid black;
+    background-color: white;
+    border: 4px solid $gray-dark;
     position: absolute;
     right: 0;
     border-radius: 50%;
@@ -94,7 +114,7 @@ $camera-size: 200px;
       &:after {
         height: 4px;
         border-radius: 0;
-        background-color: black;
+        background-color: $gray-dark;
       }
 
       &:before {

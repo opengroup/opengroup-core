@@ -1,6 +1,13 @@
 .sidebar {
-  .button {
-    clear: both;
-    float: left;
+  background-color: $gray;
+
+  .sidebar-inner {
+    padding: $padding;
+
+    > * {
+      margin-bottom: $padding * 2;
+      clear: both;
+      float: left;
+    }
   }
 }

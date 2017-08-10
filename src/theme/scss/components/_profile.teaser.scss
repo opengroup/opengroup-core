@@ -1,14 +1,17 @@
+$snapshot-size: 50px;
+
 .profile.teaser {
   float: left;
-  margin: 20px;
+  width: 100%;
+  color: $primary;
 
   .snapshot-wrapper {
     overflow: hidden;
-    width: 80px;
-    height: 80px;
-    border: 2px solid black;
+    width: $snapshot-size;
+    height: $snapshot-size;
     border-radius: 50%;
     position: relative;
+    float: left;
   }
 
   .snapshot {
@@ -22,6 +25,10 @@
 
   .nickname {
     float: left;
+    line-height: $snapshot-size;
+    vertical-align: middle;
+    margin: 0 0 0 $padding;
+    font-weight: bold;
   }
 
   &.small {

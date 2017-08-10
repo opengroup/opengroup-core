@@ -1,23 +1,23 @@
 .group-list-item {
   float: left;
-  border: 2px solid $gray;
   text-decoration: none;
   color: $black;
   width: 100%;
   padding: 10px;
+  padding-left: 22px;
   position: relative;
+  background-color: $white;
 
   &:after {
     content: '';
     display: block;
     position: absolute;
     top: 0;
-    right: -2px;
+    right: 0;
     height: 100%;
     width: 6px;
-    background-color: $primary;
-    opacity: 0;
-    transition: opacity $speed $easing;
+    background-color: $gray;
+    transition: background $speed $easing;
   }
 
   > .group-title {
@@ -44,7 +44,7 @@
   &.router-link-active,
   &:hover {
     &:after {
-      opacity: 1;
+      background-color: $primary;
     }
   }
 }

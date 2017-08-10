@@ -1,5 +1,4 @@
 <div class="page profile" :class="{'has-snapshot': model.snapshot}">
-    <h1 class="page-title">Hello!</h1>
 
     <div class="camera-wrapper">
         <div class="camera-inner">
@@ -12,6 +11,6 @@
     <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
     </vue-form-generator>
 
-    <div class="button primary" @click="saveProfile">Save profile</div>
+    <div class="button primary" :class="{'disabled': !model.snapshot || !model.nickname }" @click="saveProfile">Continue</div>
 
 </div>

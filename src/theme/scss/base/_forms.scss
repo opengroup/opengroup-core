@@ -1,0 +1,23 @@
+.form-group {
+  label {
+    font-style: italic;
+    font-size: 14px;
+  }
+}
+
+input[type="text"] {
+  border: none;
+  border-bottom: 2px solid $gray;
+  padding: $padding 0;
+  //border-radius: $radius;
+  transition: all $speed $easing;
+
+  &::placeholder {
+    color: $gray-dark;
+  }
+
+  &:focus,
+  &:hover {
+    border-bottom: 2px solid $primary;
+  }
+}

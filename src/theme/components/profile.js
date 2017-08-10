@@ -26,10 +26,9 @@ export default function (wrapper) {
                         {
                             type: "input",
                             inputType: "text",
-                            label: "Nickname",
                             model: "nickname",
                             id: "nick_name",
-                            placeholder: "Your nickname",
+                            placeholder: "What is your name?",
                             required: true
                         }
                     ],
