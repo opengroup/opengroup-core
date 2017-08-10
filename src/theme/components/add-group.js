@@ -88,35 +88,31 @@ export default function (wrapper) {
         }
     });
 
-    schema.fields.push({
-        type: 'submit',
-        onSubmit: () => {
-            let groupDefinition = JSON.parse(JSON.stringify(model));
-            _(groupDefinition.plugins).each((pluginDefinition, pluginName) => {
-                if (!pluginDefinition.enabled) {
-                    delete groupDefinition.plugins[pluginName];
-                }
-                else {
-                    delete pluginDefinition.enabled;
-                }
-            });
-
-            if (!groupDefinition.uuid) {
-                groupDefinition.uuid = groupDefinition.name.toLowerCase().replace(/ /g, '-');
-            }
-
-            if (!groupDefinition.slug) {
-                groupDefinition.slug = groupDefinition.name.toLowerCase().replace(/ /g, '-');
-            }
-
-            wrapper.groupManager.addGroup(groupDefinition);
-            wrapper.router.push('/groups/' + groupDefinition.slug);
-        },
-        validateBeforeSubmit: true,
-        buttonText: 'Add group'
-    });
-
     return {
+        methods: {
+            submitGroup: () => {
+                let groupDefinition = JSON.parse(JSON.stringify(model));
+                _(groupDefinition.plugins).each((pluginDefinition, pluginName) => {
+                    if (!pluginDefinition.enabled) {
+                        delete groupDefinition.plugins[pluginName];
+                    }
+                    else {
+                        delete pluginDefinition.enabled;
+                    }
+                });
+
+                if (!groupDefinition.uuid) {
+                    groupDefinition.uuid = groupDefinition.name.toLowerCase().replace(/ /g, '-');
+                }
+
+                if (!groupDefinition.slug) {
+                    groupDefinition.slug = groupDefinition.name.toLowerCase().replace(/ /g, '-');
+                }
+
+                wrapper.groupManager.addGroup(groupDefinition);
+                wrapper.router.push('/groups/' + groupDefinition.slug);
+            },
+        },
         data: function () {
             return {
                 model: model,

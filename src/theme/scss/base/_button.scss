@@ -1,0 +1,22 @@
+.button {
+  border: 1px solid $primary;
+  padding: $padding;
+  text-decoration: none;
+  color: $primary;
+  display: inline-block;
+  border-radius: $radius;
+  transition: all $speed $easing;
+  cursor: pointer;
+
+  &.primary {
+    padding: $padding - 2px;
+    border: 3px solid $primary;
+    font-weight: bold;
+    background-color: lighten($primary, 66);
+  }
+
+  &:hover {
+    background-color: $primary;
+    color: $white;
+  }
+}

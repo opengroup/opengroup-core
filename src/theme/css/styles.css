@@ -1,4 +1,22 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
+.button {
+  border: 1px solid #4e9a06;
+  padding: 12px;
+  text-decoration: none;
+  color: #4e9a06;
+  display: inline-block;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer; }
+  .button.primary {
+    padding: 10px;
+    border: 3px solid #4e9a06;
+    font-weight: bold;
+    background-color: #f8fef2; }
+  .button:hover {
+    background-color: #4e9a06;
+    color: white; }
+
 body {
   font-family: 'Open Sans', sans-serif;
   padding: 0;
@@ -154,19 +172,52 @@ h1, h2, h3, h4, h5, h6 {
     .group-menu .menu-link.router-link-active + .group-sub-menu > .menu-list {
       display: block; }
 
-.profile-camera-wrapper {
+.profile.teaser {
+  float: left;
+  margin: 20px; }
+  .profile.teaser .snapshot-wrapper {
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: relative; }
+  .profile.teaser .snapshot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: 1; }
+  .profile.teaser .nickname {
+    float: left; }
+  .profile.teaser.small .snapshot-wrapper {
+    width: 32px;
+    height: 32px; }
+  .profile.teaser.small .nickname {
+    display: none; }
+
+.settings-page-item {
+  clear: both;
+  float: left; }
+
+.sidebar .button {
+  clear: both;
+  float: left; }
+
+.page.profile .camera-wrapper {
   width: 200px;
   height: 200px;
   position: relative; }
 
-.profile-camera-inner {
+.page.profile .camera-inner {
   overflow: hidden;
   width: 200px;
   height: 200px;
   border: 2px solid black;
   border-radius: 50%;
   position: relative; }
-  .profile-camera-inner:after {
+  .page.profile .camera-inner:after {
     content: '';
     position: absolute;
     display: block;
@@ -180,18 +231,18 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     transform: translate(-50%, -50%) rotate(0) scale(1); }
 
-.profile-camera,
-.profile-snapshot {
+.page.profile .camera,
+.page.profile .snapshot {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1; }
 
-.has-snapshot .profile-snapshot {
+.page.profile .has-snapshot .snapshot {
   z-index: 2; }
 
-.profile-snap {
+.page.profile .snap {
   width: 60px;
   height: 60px;
   background-color: black;
@@ -204,7 +255,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   transform: translate(50%, -50%);
   transition: all 0.3s ease-in-out; }
-  .profile-snap:before, .profile-snap:after {
+  .page.profile .snap:before, .page.profile .snap:after {
     content: '';
     position: absolute;
     display: block;
@@ -216,25 +267,25 @@ h1, h2, h3, h4, h5, h6 {
     background-color: red;
     border-radius: 50%;
     transform: translate(-50%, -50%) rotate(0) scale(1); }
-  .profile-snap:hover:before, .profile-snap:hover:after {
+  .page.profile .snap:hover:before, .page.profile .snap:hover:after {
     transform: translate(-50%, -50%) rotate(0) scale(1.5); }
 
-.has-snapshot .profile-camera-inner:after {
+.page.profile.has-snapshot .camera-inner:after {
   animation: flash .1s; }
 
-.has-snapshot .profile-snap {
+.page.profile.has-snapshot .snap {
   background-color: white; }
-  .has-snapshot .profile-snap:before, .has-snapshot .profile-snap:after {
+  .page.profile.has-snapshot .snap:before, .page.profile.has-snapshot .snap:after {
     height: 4px;
     border-radius: 0;
     background-color: black; }
-  .has-snapshot .profile-snap:before {
+  .page.profile.has-snapshot .snap:before {
     transform: translate(-50%, -50%) rotate(135deg) scale(1); }
-  .has-snapshot .profile-snap:after {
+  .page.profile.has-snapshot .snap:after {
     transform: translate(-50%, -50%) rotate(45deg) scale(1); }
-  .has-snapshot .profile-snap:hover:before {
+  .page.profile.has-snapshot .snap:hover:before {
     transform: translate(-50%, -50%) rotate(135deg) scale(1.3); }
-  .has-snapshot .profile-snap:hover:after {
+  .page.profile.has-snapshot .snap:hover:after {
     transform: translate(-50%, -50%) rotate(45deg) scale(1.3); }
 
 @keyframes flash {
@@ -242,35 +293,6 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0; }
   to {
     opacity: 1; } }
-
-.profile-teaser-snapshot-wrapper {
-  overflow: hidden;
-  width: 80px;
-  height: 80px;
-  border: 2px solid black;
-  border-radius: 50%;
-  position: relative; }
-
-.profile-teaser-snapshot {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  z-index: 1; }
-
-.profile-teaser {
-  float: left;
-  margin: 20px; }
-  .profile-teaser.small .profile-teaser-snapshot-wrapper {
-    width: 32px;
-    height: 32px; }
-  .profile-teaser.small .profile-teaser-nickname {
-    display: none; }
-
-.settings-page-item {
-  clear: both;
-  float: left; }
 
 .multichat-textarea {
   width: 100%;

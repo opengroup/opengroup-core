@@ -4,4 +4,7 @@
     <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
     </vue-form-generator>
 
+    <div class="button primary" @click="submitGroup">Add group</div>
+    <router-link class="button secondary" :to="{ path: '/groups' }">Cancel</router-link>
+
 </div>

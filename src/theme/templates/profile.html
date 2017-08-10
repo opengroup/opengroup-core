@@ -1,15 +1,17 @@
-<div class="profile-page-wrapper" :class="{'has-snapshot': model.snapshot}">
-    <h1>Hello!</h1>
+<div class="page profile" :class="{'has-snapshot': model.snapshot}">
+    <h1 class="page-title">Hello!</h1>
 
-    <div class="profile-camera-wrapper">
-        <div class="profile-camera-inner">
-            <img class="profile-snapshot" v-if="model.snapshot" :src="model.snapshot"/>
-            <div id="camera" class="profile-camera"></div>
+    <div class="camera-wrapper">
+        <div class="camera-inner">
+            <img class="snapshot" v-if="model.snapshot" :src="model.snapshot"/>
+            <div id="camera" class="camera"></div>
         </div>
-        <div class="profile-snap" @click="snap()"></div>
+        <div class="snap" @click="snap()"></div>
     </div>
 
     <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
     </vue-form-generator>
+
+    <div class="button primary" @click="saveProfile">Save profile</div>
 
 </div>

@@ -1,6 +1,8 @@
 import Webcam from 'jhuckaby/webcamjs';
 
 export default function (wrapper) {
+    let profile = wrapper.profileManager.getProfile();
+
     return {
         mounted: function () {
             Webcam.set({
@@ -16,7 +18,6 @@ export default function (wrapper) {
         },
 
         data: function () {
-            let profile = wrapper.profileManager.getProfile();
 
             return {
                 model: profile,
@@ -30,17 +31,6 @@ export default function (wrapper) {
                             id: "nick_name",
                             placeholder: "Your nickname",
                             required: true
-                        },
-                        {
-                            type: 'submit',
-                            onSubmit: () => {
-                                if (this.model.nickname && this.model.snapshot) {
-                                    wrapper.profileManager.saveProfile(this.model);
-                                    wrapper.router.push('/groups');
-                                }
-                            },
-                            validateBeforeSubmit: true,
-                            buttonText: 'Save profile'
                         }
                     ],
                 },
@@ -52,6 +42,12 @@ export default function (wrapper) {
             }
         },
         methods: {
+            saveProfile: () => {
+                if (profile.nickname && profile.snapshot) {
+                    wrapper.profileManager.saveProfile(profile);
+                    wrapper.router.push('/groups');
+                }
+            },
             snap: function () {
                 if (!this.model.snapshot) {
                     Webcam.snap((newSnapshot) => {

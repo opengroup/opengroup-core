@@ -31,7 +31,7 @@
       bottom: 0;
       right: 0;
       width: 100vw;
-      background-color: $green;
+      background-color: $primary;
       height: 1px;
     }
   }
@@ -52,8 +52,8 @@
 
     &:hover,
     &.router-link-active {
-      color: $green;
-      border-bottom: 5px solid $green;
+      color: $primary;
+      border-bottom: 5px solid $primary;
     }
 
     &.router-link-active + .group-sub-menu > .menu-list {
