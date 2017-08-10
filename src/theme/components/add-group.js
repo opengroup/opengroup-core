@@ -73,6 +73,7 @@ export default function (wrapper) {
             model: 'plugins.' + plugin.instance.name + '.enabled',
             default: plugin.required,
             disabled: plugin.required,
+            styleClasses: 'inline'
         });
 
         if (plugin.instance.settingsForm) {
@@ -90,20 +91,26 @@ export default function (wrapper) {
     schema.fields.push({
         type: 'submit',
         onSubmit: () => {
-            _(model.plugins).each((pluginDefinition) => {
-                delete pluginDefinition.enabled;
+            let groupDefinition = JSON.parse(JSON.stringify(model));
+            _(groupDefinition.plugins).each((pluginDefinition, pluginName) => {
+                if (!pluginDefinition.enabled) {
+                    delete groupDefinition.plugins[pluginName];
+                }
+                else {
+                    delete pluginDefinition.enabled;
+                }
             });
 
-            if (!model.uuid) {
-                model.uuid = model.name.toLowerCase().replace(/ /g, '-');
+            if (!groupDefinition.uuid) {
+                groupDefinition.uuid = groupDefinition.name.toLowerCase().replace(/ /g, '-');
             }
 
-            if (!model.slug) {
-                model.slug = model.name.toLowerCase().replace(/ /g, '-');
+            if (!groupDefinition.slug) {
+                groupDefinition.slug = groupDefinition.name.toLowerCase().replace(/ /g, '-');
             }
 
-            wrapper.groupManager.addGroup(model);
-            wrapper.router.push('/groups/' + model.slug);
+            wrapper.groupManager.addGroup(groupDefinition);
+            wrapper.router.push('/groups/' + groupDefinition.slug);
         },
         validateBeforeSubmit: true,
         buttonText: 'Add group'

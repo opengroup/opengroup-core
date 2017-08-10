@@ -21,6 +21,22 @@ h1, h2, h3, h4, h5, h6 {
 *::-moz-focus-inner {
   border: none; }
 
+.add-group .form-group {
+  float: left;
+  clear: both;
+  padding: 5px 0; }
+  .add-group .form-group:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+.add-group .inline.field-checkbox label {
+  float: right;
+  margin-left: 10px; }
+
+.add-group .inline.field-checkbox .field-wrap {
+  float: left; }
+
 .group-header:after {
   content: "";
   display: table;
