@@ -16,7 +16,8 @@ class ThemeManager extends EventEmitter {
         'profile',
         'groups',
         'group',
-        'add-group'
+        'add-group',
+        'group-settings'
     ];
 
     components = {};
@@ -27,6 +28,7 @@ class ThemeManager extends EventEmitter {
         this.wrapper = wrapper;
         this.wrapper.element.innerHTML = `<router-view></router-view>`;
 
+        System.import('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css!');
         System.import(this.wrapper.options.theme + '/css/styles.css!');
     }
 

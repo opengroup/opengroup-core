@@ -1,10 +1,12 @@
-<div class="add-group">
-    <h1>Add group</h1>
+<div class="page add-group">
+    <h1 class="page-title">Add a group</h1>
 
     <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
     </vue-form-generator>
 
-    <div class="button primary" @click="submitGroup">Add group</div>
-    <router-link class="button secondary" :to="{ path: '/groups' }">Cancel</router-link>
+    <div class="form-actions">
+        <div class="button primary" @click="submitGroup">Add group</div>
+        <router-link class="button secondary" :to="{ path: '/groups' }">Cancel</router-link>
+    </div>
 
 </div>

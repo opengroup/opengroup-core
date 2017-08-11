@@ -38,8 +38,9 @@ export default function (wrapper) {
         fields: [{
             type: 'input',
             inputType: 'text',
-            label: 'Name',
+            // label: 'Name',
             model: 'name',
+            placeholder: 'What is the name of the group?',
             required: true
         }],
     };

@@ -2,14 +2,16 @@
   label {
     font-style: italic;
     font-size: 14px;
+    color: $gray-dark;
   }
 }
 
+textarea,
 input[type="text"] {
   border: none;
   border-bottom: 2px solid $gray;
   padding: $padding 0;
-  //border-radius: $radius;
+  margin-bottom: $padding * 2;
   transition: all $speed $easing;
 
   &::placeholder {
@@ -20,4 +22,18 @@ input[type="text"] {
   &:hover {
     border-bottom: 2px solid $primary;
   }
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.form-actions {
+  margin-top: $padding * 3;
+  float: left;
+  clear: both;
+}
+
+input:required {
+  box-shadow: none;
 }

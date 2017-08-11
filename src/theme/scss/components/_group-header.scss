@@ -3,25 +3,11 @@
 
   > .group-title {
     margin: 0;
+    transform: translateY(-4px);
     float: left;
     margin-right: -100%;
   }
 
-  .group-member-count {
-    color: $primary;
-    font-size: 12px;
-    display: inline-block;
-
-    &:after {
-      content: '';
-      width: 10px;
-      height: 10px;
-      display: inline-block;
-      background-color: $primary;
-      border-radius: 50%;
-      margin-left: 5px;
-    }
-  }
 
   > .group-menu {
     float: right;

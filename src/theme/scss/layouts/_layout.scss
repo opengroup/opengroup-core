@@ -7,19 +7,23 @@
 
 .region-main {
   height: 100vh;
+  position: relative;
   float: left;
   width: calc(100% - 300px);
+  display: flex;
+  flex-direction: column;
 }
 
 .region-main-header {
-  width: 100%;
-  float: left;
+  flex: 0 1 auto;
   @include clearfix;
-  padding: 20px;
+  padding: $padding * 2;
 }
 
 .region-main-content {
   width: 100%;
-  float: left;
-  padding: 20px;
+  padding: $padding * 2;
+  padding-top: 0;
+  position: relative;
+  flex: 1 1 auto;
 }

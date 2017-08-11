@@ -1,8 +1,16 @@
 .multichat-textarea {
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid $primary;
   resize: none;
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.multichat-send {
+  flex: 0 0 auto;
+  margin-left: $padding;
+}
+
+.multichat-chats {
+  flex: 1 1 auto;
 }
 
 .multichat-chat-message {
@@ -10,7 +18,27 @@
   float: left;
   padding: 10px 0;
 
+  .profile.teaser {
+    width: auto;
+    margin: $padding;
+  }
+
   &.self {
     float: right;
+
+    .profile.teaser {
+      float: right;
+    }
   }
+}
+
+.multichat.region-main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.multichat-footer {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
 }

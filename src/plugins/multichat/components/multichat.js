@@ -23,7 +23,7 @@ export default function (wrapper) {
                 return wrapper.profileManager.getProfile(uuid);
             },
             sendChat: function (event) {
-                if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
+                if (!event || (event.metaKey || event.ctrlKey) && event.keyCode === 13) {
 
                     this.messages.push({
                         text: this.newMessage,

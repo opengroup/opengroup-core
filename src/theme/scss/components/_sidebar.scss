@@ -1,11 +1,12 @@
 .sidebar {
-  background-color: $gray;
+  //background-color: $gray;
+  border-right: 1px solid $gray;
 
   .sidebar-inner {
     padding: $padding;
 
     > * {
-      margin-bottom: $padding * 2;
+      margin-bottom: $padding * 3;
       clear: both;
       float: left;
     }

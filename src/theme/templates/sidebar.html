@@ -5,11 +5,17 @@
             <img class="logo" src="/theme/images/logo.svg">
         </router-link>
 
-        <router-link :to="{ path: '/profile' }">
-            <profile-teaser :profile="profile"></profile-teaser>
+        <router-link :to="{ path: '/profile' }" class="edit-profile-link">
+            <div class="snapshot-wrapper">
+                <img class="snapshot" :src="profile.snapshot"/>
+            </div>
+            <div class="texts">
+                <h3 class="nickname">{{ profile.nickname }}</h3>
+                <span class="edit-profile"><i class="fa fa-pencil" aria-hidden="true"></i> Edit profile</span>
+            </div>
         </router-link>
 
-        <router-link class="button primary add-group" :to="{ path: '/add-group' }">Add group</router-link>
+        <router-link class="button secondary add-group small" :to="{ path: '/add-group' }"><i class="fa fa-plus" aria-hidden="true"></i> Add group</router-link>
     </div>
 
     <group-list></group-list>

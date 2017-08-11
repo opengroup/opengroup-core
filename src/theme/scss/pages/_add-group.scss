@@ -1,0 +1,24 @@
+.page.add-group {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  max-height: 90vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .form-group.field-input {
+    label {
+      display: none;
+    }
+  }
+
+  .form-group.field-input {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+}

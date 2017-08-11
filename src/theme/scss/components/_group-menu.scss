@@ -23,6 +23,7 @@
     float: right;
     padding: 0;
     position: relative;
+    margin: 0;
 
     &:after {
       content: '';
@@ -46,6 +47,7 @@
     text-decoration: none;
     white-space: nowrap;
     color: $black;
+    font-size: 14px;
     padding: 16px 20px;
     transition: color $speed $easing, border $speed $easing;
     border-bottom: 5px solid transparent;

@@ -1,12 +1,14 @@
 .group-list-item {
   float: left;
   text-decoration: none;
-  color: $black;
+  color: $gray-dark;
   width: 100%;
-  padding: 10px;
-  padding-left: 22px;
+  padding: $padding;
   position: relative;
   background-color: $white;
+  border-top: 1px solid $gray;
+  transition: all $speed $easing;
+  border-bottom: 1px solid $gray;
 
   &:after {
     content: '';
@@ -29,20 +31,26 @@
     color: $primary;
     font-size: 12px;
     float: right;
+    margin-right: $padding;
+    margin-top: 5px;
 
     &:after {
       content: '';
       width: 10px;
       height: 10px;
+      transform: translateY(1px);
       display: inline-block;
       background-color: $primary;
       border-radius: 50%;
-      margin-left: 5px;
+      margin-left: 6px;
     }
   }
 
   &.router-link-active,
   &:hover {
+    z-index: 2;
+    color: black;
+
     &:after {
       background-color: $primary;
     }

@@ -53,9 +53,7 @@ class RouteManager extends EventEmitter {
                         name: 'groups.group.settings',
                         weight: -99,
                         title: 'Plugin',
-                        component: {
-                            template: `<h1>Group settings</h1>`
-                        }
+                        component: Vue.options.components['group-settings'],
                     },
                     {
                         path: ':plugin',

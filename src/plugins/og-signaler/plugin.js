@@ -47,6 +47,7 @@ class OgSignaler extends Plugin {
                 type: 'input',
                 inputType: 'text',
                 label: 'Server Websocket address',
+                placeholder: 'Server Websocket address',
                 model: 'url',
                 required: true
             }]

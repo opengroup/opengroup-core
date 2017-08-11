@@ -8,18 +8,35 @@
   transition: all $speed $easing;
   cursor: pointer;
 
+  &.small {
+    padding: $padding - 10px $padding - 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  &.secondary {
+    letter-spacing: 1px;
+    color: $gray-dark;
+    border-color: $gray-dark;
+
+    &:hover {
+      background-color: $gray-dark;
+      color: $white;
+    }
+  }
+
   &.primary {
-    padding: $padding - 6px $padding - 2px;
+    padding: $padding - 8px $padding - 2px;
     border: 3px solid $primary;
     font-weight: bold;
     background-color: lighten($primary, 66);
+
+    &:hover {
+      background-color: $primary;
+      color: $white;
+    }
   }
 
-  &:not(.disabled):hover {
-    background-color: $primary;
-    color: $white;
-  }
-  
   &.disabled {
     border-color: $gray;
     cursor: not-allowed;
@@ -27,4 +44,7 @@
     background-color: transparent;
   }
 
+  & + & {
+    margin-left: $padding;
+  }
 }
