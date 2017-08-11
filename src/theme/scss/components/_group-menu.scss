@@ -37,9 +37,12 @@
     }
   }
 
-  .group-sub-menu > .menu-list {
-    float: left;
-    width: 100%;
+  .sub-menu {
+    margin-top: 30px;
+
+    .menu-list:after {
+      background-color: $gray;
+    }
   }
 
   .menu-link {

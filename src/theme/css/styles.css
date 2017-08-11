@@ -285,9 +285,10 @@ input:required {
       width: 100vw;
       background-color: #4e9a06;
       height: 1px; }
-  .group-menu .group-sub-menu > .menu-list {
-    float: left;
-    width: 100%; }
+  .group-menu .sub-menu {
+    margin-top: 30px; }
+    .group-menu .sub-menu .menu-list:after {
+      background-color: #eee; }
   .group-menu .menu-link {
     float: left;
     text-decoration: none;
