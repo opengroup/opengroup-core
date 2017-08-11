@@ -19,7 +19,7 @@ class Wrapper extends EventEmitter {
 
     options = {
         selector: '#app',
-        theme: 'OpenGroup/theme',
+        theme: 'theme',
     };
 
     state = 'starting';

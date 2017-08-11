@@ -11,18 +11,13 @@ SystemJS.config({
   },
   nodeConfig: {
     "paths": {
-      "OpenGroup/": "src/"
-    }
-  },
-  devConfig: {
-    "map": {
-      "plugin-babel": "npm:systemjs-plugin-babel@0.0.17"
+      "OpenGroup/": ""
     }
   },
   transpiler: "plugin-babel",
   packages: {
     "OpenGroup": {
-      "main": "OpenGroup.js",
+      "main": "app.js",
       "meta": {
         "*.js": {
           "loader": "plugin-babel"
@@ -32,6 +27,10 @@ SystemJS.config({
   },
   map: {
     "text": "npm:systemjs-plugin-text@0.0.9"
+  },
+  builderConfig: {
+    "separateCSS": false,
+    "buildCSS": true
   }
 });
 
@@ -42,9 +41,10 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
+    "css": "github:systemjs/plugin-css@0.1.35",
+    "plugin-babel": "npm:systemjs-plugin-babel@0.0.17",
     "systemjs-plugin-text": "npm:systemjs-plugin-text@0.0.9",
     "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@1.0.22",
-    "css": "github:systemjs/plugin-css@0.1.35",
     "assert": "npm:jspm-nodelibs-assert@0.2.0",
     "async": "npm:async@2.1.4",
     "bluebird": "npm:bluebird@3.4.7",
