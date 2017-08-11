@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
 import OpenGroup from 'OpenGroup/core/OpenGroup';
+import _ from 'underscore';
 
 class GroupManager extends EventEmitter {
     groups = [];
@@ -10,6 +11,7 @@ class GroupManager extends EventEmitter {
 
         this.wrapper.on('ready', () => {
             this.parseGroupFromUrl();
+            this.loadGroupsFromStorage();
         })
     }
 
@@ -20,6 +22,10 @@ class GroupManager extends EventEmitter {
 
             newGroup.once('ready', () => {
                 this.emit('newGroup', newGroup);
+            });
+
+            newGroup.on('save', (definition) => {
+                this.saveGroup(definition);
             });
 
             newGroup.on('message', (message, connection) => {
@@ -34,11 +40,29 @@ class GroupManager extends EventEmitter {
                 this.emit('newConnection', connection, newGroup);
             });
 
+            // TODO Each load triggers a save. Not to happy with this.
+            newGroup.save();
+
             return newGroup;
         }
         else {
             throw 'The group manifest is invalid';
         }
+    }
+
+    saveGroup (groupDefinition) {
+        let savedGroups = sessionStorage.getItem('opengroup-groups');
+        savedGroups = savedGroups ? JSON.parse(savedGroups) : {};
+        savedGroups[groupDefinition.uuid] = groupDefinition;
+        sessionStorage.setItem('opengroup-groups', JSON.stringify(savedGroups));
+    }
+
+    loadGroupsFromStorage () {
+        let savedGroups = sessionStorage.getItem('opengroup-groups');
+        savedGroups = savedGroups ? JSON.parse(savedGroups) : {};
+        _(savedGroups).each((savedGroup) => {
+            this.addGroup(savedGroup);
+        });
     }
 
     // TODO make group manifest validation.

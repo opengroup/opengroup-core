@@ -36,6 +36,10 @@ class OpenGroup extends EventEmitter {
         this.uuid = this.config.uuid;
         this.slug = this.config.name ? this.config.name.toLowerCase().replace(/ /g, '-') : this.uuid;
 
+        // TODO move these properties back to the config and make getters.
+        this.config.uuid = this.uuid;
+        this.config.slug = this.slug;
+
         let pluginsToLoad = [];
 
         let pluginUris = Object.keys(this.config.plugins);
@@ -141,6 +145,10 @@ class OpenGroup extends EventEmitter {
 
     getMenuItems () {
         return this.menuItems;
+    }
+
+    save () {
+        this.emit('save', this.config);
     }
 }
 
