@@ -42,13 +42,8 @@ gulp.task('build', ['clean', 'create-load', 'css'], function (done) {
         console.log(stdout);
         console.log(stderr);
 
-        fs.writeFile('dist/CNAME', 'opengroup.io', function(err) {
-            if (err) {
-                return console.log(err);
-            }
 
-            done();
-        });
+        done();
     });
 
     gulp.src('./src/index.html')
