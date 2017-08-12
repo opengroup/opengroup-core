@@ -7,6 +7,15 @@ class RouteManager extends EventEmitter {
     constructor (wrapper) {
         super();
         this.wrapper = wrapper;
+
+        this.wrapper.on('preReady', () => {
+            this.wrapper.router.afterEach((to, from) => {
+                setTimeout(() => {
+                    document.body.dataset.currentRoute = to.name;
+                    document.body.dataset.currentDepth = to.path.split('/').length - 1;
+                }, 100);
+            })
+        })
     }
 
     getAppRoutes () {

@@ -10,6 +10,7 @@
       "jspm": "src/jspm.config.js"
     },
     "dependencies": {
+      "Team-Sass/breakpoint": "github:at-import/breakpoint@^2.7.1",
       "async": "npm:async@^2.1.4",
       "at-import/Singularity": "github:at-import/Singularity@^1.8.0",
       "bluebird": "npm:bluebird@^3.4.7",

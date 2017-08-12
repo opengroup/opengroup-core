@@ -2,15 +2,29 @@
   @include clearfix;
 
   > .group-title {
-    margin: 0;
-    transform: translateY(-4px);
     float: left;
-    margin-right: -100%;
   }
 
 
   > .group-menu {
     float: right;
   }
+}
 
+@include breakpoint($tablet) {
+  .group-header {
+    @include clearfix;
+
+    > .group-title {
+      margin: 0;
+      transform: translateY(-4px);
+      float: left;
+      margin-right: -100%;
+    }
+
+
+    > .group-menu {
+      float: right;
+    }
+  }
 }
