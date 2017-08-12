@@ -8,10 +8,24 @@
   transition: all $speed $easing;
   cursor: pointer;
 
+  i {
+    transition: all $speed $easing;
+  }
+
+  span + i,
+  i + span {
+    margin-left: 8px;
+  }
+
   &.small {
     padding: $padding - 10px $padding - 4px;
     font-size: 12px;
     text-transform: uppercase;
+
+    span + i,
+    i + span {
+      margin-left: 6px;
+    }
   }
 
   &.secondary {
@@ -19,9 +33,17 @@
     color: $gray-dark;
     border-color: $gray-dark;
 
-    &:hover {
+    i {
+      color: lighten($gray-dark, 25);
+    }
+
+    &:not(.disabled):hover {
       background-color: $gray-dark;
       color: $white;
+
+      i {
+        color: $white;
+      }
     }
   }
 
@@ -31,7 +53,7 @@
     font-weight: bold;
     background-color: lighten($primary, 66);
 
-    &:hover {
+    &:not(.disabled):hover {
       background-color: $primary;
       color: $white;
     }

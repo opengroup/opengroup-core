@@ -10,17 +10,15 @@ class RouteManager extends EventEmitter {
 
         this.wrapper.on('preReady', () => {
             this.wrapper.router.afterEach((to, from) => {
-                if (to.name === 'groups.group') {
+                if (to.name === 'groups.group' || to.name === 'groups.group.settings') {
                     let firstMenuItemPath = this.wrapper.menuManager.getFirstMenuItemPath(to.path);
                     if (firstMenuItemPath) {
                         this.wrapper.router.push(firstMenuItemPath);
                     }
                 }
 
-                setTimeout(() => {
-                    document.body.dataset.currentRoute = to.name;
-                    document.body.dataset.currentDepth = to.path.split('/').length - 1;
-                }, 100);
+                document.body.dataset.currentRoute = to.name;
+                document.body.dataset.currentDepth = to.path.split('/').length - 1;
             })
         })
     }
@@ -97,6 +95,10 @@ class RouteManager extends EventEmitter {
                                 <h1 class="plugin-title">{{ title }}</h1>
                                 <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
                                 </vue-form-generator>
+                                
+                                <div class="form-actions">
+                                    <div class="button primary" @click="save"><i class="fa fa-check" aria-hidden="true"></i> Save settings</div>
+                                </div>
                             </div>`,
                             watch: {
                                 // This is needed else the whole form get's 'cached'.
@@ -106,7 +108,14 @@ class RouteManager extends EventEmitter {
                             },
                             data: function () {
                                 return routeManager.createSettingsRoute(this);
-                            }
+                            },
+                            methods: {
+                                save: () => {
+                                    this.plugin.saveSettings();
+                                    let currentGroup = this.wrapper.groupManager.getCurrentGroup();
+                                    this.wrapper.router.push('/groups/' + currentGroup.slug);
+                                }
+                            },
                         }
                     },
                 ]
@@ -134,17 +143,11 @@ class RouteManager extends EventEmitter {
             let settingsFormInfo = plugin.settingsForm();
 
             return {
+                plugin: plugin,
                 title: settingsFormInfo.title,
                 model: currentGroup.config.plugins[plugin.name],
                 schema: {
-                    fields: [...settingsFormInfo.schema, {
-                        type: 'submit',
-                        onSubmit: () => {
-                            plugin.saveSettings();
-                        },
-                        validateBeforeSubmit: true,
-                        buttonText: 'Save settings'
-                    }]
+                    fields: settingsFormInfo.schema
                 },
                 formOptions: {
                     validateAfterLoad: true,

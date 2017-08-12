@@ -28,7 +28,7 @@ export default function (wrapper) {
                             inputType: "text",
                             model: "nickname",
                             id: "nick_name",
-                            placeholder: "What is your name?",
+                            label: "What is your name?",
                             required: true
                         }
                     ],

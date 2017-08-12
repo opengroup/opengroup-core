@@ -8,10 +8,26 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  .form-group.field-input {
+  .form-group {
+    @include clearfix;
+    float: left;
+    clear: both;
+    padding: 5px 0;
+  }
+
+  .inline.field-checkbox {
     label {
-      display: none;
+      float: right;
+      margin-left: 10px;
     }
+
+    .field-wrap {
+      float: left;
+    }
+  }
+
+  .inside-plugin {
+    margin-left: 30px;
   }
 
   .form-group.field-input {

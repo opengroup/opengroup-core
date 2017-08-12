@@ -9,6 +9,6 @@
 
     <div class="multichat-footer">
         <textarea class="multichat-textarea" rows="1" placeholder="Your message" v-on:keydown="sendChat($event)" v-model="newMessage"></textarea>
-        <div class="multichat-send button primary" @click="sendChat()"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send message</div>
+        <div class="multichat-send button primary" @click="sendChat()"><span>Send message</span><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
     </div>
 </div>

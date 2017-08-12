@@ -11,11 +11,11 @@
             </div>
             <div class="texts">
                 <h3 class="nickname">{{ profile.nickname }}</h3>
-                <span class="edit-profile"><i class="fa fa-pencil" aria-hidden="true"></i> Edit profile</span>
+                <span class="edit-profile">Edit profile&nbsp;&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></span>
             </div>
         </router-link>
 
-        <router-link class="button secondary add-group small" :to="{ path: '/add-group' }"><i class="fa fa-plus" aria-hidden="true"></i> Add group</router-link>
+        <router-link class="button secondary add-group small" :to="{ path: '/add-group' }"><span>Add group</span><i class="fa fa-plus" aria-hidden="true"></i></router-link>
     </div>
 
     <group-list></group-list>

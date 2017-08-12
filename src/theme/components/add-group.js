@@ -38,10 +38,12 @@ export default function (wrapper) {
         fields: [{
             type: 'input',
             inputType: 'text',
-            // label: 'Name',
             model: 'name',
-            placeholder: 'What is the name of the group?',
+            label: 'What is the name of the group?',
             required: true
+        }, {
+            type: "label",
+            label: "Plugins"
         }],
     };
 
@@ -83,6 +85,7 @@ export default function (wrapper) {
                 field.visible = () => {
                     return model.plugins[plugin.instance.name].enabled
                 };
+                field.styleClasses = 'inside-plugin';
                 field.model = 'plugins.' + plugin.instance.name + '.' + field.model;
                 schema.fields.push(field);
             })

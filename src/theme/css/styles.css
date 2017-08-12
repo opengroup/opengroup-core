@@ -8,23 +8,35 @@
   border-radius: 3px;
   transition: all 0.3s ease-in-out;
   cursor: pointer; }
+  .button i {
+    transition: all 0.3s ease-in-out; }
+  .button span + i,
+  .button i + span {
+    margin-left: 8px; }
   .button.small {
     padding: 2px 8px;
     font-size: 12px;
     text-transform: uppercase; }
+    .button.small span + i,
+    .button.small i + span {
+      margin-left: 6px; }
   .button.secondary {
     letter-spacing: 1px;
     color: #888;
     border-color: #888; }
-    .button.secondary:hover {
+    .button.secondary i {
+      color: #c8c8c8; }
+    .button.secondary:not(.disabled):hover {
       background-color: #888;
       color: white; }
+      .button.secondary:not(.disabled):hover i {
+        color: white; }
   .button.primary {
     padding: 4px 10px;
     border: 3px solid #4e9a06;
     font-weight: bold;
     background-color: #f8fef2; }
-    .button.primary:hover {
+    .button.primary:not(.disabled):hover {
       background-color: #4e9a06;
       color: white; }
   .button.disabled {
@@ -69,17 +81,22 @@ h1, h2, h3, h4, h5, h6 {
 *::placeholder {
   font-family: 'Open Sans', sans-serif; }
 
-.form-group label {
+.form-group.field-input > label,
+.form-group.field-label > label {
   font-style: italic;
   font-size: 14px;
-  color: #888; }
+  color: #888;
+  float: left;
+  width: 100%; }
+
+.form-group.field-input > label {
+  padding-bottom: 10px; }
 
 textarea,
 input[type="text"] {
-  border: none;
-  border-bottom: 2px solid #eee;
-  padding: 12px 0;
-  margin-bottom: 24px;
+  border: 1px solid #eee;
+  padding: 12px;
+  margin-bottom: 12px;
   transition: all 0.3s ease-in-out; }
   textarea::-webkit-input-placeholder,
   input[type="text"]::-webkit-input-placeholder {
@@ -96,34 +113,18 @@ input[type="text"] {
   textarea:focus, textarea:hover,
   input[type="text"]:focus,
   input[type="text"]:hover {
-    border-bottom: 2px solid #4e9a06; }
+    border-color: #4e9a06; }
 
 input[type="checkbox"] {
   cursor: pointer; }
 
 .form-actions {
   margin-top: 36px;
-  float: left;
+  float: right;
   clear: both; }
 
 input:required {
   box-shadow: none; }
-
-.add-group .form-group {
-  float: left;
-  clear: both;
-  padding: 5px 0; }
-  .add-group .form-group:after {
-    content: "";
-    display: table;
-    clear: both; }
-
-.add-group .inline.field-checkbox label {
-  float: right;
-  margin-left: 10px; }
-
-.add-group .inline.field-checkbox .field-wrap {
-  float: left; }
 
 .edit-profile-link {
   float: left;
@@ -385,12 +386,44 @@ input:required {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
-  .page.add-group .form-group.field-input label {
-    display: none; }
+  .page.add-group .form-group {
+    float: left;
+    clear: both;
+    padding: 5px 0; }
+    .page.add-group .form-group:after {
+      content: "";
+      display: table;
+      clear: both; }
+  .page.add-group .inline.field-checkbox label {
+    float: right;
+    margin-left: 10px; }
+  .page.add-group .inline.field-checkbox .field-wrap {
+    float: left; }
+  .page.add-group .inside-plugin {
+    margin-left: 30px; }
   .page.add-group .form-group.field-input {
     width: 100%; }
     .page.add-group .form-group.field-input input {
       width: 100%; }
+
+[data-current-route="groups.group.settings.plugin"] .vue-form-generator .form-group,
+[data-current-route="groups.group.settings"] .vue-form-generator .form-group {
+  min-width: 700px;
+  max-width: 100%;
+  width: 700px; }
+  [data-current-route="groups.group.settings.plugin"] .vue-form-generator .form-group input,
+  [data-current-route="groups.group.settings"] .vue-form-generator .form-group input {
+    width: 100%; }
+
+[data-current-route="groups.group.settings.plugin"] .form-actions,
+[data-current-route="groups.group.settings"] .form-actions {
+  float: left;
+  min-width: 700px;
+  max-width: 100%;
+  width: 700px; }
+  [data-current-route="groups.group.settings.plugin"] .form-actions .button,
+  [data-current-route="groups.group.settings"] .form-actions .button {
+    float: right; }
 
 .page.profile {
   max-width: 200px;
@@ -400,15 +433,19 @@ input:required {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
-  .page.profile > * {
-    margin-bottom: 24px;
+  .page.profile > * + * {
+    margin-top: 24px;
     float: left;
-    clear: both;
-    width: 100%;
-    text-align: center; }
+    clear: both; }
+  .page.profile .vue-form-generator,
+  .page.profile .form-group {
+    width: 100%; }
+  .page.profile .button {
+    text-align: center;
+    position: relative;
+    float: right; }
   .page.profile input[type="text"] {
-    width: 100%;
-    text-align: center; }
+    width: 100%; }
   .page.profile .camera-wrapper {
     width: 200px;
     height: 200px;
@@ -495,7 +532,8 @@ input:required {
   resize: none;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  margin: 0; }
+  margin: 0;
+  height: 100px; }
 
 .multichat-send {
   -ms-flex: 0 0 auto;

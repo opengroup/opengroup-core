@@ -46,8 +46,8 @@ class OgSignaler extends Plugin {
             schema: [{
                 type: 'input',
                 inputType: 'text',
-                label: 'Server Websocket address',
-                placeholder: 'Server Websocket address',
+                label: 'Group URL',
+                placeholder: 'connect.opengroup.io/my-group',
                 model: 'url',
                 required: true
             }]

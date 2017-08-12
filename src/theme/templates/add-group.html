@@ -5,8 +5,8 @@
     </vue-form-generator>
 
     <div class="form-actions">
-        <div class="button primary" @click="submitGroup">Add group</div>
-        <router-link class="button secondary" :to="{ path: '/groups' }">Cancel</router-link>
+        <router-link class="button secondary" :to="{ path: '/groups' }"><span>Cancel</span><i class="fa fa-times" aria-hidden="true"></i></router-link>
+        <div class="button primary" @click="submitGroup"><span>Add group</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
     </div>
 
 </div>
