@@ -29,18 +29,18 @@ class RouteManager extends EventEmitter {
 
         return [
             {
-                path: '/groups',
-                alias: '/',
-                name: 'groups',
-                title: 'Groups',
-                component: Vue.options.components['groups']
-            },
-            {
                 path: '/add-group',
                 alias: '/',
                 name: 'add-group',
                 title: 'Add group',
                 component: Vue.options.components['add-group'],
+            },
+            {
+                path: '/groups',
+                alias: '/',
+                name: 'groups',
+                title: 'Groups',
+                component: Vue.options.components['group'],
             },
             {
                 path: '/groups/:slug',
@@ -110,10 +110,10 @@ class RouteManager extends EventEmitter {
                                 return routeManager.createSettingsRoute(this);
                             },
                             methods: {
-                                save: () => {
+                                save: function () {
                                     this.plugin.saveSettings();
-                                    let currentGroup = this.wrapper.groupManager.getCurrentGroup();
-                                    this.wrapper.router.push('/groups/' + currentGroup.slug);
+                                    let currentGroup = wrapper.groupManager.getCurrentGroup();
+                                    wrapper.router.push('/groups/' + currentGroup.slug);
                                 }
                             },
                         }

@@ -1,3 +1,16 @@
 export default function (wrapper) {
-    return {}
+    let currentGroup = wrapper.groupManager.getCurrentGroup();
+
+    return {
+        data: function () {
+            return {
+                currentGroup: currentGroup
+            }
+        },
+        watch: {
+            '$route': function() {
+                this.currentGroup = wrapper.groupManager.getCurrentGroup();
+            },
+        },
+    }
 };

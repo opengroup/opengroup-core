@@ -1,0 +1,19 @@
+$transition: groups-group-plugin--groups;
+
+$transition: fade;
+
+.#{$transition}-enter-active {
+  transition: opacity $transition-speed 0s;
+}
+
+.#{$transition}-leave-active .region-main {
+  transition: opacity $transition-speed 0s;
+}
+
+.#{$transition}-enter .region-main {
+  opacity: 0;
+}
+
+.#{$transition}-leave-to .region-main {
+  opacity: 0;
+}

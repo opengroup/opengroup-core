@@ -14,7 +14,6 @@ class ThemeManager extends EventEmitter {
         'sidebar',
         'profile-teaser',
         'profile',
-        'groups',
         'group',
         'add-group',
         'group-settings'

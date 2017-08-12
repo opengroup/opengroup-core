@@ -1,9 +1,12 @@
 export default function (wrapper) {
     let dataGetter = () => {
         let menuItems = [];
+        let menuItem = false;
 
         let currentGroup = wrapper.groupManager.getCurrentGroup();
-        let menuItem = wrapper.menuManager.getMenuItemByPath('/groups/' + currentGroup.slug);
+        if (currentGroup) {
+            menuItem = wrapper.menuManager.getMenuItemByPath('/groups/' + currentGroup.slug);
+        }
 
         if (menuItem && menuItem.children) {
             menuItems = menuItem.children;
@@ -11,16 +14,14 @@ export default function (wrapper) {
 
         return {
             menu: menuItems,
-            group: wrapper.groupManager.getCurrentGroup()
+            group: currentGroup
         }
     };
 
     return {
         watch: {
             '$route': function() {
-                let refreshedData = dataGetter();
-                this.menu = refreshedData.menu;
-                this.group = refreshedData.group;
+                Object.assign(this, dataGetter());
             },
         },
         data: function () {

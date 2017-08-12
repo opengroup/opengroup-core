@@ -89,7 +89,7 @@ class GroupManager extends EventEmitter {
     }
 
     getGroupBySlug (slug) {
-        return this.groups.filter((group) => group.slug === slug)[0];
+        return this.groups.filter((group) => group.slug === slug)[0] || false;
     }
 
     getCurrentGroup () {

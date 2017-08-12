@@ -31,13 +31,14 @@
   &.secondary {
     letter-spacing: 1px;
     color: $gray-dark;
-    border-color: $gray-dark;
+    border-color: lighten($gray-dark, 25);
 
     i {
       color: lighten($gray-dark, 25);
     }
 
     &:not(.disabled):hover {
+      border-color: $gray-dark;
       background-color: $gray-dark;
       color: $white;
 

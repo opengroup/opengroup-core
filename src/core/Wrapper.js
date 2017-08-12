@@ -50,11 +50,11 @@ class Wrapper extends EventEmitter {
         this.menuManager.indexMenuItems(this.routes);
 
         this.router = new VueRouter({
-            routes: this.routes
+            routes: this.routes,
         });
 
         this.vueRoot = new Vue({
-            router: this.router
+            router: this.router,
         }).$mount(this.options.selector);
 
         this.state = 'preReady';
