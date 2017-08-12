@@ -1,27 +1,6 @@
-$ideal-width: 700px;
-
 [data-current-route="groups.group.settings.plugin"],
 [data-current-route="groups.group.settings"] {
   .vue-form-generator {
-    .form-group {
-      min-width: $ideal-width;
-      max-width: 100%;
-      width: $ideal-width;
-
-      input {
-        width: 100%;
-      }
-    }
-  }
-
-  .form-actions {
-    float: left;
-    min-width: $ideal-width;
-    max-width: 100%;
-    width: $ideal-width;
-
-    .button {
-      float: right;
-    }
+    padding-top: $padding * 2;
   }
 }

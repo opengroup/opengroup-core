@@ -6,65 +6,82 @@
 }
 
 .group-menu {
-  display: none;
+  background-color: $gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: -1;
+  transition: z-index 0s $speed * 2, opacity $speed $easing $speed;
 
-  padding: 0;
-  overflow: hidden;
-  margin: 0;
-  float: left;
-  clear: none;
-  width: 100%;
-  position: relative;
+  .menu-title {
+    margin-top: $padding * 2;
+    @include grid-span(10, 2);
+  }
+
+  > .menu-list {
+    margin-top: $padding * 6;
+  }
+
+  .sub-menu {
+    padding-left: grid-span(1, 1);
+  }
+
+  .menu-title,
+  > .menu-list {
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: all $speed $easing 0s;
+  }
+
+  .menu-list {
+    padding: 0;
+  }
 
   .menu-item {
     float: left;
     list-style: none;
-  }
-
-  .menu-list {
-    float: right;
-    padding: 0;
-    position: relative;
-    margin: 0;
-
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 100vw;
-      background-color: $primary;
-      height: 1px;
-    }
-  }
-
-  .sub-menu {
-    margin-top: 30px;
-
-    .menu-list:after {
-      background-color: $gray;
-    }
+    width: 100%;
+    clear: both;
   }
 
   .menu-link {
     float: left;
     text-decoration: none;
     white-space: nowrap;
+    width: 100%;
     color: $black;
     font-size: 14px;
-    padding: 16px 20px;
+    padding: $padding;
+    padding-left: grid-span(1, 1);
     transition: color $speed $easing, border $speed $easing;
     border-bottom: 5px solid transparent;
 
     &:hover,
     &.router-link-active {
-      color: $primary;
-      border-bottom: 5px solid $primary;
+      color: $white;
+      background-color: $primary;
     }
 
     &.router-link-active + .group-sub-menu > .menu-list {
       display: block;
+    }
+  }
+}
+
+.show-menu {
+  .group-menu {
+    transition: z-index 0s 0s, opacity $speed $easing 0s;
+    opacity: 1;
+    z-index: 100;
+
+    .menu-title,
+    > .menu-list {
+      transition: all $speed $easing $speed;
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }

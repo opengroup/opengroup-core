@@ -5,11 +5,10 @@
   padding: $padding;
   position: relative;
   background-color: $white;
-  border-top: 1px solid $gray;
-  border-bottom: 1px solid $gray;
-  border-left: 1px solid $gray;
+  border: 1px solid $gray;
   transition: all $speed $easing;
 
+  /*
   &:after {
     content: '';
     display: block;
@@ -20,7 +19,7 @@
     width: 6px;
     background-color: $gray;
     transition: background $speed $easing;
-  }
+  } */
 
   > .group-title {
     margin: 0;
@@ -51,8 +50,9 @@
     z-index: 2;
     color: black;
 
+    /*
     &:after {
       background-color: $primary;
-    }
+    } */
   }
 }

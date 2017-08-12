@@ -19,6 +19,7 @@ input[type="text"] {
   padding: $padding;
   margin-bottom: $padding;
   transition: all $speed $easing;
+  width: 100%;
 
   &::placeholder {
     color: $gray-dark;

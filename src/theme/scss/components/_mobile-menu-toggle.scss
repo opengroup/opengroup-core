@@ -4,6 +4,7 @@ $speed: 0.1s;
   position: absolute;
   top: 28px;
   right: 0;
+  z-index: 101;
 
   .bar + .bar {
     margin-top: 6px;
@@ -32,7 +33,7 @@ $speed: 0.1s;
   }
 }
 
-[data-mobile-menu="expanded"] {
+.show-menu {
   .mobile-menu-toggle {
     .bar {
       transition: transform ($speed * 2) $easing ($speed / 2), opacity ($speed * 2) $easing (($speed / 2) + $speed);

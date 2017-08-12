@@ -41,7 +41,8 @@
 }
 
 [data-current-depth="2"],
-[data-current-depth="3"] {
+[data-current-depth="3"],
+[data-current-depth="4"]{
   .region-sidebar {
     transform: translateX(-100vw);
     transition: transform $transition-speed $easing;
@@ -49,7 +50,6 @@
 }
 
 .region-main-content {
-  display: flex;
   flex: 1 1 auto;
   width: 100%;
   padding-bottom: $padding * 2;

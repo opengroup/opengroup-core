@@ -22,14 +22,19 @@ export default function (wrapper) {
         watch: {
             '$route': function() {
                 Object.assign(this, dataGetter());
+                setTimeout(() => {
+                    this.showMenu = false;
+                }, 300);
             },
         },
         data: function () {
-            return dataGetter();
+            let data = { showMenu: false };
+            Object.assign(data, dataGetter());
+            return data;
         },
         methods: {
-            toggleMenu: () => {
-                document.body.dataset.mobileMenu = document.body.dataset.mobileMenu === 'expanded' ? 'collapsed' : 'expanded';
+            toggleMenu: function () {
+                this.showMenu = !this.showMenu;
             }
         }
     }
