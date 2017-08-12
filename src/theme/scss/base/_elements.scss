@@ -1,8 +1,14 @@
+html {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
-  padding: 0 $padding * 2;
+  padding: 0;
   margin: 0;
   height: 100%;
+  overflow-x: hidden;
 }
 
 * {
@@ -18,6 +24,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 
+h1 {
+  font-size: 20px;
+}
+
 *:focus {
   outline: none;
 }
@@ -28,4 +38,12 @@ h1, h2, h3, h4, h5, h6 {
 
 *::placeholder {
   font-family: 'Open Sans', sans-serif;
+}
+
+.field-checkbox {
+  .field-wrap {
+    input[type="checkbox"] {
+      //display: none;
+    }
+  }
 }

@@ -1,13 +1,12 @@
 .multichat-textarea {
   resize: none;
-  flex: 1 1 auto;
-  margin: 0;
-  height: 100px;
+  width: 100%;
+  height: 70px;
 }
 
 .multichat-send {
-  flex: 0 0 auto;
-  margin-left: $padding;
+  width: 100%;
+  text-align: center;
 }
 
 .multichat-chats {
@@ -34,12 +33,9 @@
 }
 
 .multichat.region-main-content {
-  display: flex;
   flex-direction: column;
 }
 
 .multichat-footer {
   width: 100%;
-  display: flex;
-  align-items: flex-end;
 }

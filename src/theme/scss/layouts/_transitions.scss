@@ -1,10 +1,22 @@
 .fade-enter-active {
-  transition: opacity $transition-speed $transition-speed;
+  transition: opacity $transition-speed $easing;
 }
 
 .fade-leave-active {
-  transition: opacity $transition-speed 0s;
+  transition: opacity $transition-speed $easing;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0
+}
+
+.slide-enter-active {
+  transition: transform $transition-speed $easing;
+}
+
+.slide-leave-active {
+  transition: transform $transition-speed $easing;
+  transform: translateX(0);
+}
+.slide-enter, .slide-leave-to {
+  transform: translateX(100vw);
 }

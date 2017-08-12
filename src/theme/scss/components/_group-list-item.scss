@@ -1,14 +1,14 @@
 .group-list-item {
-  float: left;
+  @include grid-span(10, 1, 10);
   text-decoration: none;
   color: $gray-dark;
-  width: 100%;
   padding: $padding;
   position: relative;
   background-color: $white;
   border-top: 1px solid $gray;
-  transition: all $speed $easing;
   border-bottom: 1px solid $gray;
+  border-left: 1px solid $gray;
+  transition: all $speed $easing;
 
   &:after {
     content: '';

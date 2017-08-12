@@ -3,14 +3,14 @@ body:after {
   display: none;
   height: 100vh;
   position: fixed;
-  left: $padding * 2;
-  right: $padding * 2;
+  left: 0;
+  right: 0;
   top: 0;
   pointer-events: none;
   @include sgs-change('debug', true);
   @include background-grid($color: red);
   @include sgs-change('debug', false);
-  opacity: 0.4;
+  opacity: 0.3;
   z-index: 10000;
 }
 

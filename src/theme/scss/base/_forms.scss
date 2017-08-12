@@ -36,8 +36,25 @@ input[type="checkbox"] {
 
 .form-actions {
   margin-top: $padding * 3;
-  float: right;
-  clear: both;
+  display: flex;
+  float: left;
+  width: 100%;
+  flex-flow: row;
+
+  .button {
+    text-align: center;
+    margin: 0;
+    flex: 1 1 auto;
+  }
+
+  .button.secondary {
+    border-radius: $radius 0 0 $radius;
+    border-right: 0;
+  }
+
+  .button.secondary + .button.primary {
+    border-radius: 0 $radius $radius 0;
+  }
 }
 
 input:required {

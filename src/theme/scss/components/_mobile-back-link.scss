@@ -1,6 +1,7 @@
 .mobile-back-link {
-  font-size: 20px;
+  font-size: 16px;
   color: $primary;
+  margin-right: 7px;
 }
 
 @include breakpoint($tablet) {

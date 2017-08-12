@@ -1,6 +1,6 @@
 $speed: .3s;
 $transition-speed: $speed;
-$easing: ease-in-out;
+$easing: cubic-bezier(.3,.01,.61,.95);
 $padding: 12px;
-$radius: 3px;
+$radius: 4px;
 

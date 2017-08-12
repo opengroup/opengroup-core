@@ -1,21 +1,20 @@
 <div class="sidebar">
-
     <div class="sidebar-inner">
         <router-link class="logo-link" :to="{ path: '/groups' }">
             <img class="logo" src="/theme/images/logo.svg">
         </router-link>
 
-        <router-link :to="{ path: '/profile' }" class="edit-profile-link">
+        <div class="edit-profile-link">
             <div class="snapshot-wrapper">
                 <img class="snapshot" :src="profile.snapshot"/>
             </div>
             <div class="texts">
                 <h3 class="nickname">{{ profile.nickname }}</h3>
-                <span class="edit-profile">Edit profile&nbsp;&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></span>
+                <router-link :to="{ path: '/profile' }" class="button secondary small">Edit profile&nbsp;&nbsp;<i class="fa fa-pencil" aria-hidden="true"></i></router-link>
             </div>
-        </router-link>
+        </div>
 
-        <router-link class="button secondary add-group small" :to="{ path: '/add-group' }"><span>Add group</span><i class="fa fa-plus" aria-hidden="true"></i></router-link>
+        <router-link class="button primary add-group" :to="{ path: '/add-group' }"><span>Add group</span><i class="fa fa-plus" aria-hidden="true"></i></router-link>
     </div>
 
     <group-list></group-list>

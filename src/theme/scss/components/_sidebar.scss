@@ -1,10 +1,9 @@
 .sidebar {
-  //background-color: $gray;
-  border-right: 1px solid $gray;
+  background-color: $white;
+  padding-top: $padding * 2;
+  padding-bottom: $padding * 3;
 
   .sidebar-inner {
-    padding: $padding;
-
     > * {
       margin-bottom: $padding * 3;
       clear: both;

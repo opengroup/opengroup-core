@@ -26,6 +26,11 @@ export default function (wrapper) {
         },
         data: function () {
             return dataGetter();
+        },
+        methods: {
+            toggleMenu: () => {
+                document.body.dataset.mobileMenu = document.body.dataset.mobileMenu === 'expanded' ? 'collapsed' : 'expanded';
+            }
         }
     }
 };

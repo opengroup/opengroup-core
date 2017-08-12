@@ -11,6 +11,8 @@
     <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
     </vue-form-generator>
 
-    <div class="button primary" :class="{'disabled': !model.snapshot || !model.nickname }" @click="saveProfile"><span>Continue</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
+    <div class="form-actions">
+        <div class="button primary" :class="{'disabled': !model.snapshot || !model.nickname }" @click="saveProfile"><span>Continue</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
+    </div>
 </div>
 </transition>

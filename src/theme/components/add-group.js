@@ -76,6 +76,7 @@ export default function (wrapper) {
             model: 'plugins.' + plugin.instance.name + '.enabled',
             default: plugin.required,
             disabled: plugin.required,
+            name: plugin.instance.name,
             styleClasses: 'inline'
         });
 

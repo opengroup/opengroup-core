@@ -1,24 +1,25 @@
 .page.add-group {
-  max-width: 600px;
-  width: 100%;
-  margin: 0 auto;
-  max-height: 90vh;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include grid-span(10, 2);
+  padding-bottom: $padding * 3;
 
   .form-group {
     @include clearfix;
     float: left;
     clear: both;
     padding: 5px 0;
+    width: 100%;
+
+
+    &.field-input {
+      input {
+        width: 100%;
+      }
+    }
   }
 
   .inline.field-checkbox {
     label {
-      float: right;
-      margin-left: 10px;
+      @include grid-span(9, 2, 10);
     }
 
     .field-wrap {
@@ -27,14 +28,7 @@
   }
 
   .inside-plugin {
-    margin-left: 30px;
-  }
-
-  .form-group.field-input {
-    width: 100%;
-
-    input {
-      width: 100%;
-    }
+    @include grid-span(9, 2, 10);
+    clear: both;
   }
 }
