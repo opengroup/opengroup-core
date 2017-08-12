@@ -2,3 +2,9 @@
   font-size: 20px;
   color: $primary;
 }
+
+@include breakpoint($tablet) {
+  .mobile-back-link {
+    display: none;
+  }
+}

@@ -10,6 +10,10 @@ class RouteManager extends EventEmitter {
 
         this.wrapper.on('preReady', () => {
             this.wrapper.router.afterEach((to, from) => {
+                if (to.name === 'groups.group') {
+                    this.wrapper.router.push(this.wrapper.menuManager.getFirstMenuItem(to.path));
+                }
+
                 setTimeout(() => {
                     document.body.dataset.currentRoute = to.name;
                     document.body.dataset.currentDepth = to.path.split('/').length - 1;
@@ -87,7 +91,7 @@ class RouteManager extends EventEmitter {
                         component: {
                             template: `
                             <div>
-                                <h1>{{ title }}</h1>
+                                <h1 class="plugin-title">{{ title }}</h1>
                                 <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
                                 </vue-form-generator>
                             </div>`,

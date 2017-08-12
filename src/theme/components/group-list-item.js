@@ -1,5 +1,10 @@
 export default function (wrapper) {
     return {
-        props: ['group']
+        props: ['group'],
+        methods: {
+            getFirstMenuItem: (path) => {
+                return wrapper.menuManager.getFirstMenuItem(path);
+            }
+        }
     }
 };
