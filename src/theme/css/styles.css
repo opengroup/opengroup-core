@@ -50,7 +50,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  padding: 0;
+  padding: 0 24px;
   margin: 0;
   height: 100%; }
 
@@ -187,6 +187,28 @@ input:required {
       color: #888; }
   .edit-profile-link:hover:after {
     opacity: 1; }
+
+body:after {
+  content: '';
+  display: none;
+  height: 100vh;
+  position: fixed;
+  left: 24px;
+  right: 24px;
+  top: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%22%3E%3Crect%20x%3D%220%25%22%20fill%3D%22red%22%20width%3D%2227%2E27273%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2227%2E27273%25%22%20fill%3D%22%23ff4040%22%20width%3D%229%2E09091%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2236%2E36364%25%22%20fill%3D%22red%22%20width%3D%2227%2E27273%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2263%2E63636%25%22%20fill%3D%22%23ff4040%22%20width%3D%229%2E09091%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2272%2E72727%25%22%20fill%3D%22red%22%20width%3D%2227%2E27273%25%22%20height%3D%22100%25%22%2F%3E%3C%2Fsvg%3E");
+  opacity: 0.4;
+  z-index: 10000; }
+  @media (min-width: 720px) {
+    body:after {
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%22%3E%3Crect%20x%3D%220%25%22%20fill%3D%22red%22%20width%3D%2213%2E04348%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2213%2E04348%25%22%20fill%3D%22%23ff4040%22%20width%3D%224%2E34783%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2217%2E3913%25%22%20fill%3D%22red%22%20width%3D%2213%2E04348%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2230%2E43478%25%22%20fill%3D%22%23ff4040%22%20width%3D%224%2E34783%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2234%2E78261%25%22%20fill%3D%22red%22%20width%3D%2213%2E04348%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2247%2E82609%25%22%20fill%3D%22%23ff4040%22%20width%3D%224%2E34783%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2252%2E17391%25%22%20fill%3D%22red%22%20width%3D%2213%2E04348%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2265%2E21739%25%22%20fill%3D%22%23ff4040%22%20width%3D%224%2E34783%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2269%2E56522%25%22%20fill%3D%22red%22%20width%3D%2213%2E04348%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2282%2E6087%25%22%20fill%3D%22%23ff4040%22%20width%3D%224%2E34783%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2286%2E95652%25%22%20fill%3D%22red%22%20width%3D%2213%2E04348%25%22%20height%3D%22100%25%22%2F%3E%3C%2Fsvg%3E"); } }
+  @media (min-width: 1024px) {
+    body:after {
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww%2Ew3%2Eorg%2F2000%2Fsvg%22%3E%3Crect%20x%3D%220%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%228%2E57143%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2211%2E42857%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2220%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2222%2E85714%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2231%2E42857%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2234%2E28571%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2242%2E85714%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2245%2E71429%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2254%2E28571%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2257%2E14286%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2265%2E71429%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2268%2E57143%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2277%2E14286%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2280%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2288%2E57143%25%22%20fill%3D%22%23ff4040%22%20width%3D%222%2E85714%25%22%20height%3D%22100%25%22%2F%3E%3Crect%20x%3D%2291%2E42857%25%22%20fill%3D%22red%22%20width%3D%228%2E57143%25%22%20height%3D%22100%25%22%2F%3E%3C%2Fsvg%3E"); } }
+
+body[data-grid="visible"]:after {
+  display: block; }
 
 .group-header:after {
   content: "";
@@ -603,8 +625,11 @@ input:required {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto; }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s; }
+.fade-enter-active {
+  transition: opacity 0.3s 0.3s; }
+
+.fade-leave-active {
+  transition: opacity 0.3s 0s; }
 
 .fade-enter, .fade-leave-to {
   opacity: 0; }

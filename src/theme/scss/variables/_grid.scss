@@ -1,0 +1,14 @@
+@include sgs-change('mobile first', true);
+
+$tablet: 720px;
+$desktop: 1024px;
+$max-width: 1440px;
+
+$document-row-size: 8px;
+$header-height-small: 8rs;
+$header-height-big: 10rs;
+
+@include add-grid(3);
+@include add-grid(6 at $tablet);
+@include add-grid(9 at $desktop);
+@include add-gutter(1 / 3);

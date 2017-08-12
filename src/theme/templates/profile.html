@@ -1,3 +1,4 @@
+<transition name="fade">
 <div class="page profile" :class="{'has-snapshot': model.snapshot}">
     <div class="camera-wrapper">
         <div class="camera-inner">
@@ -12,3 +13,4 @@
 
     <div class="button primary" :class="{'disabled': !model.snapshot || !model.nickname }" @click="saveProfile"><span>Continue</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
 </div>
+</transition>
