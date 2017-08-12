@@ -4,13 +4,8 @@ export default function (wrapper) {
     return {
         data: function () {
             return {
-                currentGroup: currentGroup
+                currentGroup: currentGroup,
             }
-        },
-        watch: {
-            '$route': function() {
-                this.currentGroup = wrapper.groupManager.getCurrentGroup();
-            },
         },
     }
 };

@@ -603,14 +603,8 @@ input:required {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto; }
 
-.fade-enter-active {
-  transition: opacity 0.9s 0s; }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s; }
 
-.fade-leave-active .region-main {
-  transition: opacity 0.9s 0s; }
-
-.fade-enter .region-main {
-  opacity: 0; }
-
-.fade-leave-to .region-main {
+.fade-enter, .fade-leave-to {
   opacity: 0; }
