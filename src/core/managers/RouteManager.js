@@ -11,7 +11,10 @@ class RouteManager extends EventEmitter {
         this.wrapper.on('preReady', () => {
             this.wrapper.router.afterEach((to, from) => {
                 if (to.name === 'groups.group') {
-                    this.wrapper.router.push(this.wrapper.menuManager.getFirstMenuItem(to.path));
+                    let firstMenuItemPath = this.wrapper.menuManager.getFirstMenuItemPath(to.path);
+                    if (firstMenuItemPath) {
+                        this.wrapper.router.push(firstMenuItemPath);
+                    }
                 }
 
                 setTimeout(() => {

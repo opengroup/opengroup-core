@@ -69,7 +69,7 @@ class MenuManager extends EventEmitter {
         return submenu;
     }
 
-    getFirstMenuItem (path) {
+    getFirstMenuItemPath (path) {
         let subMenu = this.getMenuItemByPath(path);
         if (subMenu.children && subMenu.children[0]) {
             return subMenu.children[0].path;
