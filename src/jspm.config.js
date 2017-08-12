@@ -41,6 +41,7 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
+    "at-import/Singularity": "github:at-import/Singularity@1.8.0",
     "css": "github:systemjs/plugin-css@0.1.35",
     "plugin-babel": "npm:systemjs-plugin-babel@0.0.17",
     "systemjs-plugin-text": "npm:systemjs-plugin-text@0.0.9",
