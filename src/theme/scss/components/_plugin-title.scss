@@ -2,3 +2,9 @@
   margin-top: 0;
   color: $primary;
 }
+
+@include breakpoint($desktop) {
+  .plugin-title {
+    margin-top: $padding * 3;
+  }
+}

@@ -254,6 +254,14 @@ body[data-grid="visible"]:after {
   .group-header > .group-menu {
     float: right; } }
 
+@media (min-width: 960px) {
+  .group-header:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .group-header > .group-title {
+    margin-top: 30px; } }
+
 .group-list-item {
   width: 100%;
   float: right;
@@ -430,6 +438,7 @@ body[data-grid="visible"]:after {
     padding: 0;
     overflow: hidden;
     margin: 0;
+    margin-top: 20px;
     float: left;
     clear: none;
     width: 100%;
@@ -536,6 +545,10 @@ body[data-grid="visible"]:after {
 .plugin-title {
   margin-top: 0;
   color: #4e9a06; }
+
+@media (min-width: 960px) {
+  .plugin-title {
+    margin-top: 36px; } }
 
 .profile.teaser {
   float: left;

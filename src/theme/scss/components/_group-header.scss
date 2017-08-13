@@ -29,3 +29,13 @@
     }
   }
 }
+
+@include breakpoint ($desktop) {
+  .group-header {
+    @include clearfix;
+
+    > .group-title {
+      margin-top: $padding * 2.5;
+    }
+  }
+}
