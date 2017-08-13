@@ -11,3 +11,13 @@
     }
   }
 }
+
+@include breakpoint($tablet) {
+  .sidebar {
+    border-right: 1px solid $gray;
+  }
+
+  .sidebar-inner {
+    @include isolation-span(10, 2, 'both', 12);
+  }
+}

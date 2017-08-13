@@ -1,27 +1,10 @@
-/*
-.region-sidebar {
-  max-width: 100vw;
-  width: 300px;
-  float: left;
-  height: 100vh;
-}
-
-.region-main {
-  height: 100vh;
-  position: relative;
-  float: left;
-  width: calc(100% - 300px);
-  display: flex;
-  flex-direction: column;
-}
-
-.region-main-header {
-  flex: 0 1 auto;
+#app {
+  max-width: $max-width;
+  margin: 0 auto;
+  background-color: $white;
   @include clearfix;
-  padding: $padding * 2;
+  height: 100vh;
 }
-
-*/
 
 .region-main-header {
   position: relative;
@@ -38,14 +21,17 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: $white;
 }
 
-[data-current-depth="2"],
-[data-current-depth="3"],
-[data-current-depth="4"]{
-  .region-sidebar {
-    transform: translateX(-100vw);
-    transition: transform $transition-speed $easing;
+@include breakpoint(max-width $tablet - 1) {
+  [data-current-depth="2"],
+  [data-current-depth="3"],
+  [data-current-depth="4"]{
+    .region-sidebar {
+      transform: translateX(-100vw);
+      transition: transform $transition-speed $easing;
+    }
   }
 }
 
@@ -53,4 +39,25 @@
   flex: 1 1 auto;
   width: 100%;
   padding-bottom: $padding * 2;
+}
+
+@include breakpoint($tablet) {
+  .region-sidebar {
+    @include isolation-span(12, 1);
+    height: 100vh;
+  }
+
+  .region-main {
+    @include isolation-span(10, 14);
+  }
+}
+
+@include breakpoint($desktop) {
+  .region-sidebar {
+    @include isolation-span(12, 1);
+  }
+
+  .region-main {
+    @include isolation-span(22, 14);
+  }
 }

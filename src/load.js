@@ -33,6 +33,7 @@ import 'OpenGroup/theme/templates/group-list-item.html!text';
 import 'OpenGroup/theme/templates/group-list.html!text';
 import 'OpenGroup/theme/templates/group-settings.html!text';
 import 'OpenGroup/theme/templates/group.html!text';
+import 'OpenGroup/theme/templates/groups.html!text';
 import 'OpenGroup/theme/templates/nested-menu.html!text';
 import 'OpenGroup/theme/templates/profile-teaser.html!text';
 import 'OpenGroup/theme/templates/profile.html!text';

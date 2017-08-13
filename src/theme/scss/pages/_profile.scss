@@ -152,3 +152,27 @@ $camera-size: 200px;
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+@include breakpoint($tablet) {
+  .page.profile {
+    @include grid-span(10, 8);
+
+    .camera-wrapper {
+      @include grid-span(6, 3, 10);
+    }
+  }
+}
+
+@include breakpoint($desktop) {
+  .page.profile {
+    @include grid-span(14, 12);
+
+    .camera-wrapper {
+      @include grid-span(6, 5, 14);
+    }
+
+    .form-actions {
+      float: right;
+    }
+  }
+}

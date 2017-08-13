@@ -3,9 +3,11 @@ body:after {
   display: none;
   height: 100vh;
   position: fixed;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
   top: 0;
+  max-width: $max-width;
   pointer-events: none;
   @include sgs-change('debug', true);
   @include background-grid($color: red);

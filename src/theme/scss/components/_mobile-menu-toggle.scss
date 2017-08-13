@@ -2,9 +2,11 @@ $speed: 0.1s;
 
 .mobile-menu-toggle {
   position: absolute;
-  top: 28px;
-  right: 0;
+  top: 8px;
+  right: -20px;
   z-index: 101;
+  cursor: pointer;
+  padding: 20px;
 
   .bar + .bar {
     margin-top: 6px;
@@ -26,10 +28,6 @@ $speed: 0.1s;
       margin-top: 0;
       transform: translateY(-50%) rotate(0deg);
     }
-  }
-
-  @media ($tablet) {
-    display: none;
   }
 }
 
@@ -65,5 +63,12 @@ $speed: 0.1s;
         transform: translateY(0) rotate(45deg);
       }
     }
+  }
+}
+
+
+@include breakpoint($desktop) {
+  .mobile-menu-toggle {
+    display: none;
   }
 }

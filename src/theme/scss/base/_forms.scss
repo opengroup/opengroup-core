@@ -44,20 +44,19 @@ input[type="checkbox"] {
 
   .button {
     text-align: center;
-    margin: 0;
     flex: 1 1 auto;
-  }
-
-  .button.secondary {
-    border-radius: $radius 0 0 $radius;
-    border-right: 0;
-  }
-
-  .button.secondary + .button.primary {
-    border-radius: 0 $radius $radius 0;
   }
 }
 
 input:required {
   box-shadow: none;
+}
+
+@include breakpoint ($desktop) {
+  .form-actions {
+    display: block;
+    float: right;
+    clear: both;
+    width: auto;
+  }
 }

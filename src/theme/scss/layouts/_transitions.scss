@@ -9,14 +9,27 @@
   opacity: 0
 }
 
-.slide-enter-active {
-  transition: transform $transition-speed $easing;
+@include breakpoint(max-width $tablet - 1) {
+  .slide-enter-active {
+    transition: transform $transition-speed $easing;
+  }
+
+  .slide-leave-active {
+    transition: transform $transition-speed $easing;
+    transform: translateX(0);
+  }
+  .slide-enter, .slide-leave-to {
+    transform: translateX(100vw);
+  }
 }
 
-.slide-leave-active {
-  transition: transform $transition-speed $easing;
-  transform: translateX(0);
-}
-.slide-enter, .slide-leave-to {
-  transform: translateX(100vw);
+@include breakpoint($tablet) {
+  .slide-leave-active,
+  .slide-enter-active {
+    transition: opacity $transition-speed $easing;
+  }
+
+  .slide-enter, .slide-leave-to {
+    opacity: 0
+  }
 }

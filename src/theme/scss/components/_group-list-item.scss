@@ -49,10 +49,34 @@
   &:hover {
     z-index: 2;
     color: black;
+  }
+}
 
-    /*
+@include breakpoint ($tablet) {
+  .group-list-item {
+    @include grid-span(10, 1, 10);
+    padding-left: grid-span(1, 1, 12);
+
     &:after {
-      background-color: $primary;
-    } */
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 6px;
+      background-color: $gray;
+      transition: background $speed $easing;
+    }
+
+    &.router-link-active,
+    &:hover {
+      z-index: 2;
+      color: black;
+
+      &:after {
+        background-color: $primary;
+      }
+    }
   }
 }

@@ -32,3 +32,15 @@
     clear: both;
   }
 }
+
+@include breakpoint($tablet) {
+  .page.add-group {
+    @include grid-span(12, 7);
+  }
+}
+
+@include breakpoint($desktop) {
+  .page.add-group {
+    @include grid-span(14, 12);
+  }
+}
