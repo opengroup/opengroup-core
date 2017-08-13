@@ -7,9 +7,10 @@
                     class="menu-link"
                     :to="{ path: item.path }">{{ item.title }}</router-link>
 
-            <nested-menu v-if="item.children" v-bind:items="item.children" class="sub-menu"></nested-menu>
+            <nested-menu v-if="item.children && mobile" v-bind:items="item.children" class="sub-menu"></nested-menu>
 
         </li>
     </ul>
 
+    <nested-menu v-if="submenu.length && !mobile" v-bind:items="submenu" class="sub-menu"></nested-menu>
 </div>

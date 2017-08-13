@@ -196,6 +196,15 @@ input:required {
     margin: 0;
     font-weight: bold; }
 
+.flex-wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100vh; }
+
 body:after {
   content: '';
   display: none;
@@ -327,79 +336,139 @@ body[data-grid="visible"]:after {
   .group-list {
     width: calc(100% + 1px); } }
 
-.nested-menu {
+.group-menu .menu-title {
+  width: 83.33333%;
   float: left;
-  clear: both;
-  width: 100%; }
-  .nested-menu:after {
-    content: "";
-    display: table;
-    clear: both; }
+  margin-right: -100%;
+  margin-left: 8.33333%;
+  clear: none; }
 
-.group-menu {
-  background-color: #eee;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
-  z-index: -1;
-  transition: z-index 0s 0.6s, opacity 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0.3s; }
-  .group-menu .menu-title {
-    margin-top: 24px;
-    width: 83.33333%;
+.group-menu .sub-menu {
+  padding-left: 8.33333%; }
+
+.group-menu .menu-link {
+  padding: 12px;
+  padding-left: 8.33333%; }
+
+@media (max-width: 959px) {
+  .nested-menu {
     float: left;
-    margin-right: -100%;
-    margin-left: 8.33333%;
-    clear: none; }
-  .group-menu > .menu-list {
-    margin-top: 72px; }
-  .group-menu .sub-menu {
-    padding-left: 8.33333%; }
-  .group-menu .menu-title,
-  .group-menu > .menu-list {
+    clear: both;
+    width: 100%; }
+    .nested-menu:after {
+      content: "";
+      display: table;
+      clear: both; }
+  .group-menu {
+    background-color: #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 0;
-    transform: translateY(-6px);
-    transition: all 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0s; }
-  .group-menu .menu-list {
-    padding: 0; }
-  .group-menu .menu-item {
-    float: left;
-    list-style: none;
-    width: 100%;
-    clear: both; }
-  .group-menu .menu-link {
-    float: left;
-    text-decoration: none;
-    white-space: nowrap;
-    width: 100%;
-    color: black;
-    font-size: 14px;
-    padding: 12px;
-    padding-left: 8.33333%;
-    transition: color 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95), border 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95), background-color 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95);
-    border-bottom: 5px solid transparent; }
-    .group-menu .menu-link:hover, .group-menu .menu-link.router-link-active {
-      color: white;
-      background-color: #4e9a06; }
-    .group-menu .menu-link.router-link-active + .group-sub-menu > .menu-list {
-      display: block; }
-
-.show-menu .group-menu {
-  transition: z-index 0s 0s, opacity 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0s;
-  opacity: 1;
-  z-index: 100; }
-  .show-menu .group-menu .menu-title,
-  .show-menu .group-menu > .menu-list {
-    transition: all 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0.3s;
+    z-index: -1;
+    transition: z-index 0s 0.6s, opacity 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0.3s; }
+    .group-menu .menu-title {
+      margin-top: 24px; }
+    .group-menu > .menu-list {
+      margin-top: 72px; }
+    .group-menu .menu-title,
+    .group-menu > .menu-list {
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: all 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0s; }
+    .group-menu .menu-list {
+      padding: 0; }
+    .group-menu .menu-item {
+      float: left;
+      list-style: none;
+      width: 100%;
+      clear: both; }
+    .group-menu .menu-link {
+      float: left;
+      text-decoration: none;
+      white-space: nowrap;
+      width: 100%;
+      color: black;
+      font-size: 14px;
+      padding: 12px;
+      transition: color 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95), border 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95), background-color 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95);
+      border-bottom: 5px solid transparent; }
+      .group-menu .menu-link:hover, .group-menu .menu-link.router-link-active {
+        color: white;
+        background-color: #4e9a06; }
+      .group-menu .menu-link.router-link-active + .group-sub-menu > .menu-list {
+        display: block; }
+  .show-menu .group-menu {
+    transition: z-index 0s 0s, opacity 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0s;
     opacity: 1;
-    transform: translateY(0); }
+    z-index: 100; }
+    .show-menu .group-menu .menu-title,
+    .show-menu .group-menu > .menu-list {
+      transition: all 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95) 0.3s;
+      opacity: 1;
+      transform: translateY(0); } }
 
 @media (min-width: 620px) {
   .group-menu {
     left: auto;
     width: 50%; } }
+
+@media (min-width: 960px) {
+  .nested-menu {
+    float: left;
+    clear: both;
+    width: 100%; }
+    .nested-menu:after {
+      content: "";
+      display: table;
+      clear: both; }
+  .menu-title {
+    display: none; }
+  .group-menu {
+    padding: 0;
+    overflow: hidden;
+    margin: 0;
+    float: left;
+    clear: none;
+    width: 100%;
+    position: relative; }
+    .group-menu .menu-item {
+      float: left;
+      list-style: none; }
+    .group-menu .menu-list {
+      float: right;
+      padding: 0;
+      position: relative;
+      margin: 0; }
+      .group-menu .menu-list:after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        background-color: #4e9a06;
+        height: 1px; }
+    .group-menu .sub-menu {
+      margin-top: 30px; }
+      .group-menu .sub-menu .menu-list:after {
+        background-color: #eee; }
+    .group-menu .menu-link {
+      float: left;
+      text-decoration: none;
+      white-space: nowrap;
+      color: black;
+      font-size: 14px;
+      padding: 16px 20px;
+      transition: color 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95), border 0.3s cubic-bezier(0.3, 0.01, 0.61, 0.95);
+      border-bottom: 5px solid transparent; }
+      .group-menu .menu-link:hover, .group-menu .menu-link.router-link-active {
+        color: #4e9a06;
+        border-bottom: 5px solid #4e9a06; }
+      .group-menu .menu-link.router-link-active + .group-sub-menu > .menu-list {
+        display: block; } }
 
 .logo-link {
   max-width: 100%; }

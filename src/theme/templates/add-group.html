@@ -1,11 +1,13 @@
-<div class="page add-group">
-    <h1 class="page-title">Add a group</h1>
+<div class="flex-wrapper">
+    <div class="page add-group">
+        <h1 class="page-title">Add a group</h1>
 
-    <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
-    </vue-form-generator>
+        <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
+        </vue-form-generator>
 
-    <div class="form-actions">
-        <router-link class="button secondary" :to="{ path: '/groups' }"><span>Cancel</span><i class="fa fa-times" aria-hidden="true"></i></router-link>
-        <div class="button primary" @click="submitGroup"><span>Add group</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
+        <div class="form-actions">
+            <router-link class="button secondary" :to="{ path: '/groups' }"><span>Cancel</span><i class="fa fa-times" aria-hidden="true"></i></router-link>
+            <div class="button primary" @click="submitGroup"><span>Add group</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
+        </div>
     </div>
 </div>

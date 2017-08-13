@@ -1,18 +1,20 @@
 <transition name="fade">
-<div class="page profile" :class="{'has-snapshot': model.snapshot}">
-    <div class="camera-wrapper">
-        <div class="camera-inner">
-            <img class="snapshot" v-if="model.snapshot" :src="model.snapshot"/>
-            <div id="camera" class="camera"></div>
+    <div class="flex-wrapper">
+        <div class="page profile" :class="{'has-snapshot': model.snapshot}">
+            <div class="camera-wrapper">
+                <div class="camera-inner">
+                    <img class="snapshot" v-if="model.snapshot" :src="model.snapshot"/>
+                    <div id="camera" class="camera"></div>
+                </div>
+                <div class="snap" @click="snap()"></div>
+            </div>
+
+            <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
+            </vue-form-generator>
+
+            <div class="form-actions">
+                <div class="button primary" :class="{'disabled': !model.snapshot || !model.nickname }" @click="saveProfile"><span>Continue</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
+            </div>
         </div>
-        <div class="snap" @click="snap()"></div>
     </div>
-
-    <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
-    </vue-form-generator>
-
-    <div class="form-actions">
-        <div class="button primary" :class="{'disabled': !model.snapshot || !model.nickname }" @click="saveProfile"><span>Continue</span><i class="fa fa-caret-right" aria-hidden="true"></i></div>
-    </div>
-</div>
 </transition>
