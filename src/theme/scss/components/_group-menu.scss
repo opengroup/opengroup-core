@@ -101,6 +101,11 @@
   .group-menu {
     left: auto;
     width: grid-span(12, 1);
+
+    .menu-link {
+      padding: $padding;
+      padding-left: grid-span(1, 1, 12);
+    }
   }
 }
 

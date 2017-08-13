@@ -3,7 +3,7 @@
   margin: 0 auto;
   background-color: $white;
   @include clearfix;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .region-main-header {

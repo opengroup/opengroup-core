@@ -40,3 +40,24 @@
 .multichat-footer {
   width: 100%;
 }
+
+@include breakpoint($desktop) {
+  .multichat-footer {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .multichat-textarea {
+    width: auto;
+    height: 90px;
+    margin-bottom: 0;
+    margin-right: $padding;
+    flex: 1 1 auto;
+  }
+
+  .multichat-send {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+}
