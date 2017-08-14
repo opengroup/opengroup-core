@@ -897,6 +897,14 @@ body[data-grid="visible"]:after {
     -ms-flex: 0 0 auto;
     flex: 0 0 auto; } }
 
+.webrtc.connect-via-text .step1 .button {
+  float: left;
+  clear: both;
+  margin: 12px 0; }
+
+.webrtc.connect-via-text .step {
+  margin-top: 36px; }
+
 #app {
   max-width: 1280px;
   margin: 0 auto;

@@ -1,0 +1,13 @@
+.webrtc.connect-via-text {
+  .step1 {
+    .button {
+      float: left;
+      clear: both;
+      margin: $padding 0;
+    }
+  }
+
+  .step {
+    margin-top: $padding * 3;
+  }
+}

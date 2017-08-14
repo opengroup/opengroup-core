@@ -47,6 +47,9 @@ class ThemeManager extends EventEmitter {
             let componentExecuted = component.default(this.wrapper);
             if (!componentExecuted.template) {
                 return this.getTemplate(componentName, basePath).then((template) => {
+                    if (template === '') {
+                        throw 'Please fill the template of ' + componentName;
+                    }
                     componentExecuted.template = template;
                     return componentExecuted;
                 });

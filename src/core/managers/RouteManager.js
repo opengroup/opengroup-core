@@ -87,15 +87,20 @@ class RouteManager extends EventEmitter {
                                 title: 'Plugin',
                                 component: {
                                     template: `
-                            <div>
-                                <h1 class="plugin-title">{{ title }}</h1>
-                                <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
-                                </vue-form-generator>
-                                
-                                <div class="form-actions">
-                                    <div class="button primary" @click="save"><i class="fa fa-check" aria-hidden="true"></i> Save settings</div>
-                                </div>
-                            </div>`,
+                                    <div>
+                                        <div v-if="!componentName">
+                                            <h1 class="plugin-title">{{ title }}</h1>
+                                            <vue-form-generator tag="div" :schema="schema" :model="model" :options="formOptions">
+                                            </vue-form-generator>
+                                            
+                                            <div class="form-actions">
+                                                <div class="button primary" @click="save"><i class="fa fa-check" aria-hidden="true"></i> Save settings</div>
+                                            </div>                                        
+                                        </div>
+                                        <div v-if="componentName">
+                                            <component :is="componentName"></component>
+                                        </div>
+                                    </div>`,
                                     watch: {
                                         // This is needed else the whole form get's 'cached'.
                                         '$route': function() {
@@ -103,7 +108,13 @@ class RouteManager extends EventEmitter {
                                         },
                                     },
                                     data: function () {
-                                        return routeManager.createSettingsRoute(this);
+                                        let currentGroup = wrapper.groupManager.getCurrentGroup();
+                                        let currentMenuItem = currentGroup.menuItems.filter((menuItem) => menuItem.subPath === 'settings/' + this.$route.params.plugin)[0];
+
+                                        return {
+                                            ...routeManager.createSettingsRoute(this),
+                                            componentName: currentMenuItem? currentMenuItem.component : ''
+                                        };
                                     },
                                     methods: {
                                         save: function () {
@@ -141,30 +152,31 @@ class RouteManager extends EventEmitter {
 
     createSettingsRoute (context) {
         let currentGroup = this.wrapper.groupManager.getCurrentGroup();
-        let plugin = currentGroup.plugins[context.$route.params.plugin];
 
-        if (typeof plugin.settingsForm === 'function') {
-            let settingsFormInfo = plugin.settingsForm();
+        if (context.$route.params.plugin && currentGroup.plugins[context.$route.params.plugin]) {
+            let plugin = currentGroup.plugins[context.$route.params.plugin];
 
-            return {
-                plugin: plugin,
-                title: settingsFormInfo.title,
-                model: currentGroup.config.plugins[plugin.name],
-                schema: {
-                    fields: settingsFormInfo.schema
-                },
-                formOptions: {
-                    validateAfterLoad: true,
-                    validateAfterChanged: true,
-                    fieldIdPrefix: plugin.name,
+            if (typeof plugin.settingsForm === 'function') {
+                let settingsFormInfo = plugin.settingsForm();
+
+                return {
+                    plugin: plugin,
+                    title: settingsFormInfo.title,
+                    model: currentGroup.config.plugins[plugin.name],
+                    schema: {
+                        fields: settingsFormInfo.schema
+                    },
+                    formOptions: {
+                        validateAfterLoad: true,
+                        validateAfterChanged: true,
+                        fieldIdPrefix: plugin.name,
+                    }
                 }
             }
         }
 
         // Plugin has no settings form.
-        else {
-            return {}
-        }
+        return {}
     }
 
     getUrlParameter (name) {
