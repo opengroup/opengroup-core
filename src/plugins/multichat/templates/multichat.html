@@ -3,7 +3,14 @@
 
     <div class="multichat-chats">
         <div class="multichat-chat" v-for="message in messages">
-            <div class="multichat-chat-message" :class="{'self': message.self }"><profile-teaser class="small" :profile="getProfile(message.ownerUuid)"></profile-teaser><span>{{ message.text }}</span></div>
+            <div class="multichat-chat-message" :class="{'self': message.self }">
+                <profile-teaser class="small" :profile="getProfile(message.ownerUuid)"></profile-teaser>
+                <div class="multichat-chat-message-texts">
+                    <span class="multichat-chat-message-sender">{{ getProfile(message.ownerUuid).nickname }}</span>
+                    <span class="multichat-chat-message-date">{{ displayDate(message.date) }}</span>
+                    <span class="multichat-chat-message-text">{{ message.text }}</span>
+                </div>
+            </div>
         </div>
     </div>
 

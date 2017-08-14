@@ -9,36 +9,70 @@
   text-align: center;
 }
 
+.multichat-chat {
+  float: left;
+  clear: both;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
 .multichat-chats {
   flex: 1 1 auto;
+  overflow-y: scroll;
+  padding-right: $padding * 2;
+  max-height: calc(100% - 260px);
 }
 
 .multichat-chat-message {
   clear: both;
   float: left;
+  width: 100%;
   padding: 10px 0;
 
   .profile.teaser {
     width: auto;
-    margin: $padding;
+    margin-right: $padding;
   }
+}
 
-  &.self {
-    float: right;
+.multichat-chat-message-texts {
+  float: right;
+  width: calc(100% - 50px);
+}
 
-    .profile.teaser {
-      float: right;
-    }
-  }
+.multichat-chat-message-text {
+  float: left;
+  clear: both;
+  margin-top: 15px;
+}
+
+.multichat-chat-message-sender {
+  font-weight: bold;
+  color: $primary;
+  font-size: 12px;
+  float: left;
+  clear: both;
+}
+
+.multichat-chat-message-date {
+  float: right;
+  font-style: italic;
+  color: $gray-dark;
+  font-size: 12px;
 }
 
 .multichat.region-main-content {
   flex-direction: column;
   display: flex;
+  height: 100%;
+  flex: 0 0 auto;
+  position: relative;
 }
 
 .multichat-footer {
   width: 100%;
+  padding-top: $padding * 2;
+  flex: 0 0 auto;
 }
 
 @include breakpoint($desktop) {

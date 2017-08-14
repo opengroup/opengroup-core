@@ -19,6 +19,7 @@
 .region-main {
   @include isolation-span(10, 2);
   height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   background-color: $white;

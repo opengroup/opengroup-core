@@ -41,6 +41,7 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
+    "moment": "npm:moment@2.18.1",
     "Team-Sass/breakpoint": "github:at-import/breakpoint@2.7.1",
     "at-import/Singularity": "github:at-import/Singularity@1.8.0",
     "css": "github:systemjs/plugin-css@0.1.35",

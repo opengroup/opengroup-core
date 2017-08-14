@@ -1,3 +1,5 @@
+import Moment from 'moment';
+
 export default function (wrapper) {
     return {
         data: function () {
@@ -22,21 +24,24 @@ export default function (wrapper) {
             getProfile (uuid) {
                 return wrapper.profileManager.getProfile(uuid);
             },
+            displayDate: function (date) {
+                return Moment(date).fromNow();
+            },
             sendChat: function (event) {
                 if (!event || (event.metaKey || event.ctrlKey) && event.keyCode === 13) {
 
-                    this.messages.push({
+                    let message = {
                         text: this.newMessage,
-                        self: true
-                    });
+                        date: Moment().format(),
+                    };
+
+                    this.messages.push(message);
 
                     let currentGroup = wrapper.groupManager.getCurrentGroup();
 
                     currentGroup.sendMessage({
                         owner: 'og.core.multichat',
-                        message: {
-                            text: this.newMessage
-                        }
+                        message: message
                     });
 
                     this.newMessage = '';
