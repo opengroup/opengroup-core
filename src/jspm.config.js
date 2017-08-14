@@ -65,7 +65,8 @@ SystemJS.config({
     "util": "npm:jspm-nodelibs-util@0.2.1",
     "uuid": "npm:uuid@3.0.1",
     "vm": "npm:jspm-nodelibs-vm@0.2.0",
-    "vue": "npm:vue@2.1.8",
+    "vue": "npm:vue@2.4.2",
+    "vue-chat-scroll": "npm:vue-chat-scroll@1.2.0",
     "vue-form-generator": "npm:vue-form-generator@2.0.0",
     "vue-router": "npm:vue-router@2.7.0"
   },
@@ -273,6 +274,11 @@ SystemJS.config({
     "npm:async@2.1.4": {
       "map": {
         "lodash": "npm:lodash@4.17.3"
+      }
+    },
+    "npm:vue-chat-scroll@1.2.0": {
+      "map": {
+        "vue": "npm:vue@2.4.2"
       }
     }
   }

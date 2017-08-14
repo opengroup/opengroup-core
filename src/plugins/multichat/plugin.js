@@ -1,4 +1,6 @@
 import Plugin from 'OpenGroup/core/Plugin';
+import VueChatScroll from 'vue-chat-scroll'
+import Vue from 'vue/dist/vue.common';
 
 /**
  * An OpenGroup multichat plugin.
@@ -23,6 +25,7 @@ class MultiChat extends Plugin {
         super();
         this.group = group;
         Object.assign(this.config, config);
+        Vue.use(VueChatScroll);
     }
 
     getMenuItems () {

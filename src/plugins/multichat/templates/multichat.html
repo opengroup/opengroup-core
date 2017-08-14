@@ -1,7 +1,7 @@
 <div class="multichat">
     <h1 class="plugin-title">Chat</h1>
 
-    <div class="multichat-chats">
+    <div class="multichat-chats" v-chat-scroll>
         <div class="multichat-chat" v-for="message in messages">
             <div class="multichat-chat-message" :class="{'self': message.self }">
                 <profile-teaser class="small" :profile="getProfile(message.ownerUuid)"></profile-teaser>

@@ -21,6 +21,7 @@
       "underscore": "npm:underscore@^1.8.3",
       "uuid": "npm:uuid@^3.0.1",
       "vue": "npm:vue@^2.1.8",
+      "vue-chat-scroll": "npm:vue-chat-scroll@^1.2.0",
       "vue-form-generator": "npm:vue-form-generator@^2.0.0",
       "vue-router": "npm:vue-router@^2.1.1",
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.17"
@@ -66,7 +67,7 @@
       "npm:moment@2.18.1": {
         "jspmNodeConversion": false
       },
-      "npm:vue@2.1.8": {
+      "npm:vue@2.4.2": {
         "main": "dist/vue.common.js",
         "format": "cjs",
         "meta": {
