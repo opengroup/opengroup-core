@@ -1,6 +1,6 @@
 <transition name="fade">
     <div class="flex-wrapper">
-        <div class="page profile" :class="{'has-snapshot': model.snapshot}">
+        <div class="page profile" :class="[{'has-snapshot': model.snapshot}, mode]">
             <div class="camera-wrapper">
                 <div class="camera-inner">
                     <img class="snapshot" v-if="model.snapshot" :src="model.snapshot"/>

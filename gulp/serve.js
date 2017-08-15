@@ -8,6 +8,7 @@ gulp.task('serve', ['css'], function () {
         server: {
             baseDir: global.paths.src
         },
+        https: true,
         ghostMode: false
     });
 

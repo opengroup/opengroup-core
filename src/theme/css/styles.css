@@ -711,15 +711,24 @@ body[data-grid="visible"]:after {
       opacity: 0;
       transform: translate(-50%, -50%) rotate(0) scale(1); }
   .page.profile .snapshot,
-  .page.profile .camera,
-  .page.profile .camera video {
+  .page.profile .camera {
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 100% !important;
-    width: auto !important;
+    min-height: 100% !important;
+    min-width: 100% !important;
     transform: translate(-50%, -50%);
     z-index: 1; }
+  .page.profile.landscape .snapshot,
+  .page.profile.landscape .camera,
+  .page.profile.landscape .camera video {
+    height: 100% !important; }
+  .page.profile.portrait .snapshot,
+  .page.profile.portrait .camera,
+  .page.profile.portrait .camera video {
+    width: 100% !important; }
+  .page.profile .snapshot {
+    border-radius: 50%; }
   .page.profile .has-snapshot .snapshot {
     z-index: 2; }
   .page.profile .snap {
