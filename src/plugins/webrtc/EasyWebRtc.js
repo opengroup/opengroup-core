@@ -12,8 +12,15 @@ class EasyWebRtc extends EventEmitter {
     constructor (config) {
         super();
         this.config = {
-            'iceServers': [{ 'urls': 'stun:23.21.150.121' }]
+            'iceServers': [{
+                urls: 'turn:connect.opengroup.io',
+                username: 'lorem',
+                credential: 'ipsum'
+            }, {
+                urls: ['stun:connect.opengroup.io']
+            }]
         };
+
         this.constraints = {};
 
         Object.assign(this.config, config);
@@ -120,7 +127,9 @@ class EasyWebRtc extends EventEmitter {
      * @param event The event
      */
     onIceCandidate (event) {
-        this.easyWebRtc.emit('sdpComplete', this.localDescription);
+        if (event.candidate) {
+            this.easyWebRtc.emit('sdpComplete', this.localDescription);
+        }
     }
 
     /**
