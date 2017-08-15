@@ -16,7 +16,7 @@ class GroupManager extends EventEmitter {
     }
 
     addGroup (groupManifest) {
-        if (this.validGroupManifest(groupManifest)) {
+        if (this.validGroupManifest(groupManifest) && !this.getGroupBySlug(groupManifest.slug)) {
             let newGroup = new OpenGroup(this.wrapper, groupManifest);
             this.groups.push(newGroup);
 
@@ -44,9 +44,6 @@ class GroupManager extends EventEmitter {
             newGroup.save();
 
             return newGroup;
-        }
-        else {
-            throw 'The group manifest is invalid';
         }
     }
 
