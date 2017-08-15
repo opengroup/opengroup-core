@@ -104,6 +104,10 @@ class RouteManager extends EventEmitter {
                                     watch: {
                                         // This is needed else the whole form get's 'cached'.
                                         '$route': function() {
+                                            let currentGroup = wrapper.groupManager.getCurrentGroup();
+                                            let currentMenuItem = currentGroup.menuItems.filter((menuItem) => menuItem.subPath === 'settings/' + this.$route.params.plugin)[0];
+                                            this.componentName = currentMenuItem? currentMenuItem.component : '';
+
                                             Object.assign(this, routeManager.createSettingsRoute(this));
                                         },
                                     },

@@ -57,6 +57,9 @@ gulp.task('build', ['clean', 'create-load', 'css'], function (done) {
         });
     });
 
+    gulp.src(['src/*.*', '!./src/index.html'])
+    .pipe(gulp.dest('./dist/'));
+
     gulp.src('./src/index.html')
     .pipe(replace('<script>System.import("./app.js").catch(console.error.bind(console));</script>', '<script src="build.js"></script><script>System.import("./app.js").catch(console.error.bind(console));</script>'))
     .pipe(gulp.dest('./dist'));
