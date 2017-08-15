@@ -47,7 +47,13 @@ gulp.task('build', ['clean', 'create-load', 'css'], function (done) {
                 return console.log(err);
             }
 
-            done();
+            fs.writeFile('dist/.nojekyll', '', function(err) {
+                if (err) {
+                    return console.log(err);
+                }
+
+                done();
+            });
         });
     });
 
