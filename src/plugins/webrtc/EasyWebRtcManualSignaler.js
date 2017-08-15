@@ -16,14 +16,14 @@ class EasyWebRtcManualSignaler extends EventEmitter {
         Object.assign(this.config, config);
 
         this.connection = new EasyWebRtc();
-        if (typeof this[this.config.role] == 'function') {
+        if (typeof this[this.config.role] === 'function') {
             this[this.config.role]();
         }
     }
 
     initiator () {
         this.connection.getOffer((offer) => {
-            if (typeof this.config.offerCreated == 'function') {
+            if (typeof this.config.offerCreated === 'function') {
                 this.config.offerCreated(offer, (answer) => {
                     this.connection.acceptAnswer(answer);
                 });
@@ -33,7 +33,7 @@ class EasyWebRtcManualSignaler extends EventEmitter {
 
     answerer () {
         this.connection.getAnswer(this.config.offer, (answer) => {
-            if (typeof this.config.answerCreated == 'function') {
+            if (typeof this.config.answerCreated === 'function') {
                 this.config.answerCreated(answer);
             }
         });

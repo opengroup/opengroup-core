@@ -19,10 +19,10 @@ class OgWebRtc extends EventEmitter {
         Object.assign(this.config, config);
 
         if (this.signalerTypes[config.signalerType]) {
-            var signalerType = this.signalerTypes[config.signalerType];
+            let signalerType = this.signalerTypes[config.signalerType];
             this.signaler = new signalerType(config.signalerInfo);
 
-            var proxyEvents = ['message', 'closed', 'connected', 'error'];
+            let proxyEvents = ['message', 'closed', 'connected', 'error'];
 
             proxyEvents.forEach((proxyEvent) => {
                 this.signaler.connection.on(proxyEvent, (...args) => {

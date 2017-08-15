@@ -40,7 +40,6 @@ export default function (wrapper) {
 
             },
             acceptAnswer () {
-                console.log(this.answer, this)
                 let answer = JSON.parse(atob(this.answer));
                 this.returnAnswerCallback(answer);
             },

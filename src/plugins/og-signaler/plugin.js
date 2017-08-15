@@ -47,7 +47,7 @@ class OgSignaler extends Plugin {
                 type: 'input',
                 inputType: 'text',
                 label: 'Group URL',
-                placeholder: 'connect.opengroup.io/my-group',
+                placeholder: 'wss://connect.opengroup.io/my-group',
                 model: 'url',
                 required: true
             }]
@@ -61,7 +61,7 @@ class OgSignaler extends Plugin {
     }
 
     addUrl (url) {
-        let ws = new WebSocket('ws://' + url);
+        let ws = new WebSocket(url);
         this.endpoints.push(ws);
         this.connectedUrls.push(url);
 
