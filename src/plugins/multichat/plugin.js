@@ -12,6 +12,8 @@ class MultiChat extends Plugin {
     name = 'multichat';
     config = {};
 
+    messages = [];
+
     componentNames = [
         'multichat'
     ];

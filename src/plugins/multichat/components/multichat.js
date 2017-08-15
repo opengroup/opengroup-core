@@ -3,11 +3,11 @@ import Moment from 'moment';
 export default function (wrapper) {
     return {
         data: function () {
-            if (!this.messages) {
-                this.messages = [];
-            }
-
             let currentGroup = wrapper.groupManager.getCurrentGroup();
+
+            if (!this.messages) {
+                this.messages = currentGroup.plugins['multichat'].messages;
+            }
 
             currentGroup.on('og.core.multichat.message', (object, connection) => {
                 let message = object.message;
