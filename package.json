@@ -10,13 +10,12 @@
       "jspm": "src/jspm.config.js"
     },
     "dependencies": {
-      "LazarSoft/jsqrcode": "github:LazarSoft/jsqrcode@master",
       "Team-Sass/breakpoint": "github:at-import/breakpoint@^2.7.1",
       "async": "npm:async@^2.1.4",
       "at-import/Singularity": "github:at-import/Singularity@^1.8.0",
       "bluebird": "npm:bluebird@^3.4.7",
-      "carvilsi/webcamjs": "github:carvilsi/webcamjs@master",
       "css": "github:systemjs/plugin-css@^0.1.35",
+      "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@^1.0.22",
       "lz-string": "npm:lz-string@^1.4.4",
       "moment": "npm:moment@^2.18.1",
       "systemjs-plugin-text": "npm:systemjs-plugin-text@^0.0.9",
@@ -27,7 +26,6 @@
       "vue-form-generator": "npm:vue-form-generator@^2.0.0",
       "vue-router": "npm:vue-router@^2.1.1",
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.17",
-      "xkeshi/vue-qrcode": "github:xkeshi/vue-qrcode@^0.2.0"
     },
     "devDependencies": {},
     "peerDependencies": {
