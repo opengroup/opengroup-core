@@ -1,0 +1,11 @@
+.connect-via-qr {
+  .camera {
+    clear: both;
+    float: left;
+    max-width: 100% !important;
+
+    video {
+      width: 100% !important;
+    }
+  }
+}

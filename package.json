@@ -10,13 +10,14 @@
       "jspm": "src/jspm.config.js"
     },
     "dependencies": {
+      "LazarSoft/jsqrcode": "github:LazarSoft/jsqrcode@master",
       "Team-Sass/breakpoint": "github:at-import/breakpoint@^2.7.1",
       "async": "npm:async@^2.1.4",
       "at-import/Singularity": "github:at-import/Singularity@^1.8.0",
       "bluebird": "npm:bluebird@^3.4.7",
+      "carvilsi/webcamjs": "github:carvilsi/webcamjs@master",
       "css": "github:systemjs/plugin-css@^0.1.35",
-      "instascan": "npm:instascan@^1.0.0",
-      "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@^1.0.22",
+      "lz-string": "npm:lz-string@^1.4.4",
       "moment": "npm:moment@^2.18.1",
       "systemjs-plugin-text": "npm:systemjs-plugin-text@^0.0.9",
       "underscore": "npm:underscore@^1.8.3",
@@ -62,12 +63,6 @@
         ]
       },
       "npm:lodash@4.17.3": {
-        "map": {
-          "buffer": "@empty",
-          "process": "@empty"
-        }
-      },
-      "npm:lodash@4.17.4": {
         "map": {
           "buffer": "@empty",
           "process": "@empty"

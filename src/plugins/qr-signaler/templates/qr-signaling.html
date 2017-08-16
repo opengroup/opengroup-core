@@ -1,5 +1,8 @@
-<div class="webrtc connect-via-text">
+<div class="connect-via-qr">
     <h1 class="plugin-title">Connect via QR codes</h1>
+
+    <div id="camera" class="camera"></div>
+
 
     <div class="step1 step" v-if="currentStep == 1">
         <div class="button primary" @click="setFlow('invite')">I want to invite someone</div>
@@ -8,7 +11,7 @@
 
     <div class="step2 step" v-if="currentStep == 2 && flow == 'invite'">
         <h3>Please send this text to the person you want to connect to</h3>
-        <qrcode :value="offer" :options="{ size: 400 }"></qrcode>
+        <qrcode :value="offer" :options="{ size: 500, padding: 20, level: 'L' }"></qrcode>
         <div class="button primary" @click="setOfferSend()">The QR code is scanned</div>
     </div>
 

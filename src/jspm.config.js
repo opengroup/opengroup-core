@@ -27,7 +27,8 @@ SystemJS.config({
   },
   map: {
     "text": "npm:systemjs-plugin-text@0.0.9",
-    "davidshimjs/qrcodejs": "github:davidshimjs/qrcodejs@master"
+    "davidshimjs/qrcodejs": "github:davidshimjs/qrcodejs@master",
+    "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@1.0.22"
   },
   builderConfig: {
     "separateCSS": false,
@@ -42,15 +43,16 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
+    "carvilsi/webcamjs": "github:carvilsi/webcamjs@master",
+    "lz-string": "npm:lz-string@1.4.4",
+    "LazarSoft/jsqrcode": "github:LazarSoft/jsqrcode@master",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
-    "instascan": "npm:instascan@1.0.0",
     "moment": "npm:moment@2.18.1",
     "Team-Sass/breakpoint": "github:at-import/breakpoint@2.7.1",
     "at-import/Singularity": "github:at-import/Singularity@1.8.0",
     "css": "github:systemjs/plugin-css@0.1.35",
     "plugin-babel": "npm:systemjs-plugin-babel@0.0.17",
     "systemjs-plugin-text": "npm:systemjs-plugin-text@0.0.9",
-    "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@1.0.22",
     "assert": "npm:jspm-nodelibs-assert@0.2.0",
     "async": "npm:async@2.1.4",
     "bluebird": "npm:bluebird@3.4.7",
@@ -194,39 +196,6 @@ SystemJS.config({
     "npm:vue-chat-scroll@1.2.0": {
       "map": {
         "vue": "npm:vue@2.4.2"
-      }
-    },
-    "npm:instascan@1.0.0": {
-      "map": {
-        "visibilityjs": "npm:visibilityjs@1.2.4",
-        "babel-polyfill": "npm:babel-polyfill@6.23.0",
-        "webrtc-adapter": "npm:webrtc-adapter@1.4.0",
-        "fsm-as-promised": "npm:fsm-as-promised@0.13.2"
-      }
-    },
-    "npm:babel-polyfill@6.23.0": {
-      "map": {
-        "regenerator-runtime": "npm:regenerator-runtime@0.10.5",
-        "babel-runtime": "npm:babel-runtime@6.25.0",
-        "core-js": "npm:core-js@2.5.0"
-      }
-    },
-    "npm:webrtc-adapter@1.4.0": {
-      "map": {
-        "sdp": "npm:sdp@1.5.4"
-      }
-    },
-    "npm:fsm-as-promised@0.13.2": {
-      "map": {
-        "es6-promise": "npm:es6-promise@4.1.1",
-        "stampit": "npm:stampit@3.1.3",
-        "lodash": "npm:lodash@4.17.4"
-      }
-    },
-    "npm:babel-runtime@6.25.0": {
-      "map": {
-        "regenerator-runtime": "npm:regenerator-runtime@0.10.5",
-        "core-js": "npm:core-js@2.5.0"
       }
     },
     "npm:crypto-browserify@3.11.1": {
