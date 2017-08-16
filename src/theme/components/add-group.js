@@ -4,6 +4,8 @@ import Group from 'OpenGroup/plugins/group/plugin';
 import MultiChat from 'OpenGroup/plugins/multichat/plugin';
 import MultiConnect from 'OpenGroup/plugins/multiconnect/plugin';
 import OgSignaler from 'OpenGroup/plugins/og-signaler/plugin';
+import QrSignaler from 'OpenGroup/plugins/qr-signaler/plugin';
+import TextSignaler from 'OpenGroup/plugins/text-signaler/plugin';
 import WebRTC from 'OpenGroup/plugins/webrtc/plugin';
 
 import OpenGroup from 'OpenGroup/core/OpenGroup';
@@ -31,6 +33,14 @@ export default function (wrapper) {
         {
             className: WebRTC,
             required: true
+        },
+        {
+            className: QrSignaler,
+            required: false
+        },
+        {
+            className: TextSignaler,
+            required: false
         }
     ];
 
@@ -59,7 +69,9 @@ export default function (wrapper) {
             'webrtc': {},
             'multichat': {},
             'group': {},
-            'multiconnect': {}
+            'multiconnect': {},
+            'qr-signaler': {},
+            'text-signaler': {}
         }
     });
 

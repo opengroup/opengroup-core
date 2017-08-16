@@ -11,10 +11,6 @@ class WebRtc extends Plugin {
     name = 'webrtc';
     config = {};
 
-    componentNames = [
-        'manual-signaling'
-    ];
-
     /**
      * @param group.
      * @param config.
@@ -26,14 +22,6 @@ class WebRtc extends Plugin {
         group.connectionTypes['og-webrtc'] = OgWebRtc;
     }
 
-    getMenuItems () {
-        return [{
-            title: 'Connect via text',
-            component: 'manual-signaling',
-            subPath: 'settings/signaling-manual',
-            weight: -9999
-        }];
-    }
 
 }
 

@@ -15,6 +15,7 @@
       "at-import/Singularity": "github:at-import/Singularity@^1.8.0",
       "bluebird": "npm:bluebird@^3.4.7",
       "css": "github:systemjs/plugin-css@^0.1.35",
+      "instascan": "npm:instascan@^1.0.0",
       "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@^1.0.22",
       "moment": "npm:moment@^2.18.1",
       "systemjs-plugin-text": "npm:systemjs-plugin-text@^0.0.9",
@@ -24,12 +25,14 @@
       "vue-chat-scroll": "npm:vue-chat-scroll@^1.2.0",
       "vue-form-generator": "npm:vue-form-generator@^2.0.0",
       "vue-router": "npm:vue-router@^2.1.1",
-      "plugin-babel": "npm:systemjs-plugin-babel@^0.0.17"
+      "plugin-babel": "npm:systemjs-plugin-babel@^0.0.17",
+      "xkeshi/vue-qrcode": "github:xkeshi/vue-qrcode@^0.2.0"
     },
     "devDependencies": {},
     "peerDependencies": {
       "assert": "npm:jspm-nodelibs-assert@^0.2.0",
       "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",
+      "child_process": "npm:jspm-nodelibs-child_process@^0.2.0",
       "constants": "npm:jspm-nodelibs-constants@^0.2.0",
       "crypto": "npm:jspm-nodelibs-crypto@^0.2.0",
       "events": "npm:jspm-nodelibs-events@^0.2.0",
@@ -64,8 +67,20 @@
           "process": "@empty"
         }
       },
+      "npm:lodash@4.17.4": {
+        "map": {
+          "buffer": "@empty",
+          "process": "@empty"
+        }
+      },
       "npm:moment@2.18.1": {
         "jspmNodeConversion": false
+      },
+      "npm:pbkdf2@3.0.13": {
+        "main": "browser.js"
+      },
+      "npm:safe-buffer@5.1.1": {
+        "browser": "index.js"
       },
       "npm:vue@2.4.2": {
         "main": "dist/vue.common.js",
