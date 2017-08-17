@@ -65,7 +65,6 @@ export default function (wrapper) {
             'multichat': {},
             'group': {},
             'multiconnect': {},
-            'qr-signaler': {},
             'text-signaler': {}
         }
     });
