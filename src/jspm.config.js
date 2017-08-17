@@ -28,7 +28,9 @@ SystemJS.config({
   map: {
     "text": "npm:systemjs-plugin-text@0.0.9",
     "davidshimjs/qrcodejs": "github:davidshimjs/qrcodejs@master",
-    "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@1.0.22"
+    "carvilsi/webcamjs": "github:carvilsi/webcamjs@master",
+    "LazarSoft/jsqrcode": "github:LazarSoft/jsqrcode@master",
+    "xkeshi/vue-qrcode": "github:xkeshi/vue-qrcode@0.2.0"
   },
   builderConfig: {
     "separateCSS": false,
@@ -43,9 +45,9 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "carvilsi/webcamjs": "github:carvilsi/webcamjs@master",
+    "dexie": "npm:dexie@2.0.0-beta.11",
+    "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@1.0.22",
     "lz-string": "npm:lz-string@1.4.4",
-    "LazarSoft/jsqrcode": "github:LazarSoft/jsqrcode@master",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
     "moment": "npm:moment@2.18.1",
     "Team-Sass/breakpoint": "github:at-import/breakpoint@2.7.1",
@@ -73,8 +75,7 @@ SystemJS.config({
     "vue": "npm:vue@2.4.2",
     "vue-chat-scroll": "npm:vue-chat-scroll@1.2.0",
     "vue-form-generator": "npm:vue-form-generator@2.0.0",
-    "vue-router": "npm:vue-router@2.7.0",
-    "xkeshi/vue-qrcode": "github:xkeshi/vue-qrcode@0.2.0"
+    "vue-router": "npm:vue-router@2.7.0"
   },
   packages: {
     "npm:jspm-nodelibs-crypto@0.2.0": {

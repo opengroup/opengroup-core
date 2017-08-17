@@ -15,6 +15,7 @@
       "at-import/Singularity": "github:at-import/Singularity@^1.8.0",
       "bluebird": "npm:bluebird@^3.4.7",
       "css": "github:systemjs/plugin-css@^0.1.35",
+      "dexie": "npm:dexie@^2.0.0-beta",
       "jhuckaby/webcamjs": "github:jhuckaby/webcamjs@^1.0.22",
       "lz-string": "npm:lz-string@^1.4.4",
       "moment": "npm:moment@^2.18.1",

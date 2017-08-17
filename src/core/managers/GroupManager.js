@@ -9,10 +9,17 @@ class GroupManager extends EventEmitter {
         super();
         this.wrapper = wrapper;
 
+        this.wrapper.on('preReady', () => {
+            this.wrapper.storageManager.on('defineStores', (stores) => {
+                if (!stores[1]) { stores[1] = {} }
+                stores[1].groups = 'name, uuid, slug, *plugins';
+            });
+        });
+
         this.wrapper.on('ready', () => {
             this.parseGroupFromUrl();
             this.loadGroupsFromStorage();
-        })
+        });
     }
 
     addGroup (groupManifest) {
