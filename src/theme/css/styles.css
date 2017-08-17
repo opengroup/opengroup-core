@@ -906,13 +906,6 @@ body[data-grid="visible"]:after {
     -ms-flex: 0 0 auto;
     flex: 0 0 auto; } }
 
-.connect-via-qr .camera {
-  clear: both;
-  float: left;
-  max-width: 100% !important; }
-  .connect-via-qr .camera video {
-    width: 100% !important; }
-
 .webrtc.connect-via-text .step1 .button {
   float: left;
   clear: both;
