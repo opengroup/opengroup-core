@@ -13,6 +13,8 @@ class ProfileManager extends EventEmitter {
                 if (!stores[1]) { stores[1] = {} }
                 stores[1].profiles = '&uuid, nickname, snapshot';
             });
+
+            // this.storage = this.wrapper.storageManager.getStore('profiles');
         });
 
         this.wrapper.on('ready', () => {
@@ -25,6 +27,7 @@ class ProfileManager extends EventEmitter {
 
         this.wrapper.groupManager.on('og.core.profile.message', (message, connection, group) => {
             this.profilesOfOthers[connection.uuid] = message.message.profile;
+            // this.storage.put(message.message.profile);
         });
 
         this.wrapper.groupManager.on('newConnection', (connection) => {

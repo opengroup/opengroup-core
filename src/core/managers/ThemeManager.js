@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-
+import bluebird from 'bluebird';
 import Vue from 'vue/dist/vue.common';
 
 class ThemeManager extends EventEmitter {
@@ -27,9 +27,13 @@ class ThemeManager extends EventEmitter {
 
         this.wrapper = wrapper;
         this.wrapper.element.innerHTML = `<router-view></router-view>`;
+    }
 
-        System.import('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css!');
-        System.import(this.wrapper.options.theme + '/css/styles.css!');
+    loadCss () {
+        return bluebird.all([
+            System.import('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css!'),
+            System.import(this.wrapper.options.theme + '/css/styles.css!')
+        ]);
     }
 
     /**

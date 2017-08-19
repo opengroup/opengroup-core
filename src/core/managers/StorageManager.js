@@ -19,6 +19,15 @@ class StorageManager extends EventEmitter {
         });
     }
 
+    getStore (storeName) {
+        if (this.db && this.db[storeName]) {
+            return this.db[storeName];
+        }
+        else {
+            throw 'Could not find the store ' + storeName;
+        }
+    }
+
 }
 
 export default StorageManager;

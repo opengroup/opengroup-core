@@ -38,7 +38,10 @@ class Wrapper extends EventEmitter {
         this.routeManager = new RouteManager(this);
         this.profileManager = new ProfileManager(this);
         this.storageManager = new StorageManager(this);
-        this.startVue();
+
+        this.themeManager.loadCss().then(() => {
+            this.startVue();
+        });
     }
 
     startVue () {
