@@ -45,6 +45,9 @@ class Wrapper extends EventEmitter {
     }
 
     startVue () {
+        this.state = 'bootstrap';
+        this.emit('bootstrap');
+
         Vue.use(VueFormGenerator);
         Vue.use(VueRouter);
 

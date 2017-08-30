@@ -43,7 +43,7 @@ export default function (wrapper) {
                         crop_width: 240,
                         crop_height: 240,
                         image_format: 'jpeg',
-                        jpeg_quality: 90
+                        jpeg_quality: 30
                     });
                 }
             }
@@ -64,7 +64,7 @@ export default function (wrapper) {
                 crop_width: 240,
                 crop_height: 240,
                 image_format: 'jpeg',
-                jpeg_quality: 90
+                jpeg_quality: 30
             });
 
             if (!this.model.snapshot) {

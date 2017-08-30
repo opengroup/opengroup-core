@@ -11,7 +11,7 @@ class StorageManager extends EventEmitter {
         this.db = new Dexie('opengroup');
         let storesData = { 1: {} };
 
-        this.wrapper.on('ready', () => {
+        this.wrapper.on('preReady', () => {
             this.emit('defineStores', storesData);
             _(storesData).each((version, stores) => {
                 this.db.version(version).stores(stores);

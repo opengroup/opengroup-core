@@ -8,16 +8,16 @@ class ProfileManager extends EventEmitter {
         super();
         this.wrapper = wrapper;
 
-        this.wrapper.on('preReady', () => {
-            this.wrapper.storageManager.on('defineStores', (stores) => {
-                if (!stores[1]) { stores[1] = {} }
-                stores[1].profiles = '&uuid, nickname, snapshot';
-            });
-
-            // this.storage = this.wrapper.storageManager.getStore('profiles');
+        this.wrapper.on('bootstrap', () => {
+            // this.wrapper.storageManager.on('defineStores', (stores) => {
+            //     if (!stores[1]) { stores[1] = {} }
+            //     stores[1].profiles = '&uuid, nickname, snapshot';
+            // });
         });
 
         this.wrapper.on('ready', () => {
+            // this.storage = this.wrapper.storageManager.getStore('profiles');
+
             let profile = this.getProfile();
 
             if (!profile.snapshot || !profile.nickname) {
