@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var reload = global.browserSync.reload;
 
-gulp.task('serve', ['css', 'test'], function () {
+gulp.task('serve', ['css'], function () {
     global.browserSync.init({
         server: {
             baseDir: global.paths.src
