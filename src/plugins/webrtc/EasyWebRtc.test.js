@@ -44,9 +44,3 @@ describe('EasyWebRtc', () => {
         EasyWebRtc1.sendMessage('should send a message');
     });
 });
-
-describe('Berekening', () => {
-    it('should calculate correctly for alumnium', () => {
-        expect(a).toEqual(b);
-    });
-});

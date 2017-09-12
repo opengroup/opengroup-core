@@ -36,7 +36,7 @@ module.exports = function(config) {
         exclude: [],
 
         // list of files / patterns to load in the browser
-        files: ['src/js/polyfills/webrtc.polyfill.js'],
+        files: [],
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -47,7 +47,7 @@ module.exports = function(config) {
 
         jspm: {
             // Edit this to your needs
-            config: 'src/js/jspm.config.js',
+            config: 'src/jspm.config.js',
             packages: 'src/lib/',
             loadFiles: [
                 'src/**/*.test.js'
