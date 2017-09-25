@@ -24,7 +24,7 @@ class OgSignaler extends Plugin {
         this.group = group;
         this.pluginData = group.config.plugins['og-signaler'];
         if (!this.pluginData.url) {
-            this.pluginData.url = '';
+            this.pluginData.url = 'wss://connect.opengroup.io/';
         }
 
         if (this.validWebsocketsUrl(this.config.url)) {

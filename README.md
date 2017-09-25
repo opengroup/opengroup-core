@@ -38,3 +38,21 @@ OpenGroup is a work in progress, if you want to join, please do!
 
 If you want to know a bit more you can check out the slides of a presentation that was made for OpenGroup.
 http://opengroup.io/opengroup-presentation
+
+# Getting started
+
+### NodeJS
+Make sure you have NodeJS 8 or higher. You can use [Node Version Manager](https://github.com/creationix/nvm) for that.
+
+### Install jspm, gulp and OpenGroup
+```
+npm install jspm@beta -g
+npm install gulp-cli -g
+
+git clone https://github.com/opengroup/opengroup-core.git opengroup-core
+cd opengroup-core
+npm install
+
+gulp serve
+```
+Accept the ssl warning because we need https for WebRTC and we use a self signed certificate.
