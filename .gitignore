@@ -1,7 +1,1 @@
-.idea
 node_modules
-src/lib
-src/css
-dist
-src/load.js
-.publish
