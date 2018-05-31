@@ -1,11 +1,12 @@
-import {ConnectionsHeapStorage} from './ConnectionsHeapStorage.js';
+import {PeersHeapStorage} from './PeersHeapStorage.js';
 import {EasyP2P} from './../connection/EasyP2P.js';
+import {Peer} from '../peer/Peer.js';
 
-describe('ConnectionsHeapStorage', () => {
+describe('PeersHeapStorage', () => {
     it('should return data', done => {
 
-        let storage1 = new ConnectionsHeapStorage();
-        let storage2 = new ConnectionsHeapStorage();
+        let storage1 = new PeersHeapStorage();
+        let storage2 = new PeersHeapStorage();
 
         // The external side of the connection.
         let connection2;
@@ -21,14 +22,14 @@ describe('ConnectionsHeapStorage', () => {
             })
             .on('answer-ready', answerSdp => connection1.acceptAnswer(answerSdp))
             .on('started', () => {
-                storage2.addConnection(connection2);
-                connection2.addModule('storage', storage2);
+                let peer2 = new Peer(connection2);
+                storage2.addPeer(peer2);
                 storage2.setItem('Hello', 'World');
             })
 
         }).on('started', () => {
-            storage1.addConnection(connection1);
-            connection1.addModule('storage', storage1);
+            let peer1 = new Peer(connection1);
+            storage1.addPeer(peer1);
 
             storage1.getExternalItems('Hello').forEach(requestToExternalStorage => {
                 requestToExternalStorage.then(response => {

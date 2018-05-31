@@ -28,9 +28,6 @@ export class EasyP2P extends EventEmitter {
     this.configuration = Object.assign(this.configuration, configuration);
     this.webRTCOptions = Object.assign({}, this.configuration.webRTCOptions);
 
-    // TODO should be moved to Peer.js
-    this.modules = {};
-
     // Initiate the p2p channel.
     this.RtcPeerConnection = new RTCPeerConnection(this.webRTCOptions);
 
@@ -41,20 +38,6 @@ export class EasyP2P extends EventEmitter {
     else {
       throw 'The role is wrong and therefor EasyP2P could not initiate.';
     }
-  }
-
-  /**
-   * Generates a GUID.
-   * @returns {string}
-   */
-  guid () {
-    let s4 = function () {
-      return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-    };
-
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
 
   /**
@@ -122,20 +105,6 @@ export class EasyP2P extends EventEmitter {
     this.dataChannel.onmessage = (messageObject) => {
       let message = JSON.parse(messageObject.data);
       this.emit('message', message);
-
-      // TODO the following should be abstracted away in a layer on top of the class. Maybe name it Peer.js.
-      if (message.mustReply) {
-        if (message.module && this.modules[message.module] && message.method && this.modules[message.module][message.method]) {
-          let result = this.modules[message.module][message.method](...message.arguments);
-
-          if (result) {
-            this.sendMessage({
-              originatedFromGuid: message.guid,
-              result: result
-            })
-          }
-        }
-      }
     };
 
     this.dataChannel.onclose = () => {
@@ -145,33 +114,6 @@ export class EasyP2P extends EventEmitter {
     this.dataChannel.onerror = () => {
       this.emit('error', ...arguments);
     };
-  }
-
-  /**
-   * Tags a message so we can pick up the answer and return it as a promise
-   */
-  sendMessageAndPromisifyReply (message) {
-    let guid = this.guid();
-
-    message.guid = guid;
-    message.mustReply = true;
-
-    return new Promise((resolve, reject) => {
-      let onMessageTillReplied = replyMessage => {
-        if (replyMessage.originatedFromGuid === guid) {
-          resolve(replyMessage);
-          this.off('message', onMessageTillReplied);      
-        }
-      }
-  
-      this.on('message', onMessageTillReplied);
-
-      this.sendMessage(message);
-    });
-  }
-
-  addModule (name, moduleToAdd) {
-    this.modules[name] = moduleToAdd;
   }
 
   /**

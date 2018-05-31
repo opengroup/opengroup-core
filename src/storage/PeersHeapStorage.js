@@ -1,10 +1,10 @@
 import {EventEmitter} from './../base/EventEmitter.js';
 
-export class ConnectionsHeapStorage extends EventEmitter {
+export class PeersHeapStorage extends EventEmitter {
 
     constructor () {
         super();
-        this.connections = [];
+        this.peers = [];
         this.heap = {}
     }
 
@@ -19,8 +19,8 @@ export class ConnectionsHeapStorage extends EventEmitter {
     getExternalItems (key) {
         let promises = [];
 
-        this.connections.forEach(connection => {
-            let replyPromise = connection.sendMessageAndPromisifyReply({
+        this.peers.forEach(peer => {
+            let replyPromise = peer.sendMessageAndPromisifyReply({
                 module: 'storage',
                 method: 'getItem',
                 arguments: [key]
@@ -32,9 +32,10 @@ export class ConnectionsHeapStorage extends EventEmitter {
         return promises;
     }
 
-    addConnection (connection) {
-        if (!this.connections.includes(connection)) {
-            this.connections.push(connection); 
+    addPeer (peer) {
+        if (!this.peers.includes(peer)) {
+            this.peers.push(peer);
+            if (peer.modules) peer.addModule('storage', this);
         }
     }
 }
