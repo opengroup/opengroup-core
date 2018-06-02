@@ -1,4 +1,4 @@
-import {EasyP2P} from './EasyP2P.js';
+import { EasyP2P } from './EasyP2P.js';
 
 describe('initiatorInit', () => {
   it('should create an offer', done => {
@@ -17,7 +17,7 @@ describe('answererInit', () => {
       role: 'initiator',
     }).on('offer-ready', offerSdp => {
 
-      let connection2  = new EasyP2P({
+      let connection2 = new EasyP2P({
         role: 'answerer',
         initialOffer: offerSdp,
       }).on('answer-ready', answerSdp => done());
@@ -34,13 +34,13 @@ describe('Succesfull connection', () => {
       role: 'initiator',
     }).on('offer-ready', offerSdp => {
 
-      let connection2  = new EasyP2P({
+      let connection2 = new EasyP2P({
         role: 'answerer',
         initialOffer: offerSdp,
       }).on('answer-ready', answerSdp => connection1.acceptAnswer(answerSdp));
 
     }).on('started', done);
-    
+
   });
 });
 
@@ -51,19 +51,19 @@ describe('Sending a message', () => {
       role: 'initiator',
     }).on('offer-ready', offerSdp => {
 
-      let connection2  = new EasyP2P({
-        role: 'answerer',
-        initialOffer: offerSdp,
-      })
-      .on('answer-ready', answerSdp => connection1.acceptAnswer(answerSdp))
-      .on('message', message => {
-        // console.log(message)
-        done()
-      });
+      let connection2 = new EasyP2P({
+          role: 'answerer',
+          initialOffer: offerSdp,
+        })
+        .on('answer-ready', answerSdp => connection1.acceptAnswer(answerSdp))
+        .on('message', message => {
+          // console.log(message)
+          done()
+        });
 
     }).on('started', () => {
       connection1.sendMessage('Hello world');
     });
-    
+
   });
 });

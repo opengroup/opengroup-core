@@ -1,4 +1,4 @@
-import {EventEmitter} from './../base/EventEmitter.js';
+import { EventEmitter } from './../base/EventEmitter.js';
 
 /**
  * EasyP2P helps setting up a WebRTC connection.
@@ -17,7 +17,7 @@ export class EasyP2P extends EventEmitter {
    * @param configuration, must hold iceServers so have server to do turn and stun with.
    * @constructor
    */
-  constructor (configuration = {}) {
+  constructor(configuration = {}) {
     super();
     this.configuration = {
       role: 'initiator',
@@ -34,8 +34,7 @@ export class EasyP2P extends EventEmitter {
     // Start EasyP2P in the right user role: initiator or answerer.
     if (typeof this[this.configuration.role + 'Init'] === 'function') {
       this[this.configuration.role + 'Init']();
-    }
-    else {
+    } else {
       throw 'The role is wrong and therefor EasyP2P could not initiate.';
     }
   }
@@ -43,7 +42,7 @@ export class EasyP2P extends EventEmitter {
   /**
    * Creates the initial offer.
    */
-  initiatorInit () {
+  initiatorInit() {
     // Subscribe to the ICE candidates and when all are finished call our offerReady callback.
     this.RtcPeerConnection.onicecandidate = (event) => {
       if (!event.candidate) {
@@ -55,14 +54,14 @@ export class EasyP2P extends EventEmitter {
     this.attachDataChannel();
 
     this.RtcPeerConnection.createOffer()
-    .then((offer) => this.RtcPeerConnection.setLocalDescription(offer))
-    .catch(() => console.log('Error while creating an offer'));
+      .then((offer) => this.RtcPeerConnection.setLocalDescription(offer))
+      .catch(() => console.log('Error while creating an offer'));
   }
 
   /**
    * Creates the answer.
    */
-  answererInit () {
+  answererInit() {
     if (!this.configuration.initialOffer) { throw 'Connection failed, please let the initiator try again'; }
 
     // Subscribe to the ICE candidates and when all are finished call our offerReady callback.
@@ -81,15 +80,15 @@ export class EasyP2P extends EventEmitter {
     this.RtcPeerConnection.setRemoteDescription(offer);
 
     this.RtcPeerConnection.createAnswer()
-    .then((answer) => this.RtcPeerConnection.setLocalDescription(answer))
-    .catch(() => console.log('Error while creating an answer'));
+      .then((answer) => this.RtcPeerConnection.setLocalDescription(answer))
+      .catch(() => console.log('Error while creating an answer'));
   }
 
   /**
    * Accepts the answer so the connection can be set up.
    * @param sdp
    */
-  acceptAnswer (sdp) {
+  acceptAnswer(sdp) {
     let answer = new RTCSessionDescription({ type: 'answer', sdp: sdp });
     this.RtcPeerConnection.setRemoteDescription(answer);
   }
@@ -97,7 +96,7 @@ export class EasyP2P extends EventEmitter {
   /**
    * Attach callbacks to the dataChannel, is the same for both the initiator and the answerer.
    */
-  attachDataChannel () {
+  attachDataChannel() {
     this.dataChannel.onopen = () => {
       this.emit('started', ...arguments);
     };
@@ -120,7 +119,7 @@ export class EasyP2P extends EventEmitter {
    * Sends a message to the other peer.
    * @param {*} message 
    */
-  sendMessage (message) {
+  sendMessage(message) {
     this.dataChannel.send(JSON.stringify(message));
   }
 }
