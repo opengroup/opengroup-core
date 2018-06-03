@@ -12,12 +12,16 @@ export class Peer extends EventEmitter {
     // The other side of sendMessageAndPromisifyReply.
     this.connection.on('message', (message) => {
       if (message.mustReply && message.module && this.group && this.group.modules[message.module] && message.method && this.group.modules[message.module][message.method]) {
-        let result = this.group.modules[message.module][message.method](...message.arguments || []);
+        let access = this.group.modules[message.module].allowedMethodsToReturnToOtherPeers.includes(message.method);
 
-        this.connection.sendMessage({
-          originatedFromGuid: message.guid,
-          result: result
-        })
+        if (access) {
+          let result = this.group.modules[message.module][message.method](...message.arguments || []);
+
+          this.connection.sendMessage({
+            originatedFromGuid: message.guid,
+            result: result
+          });
+        }
       }
     });
   }

@@ -2,10 +2,13 @@ import { EventEmitter } from './../base/EventEmitter.js';
 
 export class PeersHeapStorage extends EventEmitter {
 
-  constructor() {
+  constructor(group) {
     super();
-    this.peers = [];
-    this.heap = {}
+    this.heap = {};
+    this.group = group;
+    group.addModule('storage', this);
+
+    this.allowedMethodsToReturnToOtherPeers = ['getItem'];
   }
 
   getItem(key) {
@@ -19,7 +22,7 @@ export class PeersHeapStorage extends EventEmitter {
   getExternalItems(key) {
     let promises = [];
 
-    this.peers.forEach(peer => {
+    this.group.peers.forEach(peer => {
       let replyPromise = peer.sendMessageAndPromisifyReply({
         module: 'storage',
         method: 'getItem',
@@ -29,14 +32,6 @@ export class PeersHeapStorage extends EventEmitter {
       promises.push(replyPromise);
     });
 
-    console.log(promises)
-
     return promises;
-  }
-
-  addPeer(peer) {
-    if (!this.peers.includes(peer)) {
-      this.peers.push(peer);
-    }
   }
 }
