@@ -9,8 +9,8 @@ export class Peer extends EventEmitter {
     this.group = group;
     group.addPeer(this);
 
-    // The other side of sendMessageAndPromisifyReply.
     this.connection.on('message', (message) => {
+      // The other side of sendMessageAndPromisifyReply.
       if (message.mustReply && message.module && this.group && this.group.modules[message.module] && message.method && this.group.modules[message.module][message.method]) {
         let access = this.group.modules[message.module].allowedMethodsToReturnToOtherPeers.includes(message.method);
 
@@ -23,6 +23,8 @@ export class Peer extends EventEmitter {
           });
         }
       }
+
+      this.group.emit('message', message, this);
     });
   }
 
