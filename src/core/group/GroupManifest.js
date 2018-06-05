@@ -1,6 +1,11 @@
 export class GroupManifest {
   constructor(data) {
     Object.assign(this, data);
+    this.validate();
+  }
+
+  validate() {
+    if (!this.name) throw 'A group manifest MUST contain a name';
   }
 }
 
@@ -16,7 +21,9 @@ export class GroupManifestModule {
           method: 'getManifest',
           module: 'group-manifest'
         }).then(groupManifestReply => {
-          this.group.manifest = new GroupManifest(groupManifestReply.result);
+          if (groupManifestReply.result) {
+            this.group.manifest = new GroupManifest(groupManifestReply.result);
+          }
         })
       }
     });
@@ -24,7 +31,7 @@ export class GroupManifestModule {
 
   getManifest() {
     if (this.group.manifest) {
-      return JSON.stringify(this.group.manifest);
+      return this.group.manifest;
     }
   }
 }

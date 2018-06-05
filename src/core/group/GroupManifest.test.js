@@ -1,5 +1,5 @@
 import { GroupManifestModule, GroupManifest } from './GroupManifest.js';
-import { initiateGroup } from './../group/Group.js';
+import { initiateGroup, Group } from './../group/Group.js';
 
 describe('Group', () => {
   it('should send over the groupManifest', done => {
@@ -16,5 +16,20 @@ describe('Group', () => {
       });
 
     }, manifest);
+  });
+});
+
+
+describe('Group', () => {
+  it('should consume groupManifest', done => {
+    let manifest = new GroupManifest({
+      name: 'Lorem ipsum',
+      modules: {
+        './../profile/Profile.js:Profile': {}
+      }
+    });
+
+    let group = new Group(manifest);
+    group.on('loaded', done);
   });
 });

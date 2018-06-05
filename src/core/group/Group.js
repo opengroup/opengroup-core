@@ -4,22 +4,43 @@ import { EasyP2P } from './../connection/EasyP2P.js';
 import { GroupManifestModule } from './GroupManifest.js';
 
 export class Group extends EventEmitter {
-  constructor(manifest = {}) {
+  constructor(manifest = null) {
     super();
     this.peers = new Set();
     this.modules = {};
-    this.manifest = manifest;
 
-    if (this.manifest && this.manifest.modules) {
-      for ([moduleConfig, moduleName] in this.manifest.modules) {
-        console.log(moduleConfig, moduleName)
-      }
+    if (manifest) {
+      this.manifest = manifest;
     }
+
+    let importPromises = [];
+    if (this.manifest && this.manifest.modules) {
+      for (let [moduleImportPath, moduleConfig] of Object.entries(this.manifest.modules)) {
+        let importName = 'default';
+        if (moduleImportPath.split(':').length === 2) {
+          importName = moduleImportPath.split(':')[1];
+          moduleImportPath = moduleImportPath.split(':')[0];
+        }
+
+        importPromises.push(
+          import (moduleImportPath)
+          .then(fetchedModule => fetchedModule[importName] || false)
+          .then(moduleClass => moduleClass ? new moduleClass(this, moduleConfig) : false)
+        );
+      }
+
+      Promise.all(importPromises).then(() => {
+        this.emit('loaded');
+      });
+    }
+
+    // If no promises, just go on.
+    if (!importPromises.length) this.emit('loaded');
   }
 
   set manifest(manifest) {
     this._manifest = manifest;
-    this.emit('manifest-set');
+    this.emit('manifest-set', manifest);
   }
 
   get manifest() {
@@ -38,8 +59,20 @@ export class Group extends EventEmitter {
    */
   addModule(name, moduleToAdd) {
     this.modules[name] = moduleToAdd;
+    this.emit('module-add', name, moduleToAdd);
+  }
+
+  /**
+   * Send a message to all other peers.
+   * @param {*} message 
+   */
+  broadcast(message) {
+    this.peers.forEach(peer => {
+      peer.connection.sendMessage(message);
+    });
   }
 }
+
 
 /**
  * Helper for writing tests.
