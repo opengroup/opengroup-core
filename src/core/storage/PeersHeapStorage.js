@@ -23,7 +23,7 @@ export class PeersHeapStorage extends EventEmitter {
     let promises = [];
 
     this.group.peers.forEach(peer => {
-      let replyPromise = peer.sendMessageAndPromisifyReply({
+      let replyPromise = peer.sendCommandAndPromisifyResponse({
         module: 'storage',
         method: 'getItem',
         arguments: [key]

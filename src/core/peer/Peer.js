@@ -10,7 +10,7 @@ export class Peer extends EventEmitter {
     group.addPeer(this);
 
     this.connection.on('message', (message) => {
-      // The other side of sendMessageAndPromisifyReply.
+      // The other side of sendCommandAndPromisifyResponse.
       if (message.mustReply && message.module && this.group && this.group.modules[message.module] && message.method && this.group.modules[message.module][message.method]) {
         let access = this.group.modules[message.module].allowedMethodsToReturnToOtherPeers.includes(message.method);
 
@@ -31,8 +31,8 @@ export class Peer extends EventEmitter {
   /**
    * Tags a message so we can pick up the answer and return it as a promise
    */
-  sendMessageAndPromisifyReply(message) {
-    if (!message.module || !message.method) throw 'The message for sendMessageAndPromisifyReply is malformed!';
+  sendCommandAndPromisifyResponse(message) {
+    if (!message.module || !message.method) throw 'The message for sendCommandAndPromisifyResponse is malformed!';
 
     let guid = Guid();
 

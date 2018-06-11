@@ -73,7 +73,6 @@ export class Group extends EventEmitter {
   }
 }
 
-
 /**
  * Helper for writing tests.
  * @param {*} callback (peer1, peer2)

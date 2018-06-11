@@ -1,5 +1,5 @@
-import { Group } from './Group.js';
-import { initiateGroup } from './../group/Group.js';
+import { Group, initiateGroup } from './Group.js';
+import { GroupManifest } from './GroupManifest.js';
 
 describe('Group', () => {
   it('should connect', done => {
@@ -18,6 +18,22 @@ describe('Group', () => {
       peer1.group.broadcast({
         message: 'Hello to the world'
       })
+    });
+  });
+});
+
+describe('Group', () => {
+  it('should load the profile module', done => {
+    let manifest = new GroupManifest({
+      name: 'Lorem ipsum',
+      modules: {
+        './../profile/Profile.js:Profile': {}
+      }
+    });
+
+    let group = new Group(manifest);
+    group.on('loaded', () => {
+      if (group.modules.profile) done();
     });
   });
 });

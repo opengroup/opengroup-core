@@ -11,7 +11,7 @@ describe('Peer', () => {
         }
       });
 
-      peer1.sendMessageAndPromisifyReply({
+      peer1.sendCommandAndPromisifyResponse({
         method: 'bar',
         module: 'foo'
       }).then(message => {

@@ -17,7 +17,7 @@ export class GroupManifestModule {
 
     this.group.on('peer-add', (peer) => {
       if (!this.group.manifest) {
-        peer.sendMessageAndPromisifyReply({
+        peer.sendCommandAndPromisifyResponse({
           method: 'getManifest',
           module: 'group-manifest'
         }).then(groupManifestReply => {
