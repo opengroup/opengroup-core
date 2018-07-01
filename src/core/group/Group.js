@@ -17,19 +17,20 @@ export class Group extends EventEmitter {
     if (this.manifest && this.manifest.modules) {
       for (let [moduleImportPath, moduleConfig] of Object.entries(this.manifest.modules)) {
         let importName = 'default';
-        if (moduleImportPath.split(':').length === 2) {
-          importName = moduleImportPath.split(':')[1];
-          moduleImportPath = moduleImportPath.split(':')[0];
+        if (moduleImportPath.split('|').length === 2) {
+          importName = moduleImportPath.split('|')[1];
+          moduleImportPath = moduleImportPath.split('|')[0];
         }
 
         importPromises.push(
-          import (moduleImportPath)
+          import (moduleImportPath + '/plugin.js')
           .then(fetchedModule => fetchedModule[importName] || false)
           .then(moduleClass => moduleClass ? new moduleClass(this, moduleConfig) : false)
         );
       }
 
       Promise.all(importPromises).then(() => {
+        this._ready = true;
         this.emit('loaded');
       });
     }
