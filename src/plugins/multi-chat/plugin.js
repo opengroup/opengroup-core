@@ -1,23 +1,23 @@
-import '/multi-chat/OgMultiChat.js';
+import { ogMultiChat } from './og-multi-chat.js';
 
 export default class MultiChat {
   /**
-   * 
-   * @param {Group} group 
-   * @param {Object} settings 
+   *
+   * @param {Group} group
+   * @param {Object} settings
    */
   constructor(group, settings) {
     this.group = group;
     this.settings = settings;
-    group.addModule('multi-chat', this);
+    this.name = 'multi-chat';
+    group.addModule(this);
   }
 
-  menuItems() {
+  routes() {
     return [{
       'name': 'multi-chat',
-      'label': 'Chat',
-      'path': '/chat',
-      'template': '<og-ui-multi-chat></og-ui-multi-chat>'
+      'path': '/groups/:group/chat',
+      component: ogMultiChat
     }];
   }
 }

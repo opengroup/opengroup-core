@@ -1,6 +1,7 @@
 export class Profile {
   constructor(group) {
     this.group = group;
-    group.addModule('profile', this);
+    this.name = 'profile';
+    group.addModule(this);
   }
 }

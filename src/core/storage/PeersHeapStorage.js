@@ -6,7 +6,8 @@ export class PeersHeapStorage extends EventEmitter {
     super();
     this.heap = {};
     this.group = group;
-    group.addModule('storage', this);
+    this.name = 'storage';
+    group.addModule(this);
 
     this.allowedMethodsToReturnToOtherPeers = ['getItem'];
   }

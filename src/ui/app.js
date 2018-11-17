@@ -1,35 +1,46 @@
-import Navigo from './router.js';
-import './webcomponents/og-ui-group.js';
+import './vue-extentions.js';
 
-class App {
-  constructor() {
-    this.router = new Navigo(null, true);
+// Self loading global components.
+import './og-group-chooster.js';
 
-    this.router.on('/groups/:name*', (parameters) => {
-      this.getGroup(parameters.name).then((currentGroup) => {
-        let path = location.hash.substr(8);
-        path = path.replace('/' + parameters.name, '');
-        currentGroup.activateRoute(path);
-      });
+// Route components
+import { ogGroup } from './og-group.js';
+import { ogHome } from './og-home.js';
+
+// Helpers
+import { CreateTestGroups } from './CreateTestGroups.js';
+
+let app;
+
+let router = new VueRouter({
+  routes: [{
+    path: '/',
+    redirect: '/groups'
+  }, {
+    path: '/groups',
+    name: 'groups',
+    component: ogHome
+  }, {
+    path: '/groups/:groupName',
+    name: 'group',
+    component: ogGroup
+  }]
+});
+
+app = new Vue({
+  el: '#og-app',
+
+  router: router,
+
+  data: function() {
+    return {
+      groups: []
+    }
+  },
+
+  mounted: function() {
+    CreateTestGroups(6).forEach((group) => {
+      this.$addGroup(group);
     });
-
-    this.router.resolve();
   }
-
-  getGroup(name) {
-    let ogGroups = document.querySelectorAll('og-ui-group');
-    let ogGroup = Array.from(ogGroups).find(ogGroup => ogGroup.manifest.name === name);
-
-    return new Promise((resolve) => {
-      if (ogGroup.group._ready) {
-        resolve(group)
-      } else {
-        ogGroup.group.once('loaded', () => {
-          resolve(ogGroup);
-        })
-      }
-    });
-  }
-}
-
-new App();
+});

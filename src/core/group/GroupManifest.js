@@ -12,7 +12,8 @@ export class GroupManifest {
 export class GroupManifestModule {
   constructor(group) {
     this.group = group;
-    group.addModule('group-manifest', this);
+    this.name = 'group-manifest';
+    group.addModule(this);
     this.allowedMethodsToReturnToOtherPeers = ['getManifest'];
 
     this.group.on('peer-add', (peer) => {

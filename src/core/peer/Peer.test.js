@@ -4,7 +4,8 @@ describe('Peer', () => {
   it('should promisify a message reply', done => {
 
     initiateGroup((peer1, peer2) => {
-      peer2.group.addModule('foo', {
+      peer2.group.addModule({
+        name: 'foo',
         allowedMethodsToReturnToOtherPeers: ['bar'],
         bar: () => {
           return 'bar'

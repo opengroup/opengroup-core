@@ -1,7 +1,7 @@
 import { EventEmitter } from './../base/EventEmitter.js';
 import { Peer } from './../peer/Peer.js';
 import { EasyP2P } from './../connection/EasyP2P.js';
-import { GroupManifestModule } from './GroupManifest.js';
+import { importModule } from "https://uupaa.github.io/dynamic-import-polyfill/importModule.js";
 
 export class Group extends EventEmitter {
   constructor(manifest = null) {
@@ -23,7 +23,7 @@ export class Group extends EventEmitter {
         }
 
         importPromises.push(
-          import (moduleImportPath + '/plugin.js')
+          importModule(moduleImportPath + '/plugin.js')
           .then(fetchedModule => fetchedModule[importName] || false)
           .then(moduleClass => moduleClass ? new moduleClass(this, moduleConfig) : false)
         );
@@ -48,6 +48,14 @@ export class Group extends EventEmitter {
     return this._manifest;
   }
 
+  get name() {
+    return this._manifest.name;
+  }
+
+  get label() {
+    return this._manifest.label;
+  }
+
   addPeer(peer) {
     this.peers.add(peer);
     this.emit('peer-add', peer);
@@ -55,17 +63,17 @@ export class Group extends EventEmitter {
 
   /**
    * A group can have modules like storage or a profile etc.
-   * @param {*} name 
-   * @param {*} moduleToAdd 
+   * @param {*} name
+   * @param {*} moduleToAdd
    */
-  addModule(name, moduleToAdd) {
-    this.modules[name] = moduleToAdd;
+  addModule(moduleToAdd) {
+    this.modules[moduleToAdd.name] = moduleToAdd;
     this.emit('module-add', name, moduleToAdd);
   }
 
   /**
    * Send a message to all other peers.
-   * @param {*} message 
+   * @param {*} message
    */
   broadcast(message) {
     this.peers.forEach(peer => {
